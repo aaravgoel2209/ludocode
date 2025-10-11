@@ -9,3 +9,7 @@ export const getLongestOptionLength = (options: string[]) => {
 export const calculateBlankFieldWidth = (widthCh: number) => {
   return `calc(${widthCh}ch + 2.5rem)`;
 };
+
+export const findNextEmptyIndex = (index: number, from: string[]) => {
+  return from.findIndex((value, idx) => idx > index && value === "");
+};

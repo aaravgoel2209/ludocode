@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 type PotentialOptionButtonProps = {
     option: string;
     userSelections: string[]; 
@@ -10,7 +12,10 @@ export function PotentialOptionButton({
   addSelection
 }: PotentialOptionButtonProps) {
 
-  const isSelected = userSelections.some(selection => selection == option)  
+  const norm = (s: string) => s.trim();
+
+  const isSelected =  userSelections.some(s => norm(s) === norm(option));
+
 
   const handleClick = () => {
     if (isSelected) return;

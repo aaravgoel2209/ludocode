@@ -1,35 +1,11 @@
-import { useState } from "react";
 import { ExercisePrompt } from "./AnswerField";
 import { PotentialOptionButton } from "./PotentialOptionButton";
 import { SubmitButton } from "./SubmitButton";
+import { useExerciseState } from "../../Hooks/Exercises/useExerciseState";
 
 export function ExercisePage() {
-  const options = ["let", "=", "1"];
-  const prompt = "___ score ___ ___";
-
-  const [userResponses, setUserResponses] = useState<string[]>(["", "", ""]);
-
-  const setAnswerAt = (index: number, value: string) => {
-    setUserResponses((prev) => {
-      const copy = [...prev];
-      copy[index] = value;
-      return copy;
-    });
-  };
-
-  const allFilled = userResponses.every((slot) => slot.trim() !== "");
-  const allValid = userResponses.every((slot) => options.includes(slot.trim()));
-  const canSubmit = allFilled && allValid;
-
-  const addAnswer = (value: string) => {
-    setUserResponses((prev) => {
-      const tempArray = [...prev];
-      const firstSlot = tempArray.findIndex((slot) => slot === "");
-      if (firstSlot === -1) return tempArray;
-      tempArray[firstSlot] = value;
-      return tempArray;
-    });
-  };
+  const { options, prompt, userResponses, setAnswerAt, addAnswer, canSubmit } =
+    useExerciseState();
 
   return (
     <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen">

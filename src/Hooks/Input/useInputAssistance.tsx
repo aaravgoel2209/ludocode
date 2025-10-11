@@ -1,4 +1,5 @@
 import { useCallback, useRef, type RefObject } from "react";
+import { findNextEmptyIndex } from "../../features/Exercise/util";
 
 type Args = {
   options: string[];
@@ -18,9 +19,7 @@ export function useInputAssistance({
 }: Args): useInputAssistanceResponse {
   const refs = useRef<HTMLInputElement[]>([]);
 
-  const findNextEmptyIndex = (index: number, from: string[]) => {
-    return from.findIndex((value, idx) => idx > index && value === "");
-  };
+
 
   const focusPrev = useCallback((index: number) => {
     const prev = index - 1;
