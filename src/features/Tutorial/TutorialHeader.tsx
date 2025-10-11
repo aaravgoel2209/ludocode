@@ -1,5 +1,5 @@
 import { CommonHeader } from "../../components/Header/CommonHeader";
-import { SegmentedProgress } from "../Exercise/Progress/SegmentedProgress";
+import { SegmentedProgress } from "../../components/Progress/SegmentedProgress";
 
 type TutorialHeaderProps = {
   userResponses: string[];

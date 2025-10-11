@@ -26,11 +26,14 @@ export function SegmentedProgress({
       >
         {Array.from({ length: safeTotal }).map((_, i) => {
           return (
-            <ProgressCell index={i} safeCompleted={safeCompleted} safeTotal={safeTotal}/>
+            <ProgressCell
+              index={i}
+              safeCompleted={safeCompleted}
+              safeTotal={safeTotal}
+            />
           );
         })}
       </div>
-
     </div>
   );
 }
