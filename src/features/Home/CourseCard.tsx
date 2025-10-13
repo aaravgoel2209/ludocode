@@ -1,3 +1,4 @@
+import { router } from "../../routes/router";
 import type { CourseType } from "./HomePage";
 
 type CourseCardProps = {
@@ -5,16 +6,20 @@ type CourseCardProps = {
 };
 
 export function CourseCard({ course }: CourseCardProps) {
+  const goToCourse = () => {
+    router.navigate({
+      to: `/course/$courseName/unit/$position`,
+      params: { courseName: course.name, position: 1 },
+    });
+  };
+
   return (
-    <div className="flex items-center w-full h-60 rounded-4xl bg-ludoGrayLight justify-center">
+    <div onClick={() => goToCourse()} className="flex hover:cursor-pointer items-center w-full h-60 rounded-4xl bg-ludoGrayLight justify-center">
       <div className="w-full flex items-center justify-center">
         <h2 className="text-white text-3xl font-bold">{course.name}</h2>
       </div>
       <div className="h-full w-1/6 rounded-r-4xl overflow-hidden">
-        <img
-          className="w-full h-full object-cover"
-          src={course.courseBg}
-        />
+        <img className="w-full h-full object-cover" src={course.courseBg} />
       </div>
     </div>
   );

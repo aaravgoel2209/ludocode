@@ -18,24 +18,6 @@ export function HomePage() {
         "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/500px-JavaScript-logo.png",
       courseBg: "/Images/CourseBg/pythonbg.png",
       },
-    {
-      name: "",
-      description: "something",
-      imgSrc: "",
-      courseBg: "",
-    },
-    {
-      name: "",
-      description: "something",
-      imgSrc: "",
-      courseBg: "",
-    },
-    {
-      name: "",
-      description: "something",
-      imgSrc: "",
-      courseBg: "",
-    },
   ];
 
   return (
@@ -48,7 +30,7 @@ export function HomePage() {
         <div className="col-span-1 lg:col-span-2" />
 
         <div className="col-span-10 lg:col-span-8 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
-          <div className="grid grid-cols-2 grid-rows-2 gap-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {courses.map((course) => (
               <CourseCard course={course} />
             ))}
