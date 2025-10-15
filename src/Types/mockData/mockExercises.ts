@@ -62,7 +62,7 @@ export const mockExercises: LudoExercise[] = [
     id: 3,
     tutorialId: 1,
     prompt: "Fill in the gaps to print the message",
-    answerField: `console. ___ ___ "Hello World!" ___ ___`,
+    answerField: `console.log("Hello World!") ___`,
     orderIndex: 1,
     type: "CLOZE",
     options: [
