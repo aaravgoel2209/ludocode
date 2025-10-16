@@ -4,15 +4,16 @@ import {
   createRootRoute,
 } from "@tanstack/react-router";
 import { TutorialPage } from "../features/Tutorial/TutorialPage";
-import { HomePage } from "../features/Home/HomePage";
-import { ModulePage } from "../features/Course/ModulePage";
+import { CoursePage } from "../features/Courses/CoursePage";
+import { ModulePage } from "../features/Module/ModulePage";
+
 
 const rootRoute = createRootRoute();
 
 const indexRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/",
-  component: HomePage,
+  component: CoursePage,
 });
 
 export const tutorialRoute = createRoute({
