@@ -8,6 +8,7 @@ import { CoursePage } from "../features/Courses/CoursePage";
 import { ModulePage } from "../features/Module/ModulePage";
 import { SiteLayout } from "../Layouts/SiteLayout";
 import { DefaultSectionLayout } from "../Layouts/DefaultSectionLayout";
+import { ModuleSectionLayout } from "../Layouts/ModuleSectionLayout";
 
 
 const rootRoute = createRootRoute();
@@ -22,8 +23,14 @@ export const siteRoute = createRoute({
 
 export const defaultSectionRoute = createRoute({
   getParentRoute: () => siteRoute,
-  id: 'default',
+  id: 'defaultsection',
   component: DefaultSectionLayout
+})
+
+export const moduleSectionRoute = createRoute({
+  getParentRoute: () => siteRoute,
+  id: 'modulesection',
+  component: ModuleSectionLayout
 })
 
 const courseRoute = createRoute({
@@ -40,7 +47,7 @@ export const tutorialRoute = createRoute({
 });
 
 export const moduleRoute = createRoute({
-  getParentRoute: () => siteRoute,
+  getParentRoute: () => moduleSectionRoute,
   path: `/course/$courseName/unit/$position`,
   component: ModulePage,
 });
@@ -48,6 +55,7 @@ export const moduleRoute = createRoute({
 const routeTree = rootRoute.addChildren([
   siteRoute,
   defaultSectionRoute,
+  moduleSectionRoute,
   courseRoute,
   tutorialRoute,
   moduleRoute,

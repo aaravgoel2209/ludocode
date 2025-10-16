@@ -7,7 +7,7 @@ type CommonHeaderProps = {
 
 export function CommonHeader({ children, bgColor="bg-ludoGrayLight" }: CommonHeaderProps) {
   return (
-    <nav className={`col-span-full top-0 z-2 sticky grid grid-cols-12 min-h-16 ${bgColor}`}>
+    <nav className={`col-span-full grid border-b-2 border-b-pythonYellow grid-cols-12 min-h-18 ${bgColor}`}>
         {children}
     </nav>
   );
