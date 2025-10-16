@@ -2,6 +2,7 @@ import {
   createRouter,
   createRoute,
   createRootRoute,
+  redirect,
 } from "@tanstack/react-router";
 import { TutorialPage } from "../features/Tutorial/TutorialPage";
 import { CoursePage } from "../features/Courses/CoursePage";
@@ -10,33 +11,30 @@ import { SiteLayout } from "../Layouts/SiteLayout";
 import { DefaultSectionLayout } from "../Layouts/DefaultSectionLayout";
 import { ModuleSectionLayout } from "../Layouts/ModuleSectionLayout";
 
-
 const rootRoute = createRootRoute();
-
-
 
 export const siteRoute = createRoute({
   getParentRoute: () => rootRoute,
-  id: 'site',
-  component: SiteLayout
-})
+  id: "site",
+  component: SiteLayout,
+});
 
 export const defaultSectionRoute = createRoute({
   getParentRoute: () => siteRoute,
-  id: 'defaultsection',
-  component: DefaultSectionLayout
-})
+  id: "defaultsection",
+  component: DefaultSectionLayout,
+});
 
 export const moduleSectionRoute = createRoute({
   getParentRoute: () => siteRoute,
-  id: 'modulesection',
-  component: ModuleSectionLayout
-})
+  id: "modulesection",
+  component: ModuleSectionLayout,
+});
 
 const courseRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
   path: "/",
-  staticData: { headerTitle: 'Courses' },
+  staticData: { headerTitle: "Courses" },
   component: CoursePage,
 });
 
@@ -46,18 +44,36 @@ export const tutorialRoute = createRoute({
   component: TutorialPage,
 });
 
+export const modulesRedirectRoute = createRoute({
+  getParentRoute: () => moduleSectionRoute,
+  path: "/modules",
+  loader: async ({ location }) => {
+    const courseName = "Python";
+    const position = 1;
+    const target = `/course/${courseName}/module/${position}`;
+
+    if (location.pathname !== target) {
+      throw redirect({
+        to: "/course/$courseName/module/$position",
+        params: { courseName, position },
+        replace: true,
+      });
+    }
+    return null;
+  },
+});
+
 export const moduleRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
-  path: `/course/$courseName/unit/$position`,
+  path: "/course/$courseName/module/$position",
   component: ModulePage,
 });
 
 const routeTree = rootRoute.addChildren([
-  siteRoute,
-  defaultSectionRoute,
-  moduleSectionRoute,
-  courseRoute,
-  tutorialRoute,
-  moduleRoute,
-]);
+  siteRoute.addChildren([
+    defaultSectionRoute.addChildren([courseRoute]),
+    moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
+  ]),
+  tutorialRoute, 
+])
 export const router = createRouter({ routeTree });
