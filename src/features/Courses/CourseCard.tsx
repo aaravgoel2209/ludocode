@@ -9,7 +9,6 @@ type CourseCardProps = {
 export function CourseCard({ course }: CourseCardProps) {
 
   const goToCourse = () => {
-    return;
     router.navigate({
       to: `/course/$courseName/unit/$position`,
       params: { courseName: course.name, position: 1 },

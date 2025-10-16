@@ -27,7 +27,7 @@ export function CoursePage() {
   ];
 
   return (
-    <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto] min-h-screen">
+    <div className="grid grid-cols-12 grid-rows-[auto_1fr_auto]">
       <CommonHeader>
         <div className="col-span-1 flex items-center justify-center lg:col-span-2"></div>
 

@@ -1,14 +1,17 @@
 import type { ReactNode } from "react";
 
-type CommonFooterProps = {
+type LessonFooterProps = {
   children: ReactNode;
-      bgColor?: string;
+  bgColor?: string;
 };
 
-export function CommonFooter({ children, bgColor="bg-ludoGrayLight" }: CommonFooterProps) {
+export function LessonFooter({
+  children,
+  bgColor = "bg-ludoGrayLight",
+}: LessonFooterProps) {
   return (
     <footer className={`col-span-full grid grid-cols-12 min-h-24 ${bgColor}`}>
-        {children}
+      {children}
     </footer>
   );
 }

@@ -6,12 +6,21 @@ import {
 import { TutorialPage } from "../features/Tutorial/TutorialPage";
 import { CoursePage } from "../features/Courses/CoursePage";
 import { ModulePage } from "../features/Module/ModulePage";
+import { SiteLayout } from "../Layouts/SiteLayout";
 
 
 const rootRoute = createRootRoute();
 
-const indexRoute = createRoute({
+
+
+export const siteRoute = createRoute({
   getParentRoute: () => rootRoute,
+  id: 'site',
+  component: SiteLayout
+})
+
+const courseRoute = createRoute({
+  getParentRoute: () => siteRoute,
   path: "/",
   component: CoursePage,
 });
@@ -22,15 +31,16 @@ export const tutorialRoute = createRoute({
   component: TutorialPage,
 });
 
-export const unitsRoute = createRoute({
-  getParentRoute: () => rootRoute,
+export const moduleRoute = createRoute({
+  getParentRoute: () => siteRoute,
   path: `/course/$courseName/unit/$position`,
   component: ModulePage,
 });
 
 const routeTree = rootRoute.addChildren([
-  indexRoute,
+  siteRoute,
+  courseRoute,
   tutorialRoute,
-  unitsRoute,
+  moduleRoute,
 ]);
 export const router = createRouter({ routeTree });

@@ -1,6 +1,6 @@
 import { PathButton } from "./PathButton";
 import { PathRow } from "./PathRow";
-import { ModuleHeader } from "./Header/CourseHeader";
+import { ModuleHeader } from "./Header/ModuleHeader";
 
 export function ModulePage() {
   const mockLessons = [1, 2, 3, 4, 5, 6, 7, 8];
