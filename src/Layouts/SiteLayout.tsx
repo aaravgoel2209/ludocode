@@ -1,11 +1,13 @@
 import { Outlet } from "@tanstack/react-router";
 import { GlobalFooter } from "../components/Footer/GlobalFooter";
+import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
 
 export function SiteLayout() {
   return (
-    <div className="grid h-dvh grid-rows-[1fr_auto]">
+      <MainGridWrapper gridRows={"OUTLET_FOOTER"}>
       <Outlet/>
       <GlobalFooter />
-    </div>
+      </MainGridWrapper>
+
   );
 }
