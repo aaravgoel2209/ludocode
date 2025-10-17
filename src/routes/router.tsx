@@ -12,6 +12,7 @@ import { DefaultSectionLayout } from "../Layouts/DefaultSectionLayout";
 import { ModuleSectionLayout } from "../Layouts/ModuleSectionLayout";
 import { ProfilePage } from "../features/Profile/ProfilePage";
 import { PracticePage } from "../features/Practice/PracticePage";
+import { RP_COURSE, RP_LESSON, RP_ME, RP_MODULE, RP_MODULE_REDIRECT, RP_PRACTICE, RP_PROFILE } from "./routePaths";
 
 const rootRoute = createRootRoute();
 
@@ -35,27 +36,27 @@ export const moduleSectionRoute = createRoute({
 
 const courseRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
-  path: "/",
+  path: RP_COURSE,
   staticData: { headerTitle: "Courses" },
   component: CoursePage,
 });
 
 export const practiceRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
-  path: `/practice`,
+  path: RP_PRACTICE,
   staticData: { headerTitle: "Practice" },
   component: PracticePage,
 });
 
 export const profileMeRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
-  path: "/profile",
+  path: RP_ME,
   loader: async ({ location }) => {
     const userId = "1";
     const target = `/profile/${userId}`;
     if (location.pathname !== target) {
       throw redirect({
-        to: "/profile/$userId",
+        to: RP_PROFILE,
         params: { userId },
         replace: true,
       });
@@ -66,14 +67,14 @@ export const profileMeRoute = createRoute({
 
 export const profileByIdRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
-  path: "/profile/$userId",
+  path: RP_PROFILE,
   staticData: { headerTitle: "Profile" },
   component: ProfilePage,
 });
 
 export const modulesRedirectRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
-  path: "/modules",
+  path: RP_MODULE_REDIRECT,
   loader: async ({ location }) => {
     const courseName = "Python";
     const position = 1;
@@ -81,7 +82,7 @@ export const modulesRedirectRoute = createRoute({
 
     if (location.pathname !== target) {
       throw redirect({
-        to: "/course/$courseName/module/$position",
+        to: RP_MODULE,
         params: { courseName, position },
         replace: true,
       });
@@ -92,13 +93,13 @@ export const modulesRedirectRoute = createRoute({
 
 export const moduleRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
-  path: "/course/$courseName/module/$position",
+  path: RP_MODULE,
   component: ModulePage,
 });
 
 export const lessonRoute = createRoute({
   getParentRoute: () => rootRoute,
-  path: '/course/$courseName/lesson/$lessonId',
+  path: RP_LESSON,
   validateSearch: (s) => ({
     exercise: Number(s.exercise) || 1,
   }),
