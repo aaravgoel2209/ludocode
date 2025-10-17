@@ -1,17 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-ludoGrayDark: #232930;
-  --color-ludoGrayLight: #364153;
+  --color-ludoGrayDark: #22273E;
+  --color-ludoGrayLight: #303966;
   --color-ludoGraySoft: #d9d9d9;
   --color-ludoYellow: #fff887;
 
-  --color-ludoGrayLightShadow: #1F2328;
+  --color-ludoGrayLightShadow: #262E57;
 
 
-  --shadow-buttonShadow: 0 10px 0 #1F2328;
+  --shadow-buttonShadow: 0 10px 0 #262E57;
 
   --color-ludoBlueGray: #323b44;
+
+  --color-ludoPastelYellow: #FFCDAA;
+  --color-ludoPink: #FF7BC0;
 
   --color-pythonYellow: #FFD140;
   --color-pythonBlue: #376F9E;
@@ -64,7 +67,7 @@
 @layer utilities {
   .scrollbar-ludoYellow {
     scrollbar-width: thin;
-    scrollbar-color: #FFD140 transparent;
+    scrollbar-color: #303966 transparent;
   }
 
   .scrollbar-blue::-webkit-scrollbar {
@@ -73,7 +76,7 @@
   }
 
   .scrollbar-blue::-webkit-scrollbar-thumb {
-    background-color: #FFD140;
+    background-color: #303966;
     border-radius: 4px;
   }
 
