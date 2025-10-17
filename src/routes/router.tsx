@@ -20,7 +20,7 @@ import {
   RP_MODULE_REDIRECT,
   RP_PRACTICE,
   RP_PROFILE,
-} from "./routePaths";
+} from "../constants/routePaths";
 import { LessonLayout } from "../Layouts/LessonLayout";
 
 const rootRoute = createRootRoute();
@@ -131,6 +131,6 @@ const routeTree = rootRoute.addChildren([
     ]),
     moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
   ]),
-  lessonSectionRoute.addChildren([lessonRoute])
+  lessonSectionRoute.addChildren([lessonRoute]),
 ]);
 export const router = createRouter({ routeTree });

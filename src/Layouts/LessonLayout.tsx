@@ -6,6 +6,7 @@ import { useExerciseState } from "../Hooks/Exercises/useExerciseState";
 import { LessonContext } from "../features/Tutorial/useLessonContext";
 import { TutorialFooter } from "../features/Tutorial/TutorialFooter";
 import { MainContentWrapper } from "./LayoutWrappers/MainContentWrapper";
+import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
 
 export function LessonLayout() {
   const { lessonId } = lessonRoute.useParams();
@@ -18,7 +19,7 @@ export function LessonLayout() {
 
   return (
     <LessonContext.Provider value={state}>
-      <div className="grid h-dvh grid-rows-[auto_1fr_auto]">
+      <MainGridWrapper gridRows="FULL">
         <TutorialHeader
           total={exercises.length}
           position={exercisePosition - 1}
@@ -27,7 +28,7 @@ export function LessonLayout() {
           <Outlet />
         </MainContentWrapper>
         <TutorialFooter submitAnswer={goToNextExercise} canSubmit={canSubmit} />
-      </div>
+      </MainGridWrapper>
     </LessonContext.Provider>
   );
 }
