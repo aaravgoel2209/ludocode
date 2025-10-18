@@ -1,19 +1,20 @@
 import { Outlet, useMatches } from "@tanstack/react-router";
 import { DefaultHeader } from "../components/Header/DefaultHeader";
+import { MainContentWrapper } from "./LayoutWrappers/MainContentWrapper";
+import { SubGridWrapper } from "./LayoutWrappers/SubGridWrapper";
 
 export function DefaultSectionLayout() {
   const matches = useMatches();
   const active = matches[matches.length - 1];
   const title =
-    (active?.staticData as { headerTitle?: string })?.headerTitle ??
-    "LudoCode";
+    (active?.staticData as { headerTitle?: string })?.headerTitle ?? "LudoCode";
 
   return (
-    <div className="grid grid-rows-[auto_1fr] min-h-0">
-      <DefaultHeader title={title}/>
-      <main className="min-h-0 overflow-auto">
+    <SubGridWrapper>
+      <DefaultHeader title={title} />
+      <MainContentWrapper>
         <Outlet />
-      </main>
-    </div>
+      </MainContentWrapper>
+    </SubGridWrapper>
   );
 }

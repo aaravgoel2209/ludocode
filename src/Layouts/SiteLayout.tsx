@@ -1,11 +1,20 @@
 import { Outlet } from "@tanstack/react-router";
 import { GlobalFooter } from "../components/Footer/GlobalFooter";
+import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
+import { DesktopHeader } from "./DesktopHeader";
+import { useUserStats } from "../Hooks/Queries/useUserStats";
+import { StatsContext } from "../features/Common/StatsContext";
 
 export function SiteLayout() {
+  const state = useUserStats({});
+
   return (
-    <div className="grid h-dvh grid-rows-[1fr_auto]">
-      <Outlet/>
-      <GlobalFooter />
-    </div>
+    <StatsContext.Provider value={state}>
+      <MainGridWrapper gridRows={"SITE"}>
+        <DesktopHeader />
+        <Outlet />
+        <GlobalFooter />
+      </MainGridWrapper>
+    </StatsContext.Provider>
   );
 }

@@ -1,15 +1,17 @@
 import { Outlet } from "@tanstack/react-router";
 import { ModuleHeader } from "../features/Module/Header/ModuleHeader";
+import { MainContentWrapper } from "./LayoutWrappers/MainContentWrapper";
+import { SubGridWrapper } from "./LayoutWrappers/SubGridWrapper";
 
 type ModuleSectionLayoutProps = {};
 
 export function ModuleSectionLayout({}: ModuleSectionLayoutProps) {
   return (
-    <div className="grid grid-rows-[auto_1fr] min-h-0">
+    <SubGridWrapper>
       <ModuleHeader />
-      <main className="min-h-0 overflow-auto">
+      <MainContentWrapper>
         <Outlet />
-      </main>
-    </div>
+      </MainContentWrapper>
+    </SubGridWrapper>
   );
 }
