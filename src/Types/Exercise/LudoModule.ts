@@ -1,7 +1,7 @@
 export type LudoModule = {
 
     id: number;
-    courseId: number;
+    course: string;
     orderIndex: number;
     title: string;
 

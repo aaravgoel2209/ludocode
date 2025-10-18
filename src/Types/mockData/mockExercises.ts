@@ -16,31 +16,31 @@ export const mockLessons: LudoTutorial[] = [
 export const mockModules : LudoModule[] = [
   {
     id: 1,
-    courseId: 1,
+    course: "Python",
     orderIndex: 1,
     title: "Variables and Data Types"
   },
     {
     id: 2,
-    courseId: 1,
+    course: "Python",
     orderIndex: 2,
     title: "Conditionals"
   },
     {
     id: 3,
-    courseId: 1,
+    course: "Python",
     orderIndex: 3,
     title: "Loops"
   },
     {
     id: 4,
-    courseId: 1,
+    course: "Python",
     orderIndex: 4,
     title: "Lists"
   },
     {
     id: 5,
-    courseId: 1,
+    course: "Python",
     orderIndex: 5,
     title: "Functions"
   },
