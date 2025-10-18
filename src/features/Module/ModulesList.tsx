@@ -9,7 +9,7 @@ export function ModulesList({}: ModulesListProps) {
 
   return (
     <div className="border rounded-xl border-ludoGrayLight flex flex-col items-center">
-      <div className="border-b border-ludoGrayLight w-full">
+      <div className="border-b rounded-t-xl bg-ludoGrayLight border-ludoGrayLight w-full">
         <p className="text-white text-xl font-bold p-2 text-center">
           Python Developer
         </p>
