@@ -1,3 +1,4 @@
+import { ModuleAside } from "./ModuleAside";
 import { PathButton } from "./PathButton";
 import { PathRow } from "./PathRow";
 
@@ -13,6 +14,7 @@ export function ModulePage() {
           </PathRow>
         ))}
       </div>
+      <ModuleAside/>
     </div>
   );
 }
