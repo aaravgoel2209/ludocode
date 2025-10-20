@@ -1,0 +1,11 @@
+export const qk = {
+
+    courseTree: (courseId: string) => ["courseTree", courseId] as const,
+    course: (courseId: string) => ["course", courseId] as const,
+    module: (moduleId: string) => ["module", moduleId] as const,
+    lesson: (lessonId: string) => ["lesson", lessonId] as const, 
+
+    modulesBySection: (courseId: string) => ["courses", courseId, "modules"] as const,
+    lessonsByModule: (moduleId: string) => ["modules", moduleId, "lessons"] as const,
+
+}

@@ -7,9 +7,6 @@ export function BuilderCreatorContainer({currentLesson}: BuilderCreatorContainer
 
   const lessonExercises = mockExercises;
 
-  
-
-
   return (
     <div className="border rounded-xl flex flex-col py-4">
         <div className="flex justify-center items-center text-white">
