@@ -20,16 +20,38 @@ import {
   RP_MODULE_REDIRECT,
   RP_BUILD,
   RP_PROFILE,
+  RP_AUTH,
 } from "../constants/routePaths";
 import { LessonLayout } from "../Layouts/LessonLayout";
+import { QueryClient } from "@tanstack/react-query";
+import { AuthPage } from "../features/Auth/AuthPage";
+import { qk } from "../constants/qk";
+
+export const queryClient = new QueryClient();
 
 const rootRoute = createRootRoute();
 
-export const siteRoute = createRoute({
+const authedRoute = createRoute({
   getParentRoute: () => rootRoute,
+  id: "authed",
+  beforeLoad: async () => {
+    const user = await queryClient
+      .ensureQueryData({
+        queryKey: qk.currentUser(),
+      })
+      .catch(() => null);
+
+    if (!user) throw redirect({ to: RP_AUTH });
+  },
+});
+
+export const siteRoute = createRoute({
+  getParentRoute: () => authedRoute,
   id: "site",
   component: SiteLayout,
 });
+
+
 
 export const defaultSectionRoute = createRoute({
   getParentRoute: () => siteRoute,
@@ -48,6 +70,12 @@ const courseRoute = createRoute({
   path: RP_COURSE,
   staticData: { headerTitle: "Courses" },
   component: CoursePage,
+});
+
+export const authRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: RP_AUTH,
+  component: AuthPage,
 });
 
 export const buildRoute = createRoute({
@@ -107,7 +135,7 @@ export const moduleRoute = createRoute({
 });
 
 export const lessonSectionRoute = createRoute({
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => authedRoute,
   id: "lessonSection",
   component: LessonLayout,
 });
@@ -122,6 +150,7 @@ export const lessonRoute = createRoute({
 });
 
 const routeTree = rootRoute.addChildren([
+  authedRoute.addChildren([
   siteRoute.addChildren([
     defaultSectionRoute.addChildren([
       courseRoute,
@@ -132,5 +161,13 @@ const routeTree = rootRoute.addChildren([
     moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
   ]),
   lessonSectionRoute.addChildren([lessonRoute]),
+  ]),
+  authRoute,
 ]);
-export const router = createRouter({ routeTree });
+
+export const router = createRouter({
+  routeTree,
+  context: {
+    queryClient,
+  },
+});

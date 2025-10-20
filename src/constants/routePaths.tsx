@@ -4,6 +4,8 @@ export const RP_COURSE = `/`;
 
 export const RP_BUILD = `/build`;
 
+export const RP_AUTH = `/auth`
+
 export const RP_ME = `/profile`;
 
 export const RP_PROFILE = `/profile/$userId`;
