@@ -1,6 +1,5 @@
 import type { LudoExercise } from "../Exercise/LudoExercise";
 import type { LudoExerciseOption } from "../Exercise/LudoExerciseOption";
-import type { LudoModule } from "../Exercise/LudoModule";
 import type { LudoTutorial } from "../Exercise/LudoTutorial";
 
 export const mockLessons: LudoTutorial[] = [
@@ -12,41 +11,6 @@ export const mockLessons: LudoTutorial[] = [
     isPassed: false,
   },
 ];
-
-export const mockModules : LudoModule[] = [
-  {
-    id: 1,
-    course: "Python",
-    orderIndex: 1,
-    title: "Variables and Data Types"
-  },
-    {
-    id: 2,
-    course: "Python",
-    orderIndex: 2,
-    title: "Conditionals"
-  },
-    {
-    id: 3,
-    course: "Python",
-    orderIndex: 3,
-    title: "Loops"
-  },
-    {
-    id: 4,
-    course: "Python",
-    orderIndex: 4,
-    title: "Lists"
-  },
-    {
-    id: 5,
-    course: "Python",
-    orderIndex: 5,
-    title: "Functions"
-  },
-
-
-]
 
 export const mockExercises: LudoExercise[] = [
   {
