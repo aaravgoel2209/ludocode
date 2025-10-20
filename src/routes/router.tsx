@@ -20,8 +20,11 @@ import {
   RP_MODULE_REDIRECT,
   RP_BUILD,
   RP_PROFILE,
+  RP_AUTH,
 } from "../constants/routePaths";
 import { LessonLayout } from "../Layouts/LessonLayout";
+import { QueryClient } from "@tanstack/react-query";
+import { AuthPage } from "../features/Auth/AuthPage";
 
 const rootRoute = createRootRoute();
 
@@ -49,6 +52,12 @@ const courseRoute = createRoute({
   staticData: { headerTitle: "Courses" },
   component: CoursePage,
 });
+
+export const authRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: RP_AUTH,
+  component: AuthPage
+})
 
 export const buildRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
@@ -132,5 +141,6 @@ const routeTree = rootRoute.addChildren([
     moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
   ]),
   lessonSectionRoute.addChildren([lessonRoute]),
+  authRoute
 ]);
 export const router = createRouter({ routeTree });
