@@ -14,10 +14,10 @@ export const GET_LESSONS_FROM_IDS = (lessonIds: string) =>
   API_PATH + `/catalog/lessons/${TEST_USER_ID}/ids?${lessonIds}`;
 
 export const GET_MODULES_FROM_IDS = (moduleIds: string) =>
-  API_PATH + `/catalog/modules/${TEST_USER_ID}/ids?${moduleIds}`;
+  API_PATH + `/catalog/modules/ids?${moduleIds}`;
 
 export const GET_MODULES_BY_COURSE = (courseId: string) => 
-    API_PATH + `/catalog/modules/${TEST_USER_ID}/all/${courseId}`
+    API_PATH + `/catalog/modules/${courseId}`
 
 export const GET_LESSONS_BY_MODULE = (moduleId: string) =>
     API_PATH + `/catalog/lessons/${TEST_USER_ID}/all/${moduleId}`
