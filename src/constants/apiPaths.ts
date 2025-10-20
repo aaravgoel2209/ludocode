@@ -25,3 +25,8 @@ export const GET_LESSONS_BY_MODULE = (moduleId: string) =>
 
 
 export const GOOGLE_LOGIN = API_PATH + `/google-login`
+
+export const AUTH_ME = API_PATH + `/auth/me`
+
+export const GET_USERS_FROM_IDS = (userIds: string) =>
+    API_PATH + `/users/ids?${userIds}`
