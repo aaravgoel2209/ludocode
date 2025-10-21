@@ -8,9 +8,10 @@ import { ludoNavigation } from "../../routes/ludoNavigation";
 type Args = {
   exercisePosition: number;
   lessonId: string;
+  courseId: string;
 };
 
-export function useExerciseState({ exercisePosition, lessonId }: Args): useExerciseStateReturn {
+export function useExerciseState({ exercisePosition, lessonId, courseId }: Args): useExerciseStateReturn {
   const lesson: LudoTutorial[] = mockLessons;
   const exercises: LudoExercise[] = mockExercises;
 

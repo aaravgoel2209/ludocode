@@ -7,6 +7,8 @@ export const qk = {
     module: (moduleId: string) => ["module", moduleId] as const,
     lesson: (lessonId: string) => ["lesson", lessonId] as const, 
 
+    courseProgress: (courseId: string) => ["courseProgress", courseId] as const,
+
     modulesBySection: (courseId: string) => ["courses", courseId, "modules"] as const,
     lessonsByModule: (moduleId: string) => ["modules", moduleId, "lessons"] as const,
 

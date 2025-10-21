@@ -26,6 +26,11 @@ import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
 import { qk } from "../constants/qk";
+import { useCurrentUser } from "../Hooks/Queries/useCurrentUser";
+import type { LudoUser } from "../Types/User/LudoUser";
+import type { CourseTree } from "../Types/Catalog/CourseTree";
+import type { ModuleNode } from "../Types/Catalog/ModuleNode";
+import type { CourseProgress } from "../Types/Progress/CourseProgress";
 
 export const queryClient = new QueryClient();
 
@@ -113,18 +118,37 @@ export const modulesRedirectRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
   path: RP_MODULE_REDIRECT,
   loader: async ({ location }) => {
-    const courseName = "Python";
-    const position = 1;
-    const target = `/course/${courseName}/module/${position}`;
+
+    const user : LudoUser = await queryClient.ensureQueryData({
+      queryKey: qk.currentUser()
+    })
+
+    const courseProgress : CourseProgress = await queryClient.ensureQueryData({
+      queryKey: qk.courseProgress(user.currentCourse!)
+    })
+
+    const currentCourseId = courseProgress.courseId
+
+    const tree : CourseTree = await queryClient.ensureQueryData({
+      queryKey: qk.courseTree(currentCourseId)
+    })
+
+    const moduleNode : ModuleNode = await queryClient.ensureQueryData({
+      queryKey: qk.module(courseProgress.moduleId)
+    })
+
+    const modulePosition = moduleNode.module.orderIndex
+    const target = `/course/${currentCourseId}/module/${modulePosition}`;
 
     if (location.pathname !== target) {
       throw redirect({
         to: RP_MODULE,
-        params: { courseName, position },
+        params: { courseId: currentCourseId, position: modulePosition },
         replace: true,
       });
     }
-    return null;
+
+    return { tree, moduleNode, user, courseProgress };
   },
 });
 

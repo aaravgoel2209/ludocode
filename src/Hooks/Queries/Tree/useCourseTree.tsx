@@ -1,6 +1,5 @@
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { qk } from "../../../constants/qk";
-import { fetchCourseTreeAndHydrate } from "./fetchCourseTreeAndHydrate";
 
 export function useCourseTree(courseId?: string) {
   const qc = useQueryClient();

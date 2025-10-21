@@ -6,14 +6,12 @@ import type { CourseType } from "./CoursePage";
 
 type CourseCardProps = {
   course: LudoCourse;
+  onClick: () => void;
 };
 
-export function CourseCard({ course }: CourseCardProps) {
+export function CourseCard({ course, onClick }: CourseCardProps) {
   const { title } = course;
 
-  const goToCourse = () => {
-    router.navigate(ludoNavigation.module(course.id, 1));
-  };
 
   const courseIcons: Record<string, IconName> = {
     Python: "Python",
@@ -22,7 +20,7 @@ export function CourseCard({ course }: CourseCardProps) {
 
   return (
     <button
-      onClick={() => goToCourse()}
+      onClick={() => onClick()}
       className="flex active:translate-y-[10px] active:shadow-none hover:cursor-pointer shadow-buttonShadow items-center w-full rounded-2xl bg-ludoGrayLight justify-center"
     >
       <div className="w-full flex items-center p-4 justify-center">

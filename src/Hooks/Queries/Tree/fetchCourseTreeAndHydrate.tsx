@@ -2,40 +2,32 @@ import type { QueryClient } from "@tanstack/react-query";
 import { fetchCourseTree } from "./fetchCourseTree";
 import type { CourseTree } from "../../../Types/Catalog/CourseTree";
 import { qk } from "../../../constants/qk";
+import type { LudoUser } from "../../../Types/User/LudoUser";
+import type { CourseProgress } from "../../../Types/Progress/CourseProgress";
 
 
-export async function fetchCourseTreeAndHydrate(qc: QueryClient, courseId: string) {
+function hydrateUser(qc: QueryClient, user: LudoUser) {
+  qc.setQueryData(qk.currentUser(), user);
+  qc.setQueryData(qk.user(user.id), user);
+}
 
-    const tree: CourseTree = await fetchCourseTree(courseId)
+function hydrateCourseProgress(qc: QueryClient, cp: CourseProgress) {
+  qc.setQueryData(qk.courseProgress(cp.courseId), cp);
+}
 
-    qc.setQueryData(qk.course(courseId), tree.course)
+// you already have this:
+async function fetchCourseTreeAndHydrate(qc: QueryClient, courseId: string) {
+  const tree = await fetchCourseTree(courseId);
+  qc.setQueryData(qk.course(courseId), tree.course);
 
-    const modules = tree.modules
-    .map((moduleNode) => moduleNode.module)
-    .sort((a, b) => a.orderIndex - b.orderIndex)
+  const modules = tree.modules.map(m => m.module).sort((a,b)=>a.orderIndex-b.orderIndex);
+  qc.setQueryData(qk.modulesBySection(courseId), modules);
 
-    qc.setQueryData(qk.modulesBySection(courseId), modules)
-
-    for (const moduleNode of tree.modules) {
-        qc.setQueryData(qk.module(moduleNode.module.id), moduleNode.module)
-
-        const lessons = [...moduleNode.lessons].sort(
-            (a, b) => a.orderIndex - b.orderIndex
-        )
-
-        qc.setQueryData(qk.lessonsByModule(moduleNode.module.id), lessons)
-
-        for (const lesson of lessons) {
-            qc.setQueryData(qk.lesson(lesson.id), lesson)
-        }
-
-    }
-
-    console.log(JSON.stringify("TREE IS: " + tree))
-
-    
-
-
-
-
+  for (const node of tree.modules) {
+    qc.setQueryData(qk.module(node.module.id), node.module);
+    const lessons = [...node.lessons].sort((a,b)=>a.orderIndex-b.orderIndex);
+    qc.setQueryData(qk.lessonsByModule(node.module.id), lessons);
+    for (const l of lessons) qc.setQueryData(qk.lesson(l.id), l);
+  }
+  return tree;
 }
