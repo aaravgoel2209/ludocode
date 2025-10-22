@@ -25,7 +25,8 @@ import {
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
-import { qk } from "../constants/qk";
+import { modulePageLoader, modulesRedirectLoader } from "./Loaders/modulesLoader";
+import { qo } from "../Hooks/Queries/queries";
 
 export const queryClient = new QueryClient();
 
@@ -35,12 +36,10 @@ const authedRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "authed",
   beforeLoad: async () => {
+    console.log("Checking user")
     const user = await queryClient
-      .ensureQueryData({
-        queryKey: qk.currentUser(),
-      })
+      .ensureQueryData(qo.currentUser())
       .catch(() => null);
-
     if (!user) throw redirect({ to: RP_AUTH });
   },
 });
@@ -50,8 +49,6 @@ export const siteRoute = createRoute({
   id: "site",
   component: SiteLayout,
 });
-
-
 
 export const defaultSectionRoute = createRoute({
   getParentRoute: () => siteRoute,
@@ -112,25 +109,13 @@ export const profileByIdRoute = createRoute({
 export const modulesRedirectRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
   path: RP_MODULE_REDIRECT,
-  loader: async ({ location }) => {
-    const courseName = "Python";
-    const position = 1;
-    const target = `/course/${courseName}/module/${position}`;
-
-    if (location.pathname !== target) {
-      throw redirect({
-        to: RP_MODULE,
-        params: { courseName, position },
-        replace: true,
-      });
-    }
-    return null;
-  },
+  loader: async ({ location }) => modulesRedirectLoader(location, queryClient),
 });
 
 export const moduleRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
   path: RP_MODULE,
+  loader: async ({ params }) => modulePageLoader(params, queryClient),
   component: ModulePage,
 });
 
@@ -151,16 +136,16 @@ export const lessonRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   authedRoute.addChildren([
-  siteRoute.addChildren([
-    defaultSectionRoute.addChildren([
-      courseRoute,
-      buildRoute,
-      profileMeRoute,
-      profileByIdRoute,
+    siteRoute.addChildren([
+      defaultSectionRoute.addChildren([
+        courseRoute,
+        buildRoute,
+        profileMeRoute,
+        profileByIdRoute,
+      ]),
+      moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
     ]),
-    moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
-  ]),
-  lessonSectionRoute.addChildren([lessonRoute]),
+    lessonSectionRoute.addChildren([lessonRoute]),
   ]),
   authRoute,
 ]);

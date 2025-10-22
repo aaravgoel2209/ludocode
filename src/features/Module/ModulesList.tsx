@@ -1,12 +1,11 @@
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { router } from "../../routes/router";
+import type { LudoModule } from "../../Types/Catalog/LudoModule";
 import { mockModules } from "../../Types/mockData/mockExercises";
 
-type ModulesListProps = {};
+type ModulesListProps = { modules: LudoModule[] };
 
-export function ModulesList({}: ModulesListProps) {
-  const modules = mockModules;
-
+export function ModulesList({ modules }: ModulesListProps) {
   return (
     <div className="border rounded-xl border-ludoGrayLight flex flex-col items-center">
       <div className="border-b rounded-t-xl bg-ludoGrayLight border-ludoGrayLight w-full">
@@ -16,6 +15,7 @@ export function ModulesList({}: ModulesListProps) {
       </div>
       {modules.map((module) => (
         <div
+          key={module.id}
           onClick={() =>
             router.navigate(
               ludoNavigation.module(module.courseId, module.orderIndex)

@@ -8,9 +8,10 @@ import { ludoNavigation } from "../../routes/ludoNavigation";
 type Args = {
   exercisePosition: number;
   lessonId: string;
+  courseId: string;
 };
 
-export function useExerciseState({ exercisePosition, lessonId }: Args): useExerciseStateReturn {
+export function useExerciseState({ exercisePosition, lessonId, courseId }: Args): useExerciseStateReturn {
   const lesson: LudoTutorial[] = mockLessons;
   const exercises: LudoExercise[] = mockExercises;
 
@@ -37,7 +38,7 @@ export function useExerciseState({ exercisePosition, lessonId }: Args): useExerc
       const gapCount = getGapCount(nextExercise);
       setUserResponses(Array(gapCount).fill(""));
 
-      router.navigate(ludoNavigation.lesson("Python", Number(lessonId), newPosition));
+      router.navigate(ludoNavigation.lesson(courseId, lessonId, newPosition));
     }
   }, [exercisePosition, exercises, clearAnswers]);
 

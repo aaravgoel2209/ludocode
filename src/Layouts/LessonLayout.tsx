@@ -10,10 +10,11 @@ import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
 
 export function LessonLayout() {
   const { lessonId } = lessonRoute.useParams();
+  const {courseId} = lessonRoute.useParams();
   const { exercise } = lessonRoute.useSearch();
   const exercisePosition = Number(exercise ?? 1);
 
-  const state = useExerciseState({ exercisePosition, lessonId });
+  const state = useExerciseState({ exercisePosition, lessonId, courseId });
 
   const { exercises, canSubmit, goToNextExercise } = state;
 
