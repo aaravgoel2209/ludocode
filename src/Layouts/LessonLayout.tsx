@@ -9,15 +9,14 @@ import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
 import { useExerciseFlow } from "../Hooks/Exercises/useExerciseFlow";
 
 export function LessonLayout() {
-
-  const {exercises, lesson} = lessonSectionRoute.useLoaderData();
+  const { exercises, lesson } = lessonSectionRoute.useLoaderData();
   const { exercise: position } = lessonRoute.useSearch();
   const exercisePosition = Number(position ?? 1);
 
-  const state = useExerciseFlow({ exercises, lesson, position});
+  const state = useExerciseFlow({ exercises, lesson, position });
 
-  const {canSubmit, submitAttemptBuffer} = state;
-  
+  const { canSubmit, submitAttemptBuffer, commitAttempt, submissionBuffer } =
+    state;
 
   return (
     <LessonContext.Provider value={state}>
@@ -29,7 +28,12 @@ export function LessonLayout() {
         <MainContentWrapper>
           <Outlet />
         </MainContentWrapper>
-        <TutorialFooter submitAnswer={submitAttemptBuffer} canSubmit={canSubmit} />
+        <TutorialFooter
+          staged={submissionBuffer}
+          stage={submitAttemptBuffer}
+          commit={commitAttempt}
+          canSubmit={canSubmit}
+        />
       </MainGridWrapper>
     </LessonContext.Provider>
   );

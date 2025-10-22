@@ -26,21 +26,21 @@ export function areAllValid(buffer: string[], exercise: LudoExercise) {
 }
 
 export function checkCorrect(buffer: string[], exercise: LudoExercise): boolean {
+  const correctOptions = exercise.exerciseOptions
+    .filter(o => o.answerOrder !== null);
 
-  if (exercise.exerciseOptions.some(o => o.answerOrder === null)) {
-    return false;
-  }
-
-  if (!buffer.every(s => s && s.trim() !== "")) {
-    return false;
-  }
-
-  const expected = exercise.exerciseOptions
-    .slice()
+  const expected = correctOptions
     .sort((a, b) => a.answerOrder! - b.answerOrder!)
     .map(o => o.content.trim());
 
-  return (
-    JSON.stringify(buffer.map(s => s.trim())) === JSON.stringify(expected)
-  );
+  const candidate = buffer.map(s => (s ?? "").trim());
+
+  if (candidate.length !== expected.length) return false;
+
+  if (candidate.some(s => s === "")) return false;
+
+  const correctContents = new Set(correctOptions.map(o => o.content.trim()));
+  if (candidate.some(s => !correctContents.has(s))) return false;
+
+  return candidate.every((s, i) => s === expected[i]);
 }
