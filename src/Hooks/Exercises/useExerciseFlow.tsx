@@ -65,11 +65,12 @@ export function useExerciseFlow({
   const submitAttemptBuffer = useCallback(() => {
     if (!allSlotsValid) return;
     const isCorrect = checkCorrect(buffer, currentExercise);
-    console.log("Buffer: " + JSON.stringify(buffer))
-    console.log("EXERCISEOPTS: " + JSON.stringify(currentExercise.exerciseOptions))
+    console.log("Buffer: " + JSON.stringify(buffer));
+    console.log(
+      "EXERCISEOPTS: " + JSON.stringify(currentExercise.exerciseOptions)
+    );
 
-
-    console.log("IS CORRECT" + isCorrect)
+    console.log("IS CORRECT" + isCorrect);
     setSubmissionBuffer({
       exerciseId: currentExercise.id,
       isCorrect,
@@ -85,8 +86,8 @@ export function useExerciseFlow({
       setSubmissionBuffer(null);
       router.navigate(ludoNavigation.nextExercise(lesson.id, position));
     } else {
-      clear();
       setSubmissionBuffer(null);
+      clear();
     }
   }, [submissionBuffer, addAttempt, lesson.id, position, clear]);
 
@@ -101,7 +102,7 @@ export function useExerciseFlow({
 }
 
 export type ExerciseFlowResponse = {
-    currentExercise: LudoExercise;
+  currentExercise: LudoExercise;
   bufferState: AttemptBufferResponse;
   submissionBuffer: ExerciseAttempt | null;
   submitAttemptBuffer: () => void;

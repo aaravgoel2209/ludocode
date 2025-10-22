@@ -10,7 +10,7 @@ export function findLastAttempt(
 ): ExerciseAttempt | null {
   const sub = submissions.find((s) => s.exerciseId === exerciseId);
   if (!sub) return null;
-  return sub.attempts[sub.attempts.length - 1] ?? null;
+  return sub.attempts.slice().reverse().find(a => a.isCorrect) ?? null;
 }
 
 export function areAllFilled(buffer: string[]) {
