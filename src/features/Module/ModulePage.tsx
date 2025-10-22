@@ -1,5 +1,5 @@
 import { useSuspenseQueries, useSuspenseQuery } from "@tanstack/react-query";
-import { moduleRoute, moduleSectionRoute } from "../../routes/router";
+import { moduleRoute} from "../../routes/router";
 import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
 import { ModuleAsideLeft } from "./ModuleAsideLeft";
 import { ModuleAsideRight } from "./ModuleAsideRight";
@@ -13,9 +13,11 @@ import type {
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
 
 export function ModulePage() {
-  const { position } = moduleRoute.useParams();
+  const { courseId, position } = moduleRoute.useParams();
 
   const { tree } = moduleRoute.useLoaderData()
+
+  const {data: courseProgress} = useSuspenseQuery(qo.courseProgress(courseId))
 
   const moduleMetaData: FlatModule = tree.modules.find(
     (module: FlatModule) => module.id == position
@@ -42,7 +44,7 @@ export function ModulePage() {
       <div className="col-start-5 col-end-9 overflow-auto lg:col-start-6 lg:col-end-8 flex flex-col gap-10 lg:gap-8 items-center py-6 min-w-0">
         {lessons.map((lesson: LudoLesson, i: number) => (
           <PathRow key={lesson.id} index={i}>
-            <PathButton lesson={lesson} />
+            <PathButton isCurrent={lesson.id == courseProgress.currentLessonId} lesson={lesson} />
           </PathRow>
         ))}
       </div>

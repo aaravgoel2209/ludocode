@@ -11,6 +11,7 @@ type PathButtonProps = {
 };
 
 export function PathButton({ lesson, isCurrent }: PathButtonProps) {
+  
   const { courseId } = moduleRoute.useParams();
 
   const isCompleted = lesson.isCompleted
