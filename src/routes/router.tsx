@@ -26,14 +26,7 @@ import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
 import { qk } from "../constants/qk";
-import { useCurrentUser } from "../Hooks/Queries/useCurrentUser";
-import type { LudoUser } from "../Types/User/LudoUser";
-import type { CourseTree } from "../Types/Catalog/CourseTree";
-import type { ModuleNode } from "../Types/Catalog/ModuleNode";
-import type { CourseProgress } from "../Types/Progress/CourseProgress";
-import type { FlatCourseTree } from "../Types/Catalog/FlatCourseTree";
-import { qo } from "../Hooks/Queries/queries";
-import { ensureTreeData } from "./routerEnsures";
+import { modulePageLoader, modulesRedirectLoader } from "./Loaders/modulesLoader";
 
 export const queryClient = new QueryClient();
 
@@ -118,48 +111,13 @@ export const profileByIdRoute = createRoute({
 export const modulesRedirectRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
   path: RP_MODULE_REDIRECT,
-  loader: async ({ location }) => {
-    const user: LudoUser = await queryClient.ensureQueryData(qo.currentUser());
-
-    if (!user.currentCourse) {
-      throw redirect({
-        to: RP_AUTH,
-        replace: true,
-      });
-    }
-
-    console.log("CURRENT COURSE IS " + user.currentCourse);
-
-    const courseProgress: CourseProgress = await queryClient.ensureQueryData(
-      qo.courseProgress(user.currentCourse)
-    );
-
-    const currentCourseId = courseProgress.courseId;
-    const modulePosition = courseProgress.moduleId;
-
-    console.log("CURRENT COURSE ID IS " + currentCourseId);
-
-    const target = `/course/${currentCourseId}/module/${modulePosition}`;
-
-    if (location.pathname !== target) {
-      throw redirect({
-        to: RP_MODULE,
-        params: { courseId: currentCourseId, position: modulePosition },
-        replace: true,
-      });
-    }
-
-    return null;
-  },
+  loader: async ({ location }) => modulesRedirectLoader(location, queryClient),
 });
 
 export const moduleRoute = createRoute({
   getParentRoute: () => moduleSectionRoute,
   path: RP_MODULE,
-  loader: async ({ params }) => {
-    const tree = await ensureTreeData(params.courseId, queryClient);
-    return { tree };
-  },
+  loader: async ({ params }) => modulePageLoader(params, queryClient),
   component: ModulePage,
 });
 

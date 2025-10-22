@@ -1,0 +1,57 @@
+import type { QueryClient } from "@tanstack/react-query";
+import type { LudoUser } from "../../Types/User/LudoUser";
+import { redirect, type ParsedLocation } from "@tanstack/react-router";
+import { RP_AUTH, RP_MODULE } from "../../constants/routePaths";
+import type { CourseProgress } from "../../Types/Progress/CourseProgress";
+import { qo } from "../../Hooks/Queries/queries";
+import type { moduleRoute } from "../router";
+import { ensureTreeData } from "../routerEnsures";
+
+
+export async function modulesRedirectLoader(location: { pathname: string }, queryClient: QueryClient) {
+  const user: LudoUser = await queryClient.ensureQueryData(qo.currentUser());
+
+  if (!user.currentCourse) {
+    throw redirect({
+      to: RP_AUTH,
+      replace: true,
+    });
+  }
+
+  const courseProgress: CourseProgress = await queryClient.ensureQueryData(
+    qo.courseProgress(user.currentCourse)
+  );
+
+  const currentCourseId = courseProgress.courseId;
+  const modulePosition = courseProgress.moduleId;
+
+  console.log("CURRENT COURSE ID IS " + currentCourseId);
+
+  const target = `/course/${currentCourseId}/module/${modulePosition}`;
+
+  if (location.pathname !== target) {
+    throw redirect({
+      to: RP_MODULE,
+      params: { courseId: currentCourseId, position: modulePosition },
+      replace: true,
+    });
+  }
+
+  return null;
+}
+
+export async function modulePageLoader(
+  params: {courseId: string; position: string},
+  queryClient: QueryClient
+) {
+  const { courseId, position } = params
+
+  if (!courseId) {
+    throw redirect({ to: RP_AUTH, replace: true })
+  }
+
+  const tree = await ensureTreeData(courseId, queryClient)
+  return { tree, courseId, position }
+}
+
+
