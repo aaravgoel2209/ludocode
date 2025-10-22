@@ -71,15 +71,19 @@ export const courseRoute = createRoute({
   path: RP_COURSE,
   staticData: { headerTitle: "Courses" },
   loader: async ({}) => {
-    const currentUser : LudoUser = await queryClient.ensureQueryData(qo.currentUser())
+    const currentUser: LudoUser = await queryClient.ensureQueryData(
+      qo.currentUser()
+    );
     const allCourses = await queryClient.ensureQueryData(qo.allCourses());
     const enrolled = await queryClient.ensureQueryData(qo.enrolled());
 
     await Promise.all(
-      enrolled.map((enrolledId) => queryClient.ensureQueryData(qo.courseProgress(enrolledId)))
+      enrolled.map((enrolledId) =>
+        queryClient.ensureQueryData(qo.courseProgress(enrolledId))
+      )
     );
 
-    return {allCourses, enrolled, currentUser};
+    return { allCourses, enrolled, currentUser };
   },
   component: CoursePage,
 });
@@ -136,13 +140,18 @@ export const moduleRoute = createRoute({
 
 export const lessonSectionRoute = createRoute({
   getParentRoute: () => authedRoute,
-  id: "lessonSection",
+  path: RP_LESSON,
+  loader: async ({ params }) => {
+    const exercises = await queryClient.ensureQueryData(qo.exercises(params.lessonId));
+    const lesson = await queryClient.ensureQueryData(qo.lesson(params.lessonId))
+    return {exercises, lesson};
+  },
   component: LessonLayout,
 });
 
 export const lessonRoute = createRoute({
   getParentRoute: () => lessonSectionRoute,
-  path: RP_LESSON,
+  path: "/",
   validateSearch: (s) => ({
     exercise: Number(s.exercise) || 1,
   }),

@@ -1,25 +1,28 @@
 import { useCallback, useState } from "react";
-import { mockExercises, mockLessons } from "../../Types/mockData/mockExercises";
-import type { LudoTutorial } from "../../Types/Exercise/LudoTutorial";
 import type { LudoExercise } from "../../Types/Exercise/LudoExercise";
 import { router } from "../../routes/router";
 import { ludoNavigation } from "../../routes/ludoNavigation";
+import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
 
 type Args = {
   exercisePosition: number;
   lessonId: string;
   courseId: string;
+  exercises: LudoExercise[];
+  lesson: LudoLesson[];
 };
 
-export function useExerciseState({ exercisePosition, lessonId, courseId }: Args): useExerciseStateReturn {
-  const lesson: LudoTutorial[] = mockLessons;
-  const exercises: LudoExercise[] = mockExercises;
-
+export function useExerciseState({
+  exercisePosition,
+  lessonId,
+  courseId,
+  exercises,
+}: Args): useExerciseStateReturn {
   const clearAnswers = (length: number) =>
     setUserResponses(Array(length).fill(""));
 
   const getGapCount = (exercise: LudoExercise) => {
-    return (exercise.answerField ?? exercise.prompt).split("___").length - 1;
+    return (exercise.prompt ?? exercise.title).split("___").length - 1;
   };
 
   const exerciseIndex = exercisePosition - 1;
@@ -64,7 +67,7 @@ export function useExerciseState({ exercisePosition, lessonId, courseId }: Args)
 
   const allFilled = userResponses.every((slot) => slot.trim() !== "");
   const allValid = userResponses.every((slot) =>
-    currentExercise.options
+    currentExercise.exerciseOptions
       .map((option) => option.content)
       .includes(slot.trim())
   );
@@ -89,4 +92,4 @@ export type useExerciseStateReturn = {
   addAnswer: (value: string) => void;
   canSubmit: boolean;
   goToNextExercise: () => void;
-}
+};
