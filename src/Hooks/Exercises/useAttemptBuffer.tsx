@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { findLastAttempt } from "./exerciseHelpers";
 import type { ExerciseSubmission } from "../../Types/Exercise/LessonSubmissionTypes";
 
@@ -8,25 +8,29 @@ type Args = {
   submissions: ExerciseSubmission[];
 };
 
-export function useAttemptBuffer({ exerciseId, gapCount, submissions }: Args) {
+export function useAttemptBuffer({
+  exerciseId,
+  gapCount,
+  submissions,
+}: Args): AttemptBufferResponse {
   const [buffer, setBuffer] = useState<string[]>(() =>
     Array(gapCount).fill("")
   );
 
-  useEffect(() => {
-    changeBufferExercise();
-  }, [exerciseId, gapCount]);
-
-  const changeBufferExercise = () => {
+  const changeBufferExercise = useCallback(() => {
     const lastAttempt = findLastAttempt(submissions, exerciseId);
     if (lastAttempt != null) {
       setBuffer([...lastAttempt.answer]);
     } else {
       setBuffer(Array(gapCount).fill(""));
     }
-  };
+  }, [exerciseId, gapCount, submissions]);
 
-  const addAnswer = (value: string) => {
+  useEffect(() => {
+    changeBufferExercise();
+  }, [changeBufferExercise]);
+
+  const addAnswer = useCallback((value: string) => {
     const trimmed = value.trim();
     setBuffer((prev) => {
       const tempArray = [...prev];
@@ -35,18 +39,27 @@ export function useAttemptBuffer({ exerciseId, gapCount, submissions }: Args) {
       tempArray[firstSlot] = trimmed;
       return tempArray;
     });
-  };
+  }, []);
 
-  const replaceAnswer = (index: number, value: string) => {
+  const replaceAnswer = useCallback((index: number, value: string) => {
     const trimmed = value.trim();
     setBuffer((prev) => {
       const copy = [...prev];
       copy[index] = trimmed;
       return copy;
     });
-  };
+  }, []);
 
-  const clear = () => setBuffer(Array(gapCount).fill(""));
+  const clear = useCallback(() => {
+    setBuffer(Array(gapCount).fill(""));
+  }, [gapCount]);
 
   return { buffer, addAnswer, replaceAnswer, clear };
 }
+
+export type AttemptBufferResponse = {
+  buffer: string[];
+  addAnswer: (value: string) => void;
+  replaceAnswer: (index: number, value: string) => void;
+  clear: () => void;
+};
