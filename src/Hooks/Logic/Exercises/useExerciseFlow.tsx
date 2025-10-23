@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from "react";
-import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
-import type { LudoExercise } from "../../Types/Exercise/LudoExercise";
-import type {
-  ExerciseAttempt,
-  ExerciseSubmission,
-} from "../../Types/Exercise/LessonSubmissionTypes";
+
+
 import { areAllFilled, areAllValid, checkCorrect } from "./exerciseHelpers";
 import {
   useAttemptBuffer,
   type AttemptBufferResponse,
 } from "./useAttemptBuffer";
-import { getGapCount, router } from "../../routes/router";
-import { ludoNavigation } from "../../routes/ludoNavigation";
+import type { ExerciseAttempt, ExerciseSubmission } from "../../../Types/Exercise/LessonSubmissionTypes";
+import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
+import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
+import { getGapCount, router } from "../../../routes/router";
+import { ludoNavigation } from "../../../routes/ludoNavigation";
+
 
 type Args = {
   exercises: LudoExercise[];

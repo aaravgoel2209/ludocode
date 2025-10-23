@@ -1,9 +1,9 @@
 import { Fragment, useMemo } from "react";
 import { splitPromptGaps } from "./util";
 import { OptionInputField } from "./SelectionOptionButton";
-import { useInputAssistance } from "../../Hooks/Input/useInputAssistance";
 import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
 import { InlineCode } from "./InlineCode";
+import { useInputAssistance } from "../../Hooks/Logic/Input/useInputAssistance";
 
 type ExerciseAnswerFieldProps = {
   answerField: string;

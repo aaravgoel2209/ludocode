@@ -1,9 +1,9 @@
 import { useGoogleLogin } from "@react-oauth/google";
 import { useQueryClient } from "@tanstack/react-query";
-import { GOOGLE_LOGIN } from "../../constants/apiPaths";
-import { qk } from "../../constants/qk";
-import type { LudoUser } from "../../Types/User/LudoUser";
-import { router } from "../../routes/router";
+import { GOOGLE_LOGIN } from "../../../constants/apiPaths";
+import { qk } from "../../../constants/qk";
+import type { LudoUser } from "../../../Types/User/LudoUser";
+import { router } from "../../../routes/router";
 
 export function useGoogleAuthEntry() {
   const queryClient = useQueryClient();
@@ -24,7 +24,7 @@ export function useGoogleAuthEntry() {
       queryClient.setQueryData(qk.user(user.id), user);
       queryClient.setQueryData(qk.currentUser(), user);
 
-       router.navigate({ to: "/" });
+      router.navigate({ to: "/" });
     },
     onError: (err) => console.error("Google login failed", err),
   });

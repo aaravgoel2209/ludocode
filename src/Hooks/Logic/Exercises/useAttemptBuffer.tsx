@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
 import { findLastAttempt } from "./exerciseHelpers";
-import type { ExerciseSubmission } from "../../Types/Exercise/LessonSubmissionTypes";
+import type { ExerciseSubmission } from "../../../Types/Exercise/LessonSubmissionTypes";
 
 type Args = {
   exerciseId: string;

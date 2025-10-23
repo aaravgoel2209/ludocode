@@ -1,5 +1,5 @@
 import { useImperativeHandle } from "react";
-import { useAutoWidth } from "../../Hooks/Input/useAutoInputWidth";
+import { useAutoWidth } from "../../Hooks/Logic/Input/useAutoInputWidth";
 
 type OptionInputFieldProps = {
   value: string;

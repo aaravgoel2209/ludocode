@@ -39,6 +39,6 @@ export function makeIdBatcher<T extends { id: string }>({
 
 const parseIdsToRequestParam = (paramName: string, ids: string[]) => {
   const params = new URLSearchParams();
-  ids.forEach(id => params.append(paramName, id));
+  ids.forEach((id) => params.append(paramName, id));
   return params.toString();
 };

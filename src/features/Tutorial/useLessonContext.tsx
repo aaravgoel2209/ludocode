@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import type { ExerciseFlowResponse } from "../../Hooks/Exercises/useExerciseFlow";
+import type { ExerciseFlowResponse } from "../../Hooks/Logic/Exercises/useExerciseFlow";
 
 export const LessonContext = createContext<ExerciseFlowResponse | null>(null);
 

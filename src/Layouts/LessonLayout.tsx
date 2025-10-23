@@ -1,12 +1,11 @@
 import { Outlet } from "@tanstack/react-router";
-import { GlobalFooter } from "../components/Footer/GlobalFooter";
 import { TutorialHeader } from "../features/Tutorial/TutorialHeader";
 import { lessonRoute, lessonSectionRoute } from "../routes/router";
 import { LessonContext } from "../features/Tutorial/useLessonContext";
 import { TutorialFooter } from "../features/Tutorial/TutorialFooter";
 import { MainContentWrapper } from "./LayoutWrappers/MainContentWrapper";
 import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
-import { useExerciseFlow } from "../Hooks/Exercises/useExerciseFlow";
+import { useExerciseFlow } from "../Hooks/Logic/Exercises/useExerciseFlow";
 
 export function LessonLayout() {
   const { exercises, lesson } = lessonSectionRoute.useLoaderData();

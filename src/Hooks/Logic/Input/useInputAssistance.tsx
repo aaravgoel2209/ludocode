@@ -1,6 +1,7 @@
 import { useCallback, useRef, type RefObject } from "react";
-import { findNextEmptyIndex } from "../../features/Exercise/util";
-import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
+import type { LudoExerciseOption } from "../../../Types/Exercise/LudoExerciseOption";
+import { findNextEmptyIndex } from "../../../features/Exercise/util";
+
 
 type Args = {
   options: LudoExerciseOption[];
