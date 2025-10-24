@@ -13,4 +13,5 @@ export type LessonCompletionResponse = {
     newStats: LudoStats;
     newCourseProgress: CourseProgress;
     updatedCompletedLesson: LudoLesson;
+    accuracy: number;
 }
