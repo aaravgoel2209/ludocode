@@ -1,13 +1,12 @@
+import { ActionButton } from "../../components/Atoms/Button/ActionButton";
 import { HollowSlot } from "../../components/Atoms/Slot/HollowSlot";
-import { GlobalFooter } from "../../components/Molecules/Footer/GlobalFooter";
 import { LessonFooter } from "../../components/Molecules/Footer/LessonFooter";
 import { MainContentWrapper } from "../../Layouts/LayoutWrappers/MainContentWrapper";
 import { MainGridWrapper } from "../../Layouts/LayoutWrappers/MainGridWrapper";
 
 export function LessonCompletionPage() {
-
-  const coins = 10
-  const accuracy = 60
+  const coins = 10;
+  const accuracy = 60;
 
   return (
     <MainGridWrapper gridRows="SITE_INVERSE">
@@ -27,7 +26,11 @@ export function LessonCompletionPage() {
         </div>
       </MainContentWrapper>
       <LessonFooter phase="DEFAULT">
-        <div></div>
+        <div
+          className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
+        >
+            <ActionButton text="Continue" active={true}/>
+        </div>
       </LessonFooter>
     </MainGridWrapper>
   );
