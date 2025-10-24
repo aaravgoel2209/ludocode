@@ -16,6 +16,14 @@ export function findLastAttempt(
   );
 }
 
+export const getGapCount = (exercise: LudoExercise) => {
+  if (exercise.exerciseType != "CLOZE") {
+    return 1;
+  } else {
+    return (exercise.prompt ?? exercise.title).split("___").length - 1;
+  }
+};
+
 export function areAllFilled(buffer: string[]) {
   return buffer.every((slot) => slot.trim() !== "");
 }

@@ -4,7 +4,7 @@ import { SUBMIT_LESSON } from "../../../constants/pathConstants";
 import type { LessonSubmission } from "../../../Types/Exercise/LessonSubmissionTypes";
 import { qk } from "../../../constants/qk";
 
-export function useChangeCourse() {
+export function useSubmitLesson() {
   const qc = useQueryClient();
 
   return useMutation<LessonCompletionPacket, Error, LessonSubmission>({
@@ -36,7 +36,7 @@ export function useChangeCourse() {
       qc.setQueryData(qk.courseProgress(newCourseProgress.id), newCourseProgress)
       qc.setQueryData(qk.userStats(newStats.userId), newStats)
 
-        
+      
       
 
     },

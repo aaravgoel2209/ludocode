@@ -7,7 +7,8 @@ import {
   RP_MODULE_REDIRECT,
   RP_ME,
 } from "../constants/routes.ts";
-import { lessonRoute } from "./router";
+import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
+import { lessonRoute, syncRoute } from "./router";
 
 export const ludoNavigation = {
   //SIMPLE
@@ -29,6 +30,13 @@ export const ludoNavigation = {
       search: { exercise: current + 1 },
       replace: true,
     }),
+    
+    toSyncPage: (lessonId: string, submission: LessonSubmission) => ({
+      to: syncRoute.to,
+      params: { lessonId },
+      state: { submission }
+    })
+
   },
   
   module: {

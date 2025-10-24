@@ -21,6 +21,7 @@ import {
   RP_BUILD,
   RP_PROFILE,
   RP_AUTH,
+  RP_SYNC,
 } from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
@@ -30,9 +31,8 @@ import {
   modulesRedirectLoader,
 } from "./Loaders/modulesLoader";
 import { qo } from "../Hooks/Queries/Definitions/queries";
-import type { LudoUser } from "../Types/User/LudoUser";
-import type { LudoExercise } from "../Types/Exercise/LudoExercise";
 import { coursesLoader } from "./Loaders/coursesLoader";
+import { SyncingPage } from "../features/Common/LoadingPages/SyncingPage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -126,13 +126,7 @@ export const moduleRoute = createRoute({
   component: ModulePage,
 });
 
-export const getGapCount = (exercise: LudoExercise) => {
-  if (exercise.exerciseType != "CLOZE") {
-    return 1;
-  } else {
-    return (exercise.prompt ?? exercise.title).split("___").length - 1;
-  }
-};
+
 
 export const lessonSectionRoute = createRoute({
   getParentRoute: () => authedRoute,
@@ -147,6 +141,12 @@ export const lessonSectionRoute = createRoute({
     return { exercises, lesson };
   },
   component: LessonLayout,
+});
+
+export const syncRoute = createRoute({
+  getParentRoute: () => authedRoute,
+  path: RP_SYNC,
+  component: SyncingPage,
 });
 
 export const lessonRoute = createRoute({
@@ -170,6 +170,7 @@ const routeTree = rootRoute.addChildren([
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
     ]),
     lessonSectionRoute.addChildren([lessonRoute]),
+    syncRoute
   ]),
   authRoute,
 ]);
