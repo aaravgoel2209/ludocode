@@ -10,7 +10,7 @@ export interface ChangeCourseVariables {
 }
 
 export const mutations = {
-  submitLesson: (oldStreak: number) => {
+  submitLesson: () => {
     return mutationOptions<LessonCompletionPacket, Error, LessonSubmission>({
       mutationKey: ["submitLesson"],
       mutationFn: (variables) =>
@@ -22,7 +22,7 @@ export const mutations = {
     });
   },
 
-  changeCourse: (newCourseId: string) => {
+  changeCourse: () => {
     return mutationOptions<ChangeCourseType, Error, ChangeCourseVariables>({
         mutationKey: ["changeCourse"],
         mutationFn: (variables) =>

@@ -11,11 +11,11 @@ type Args = {
   oldStreak: number;
 };
 
-export function useSubmitLesson({ oldStreak }: { oldStreak: number }) {
+export function useSubmitLesson({ oldStreak }: Args) {
   const qc = useQueryClient();
 
   return useMutation({
-    ...mutations.submitLesson(oldStreak),
+    ...mutations.submitLesson(),
     onSuccess: (payload) => {
       if (payload.status === "DUPLICATE") return;
 
