@@ -37,33 +37,26 @@ export function useCommitAttempt({
 
     const isLast = position === exercises.length;
     const merged = mergeAttempt(exerciseSubmissions, submissionBuffer);
-
     mergeExerciseSubmissions(merged);
+
     clearSubmissionBuffer();
 
     //INCORRECT -> NO NAVIGATION
     if (!submissionBuffer.isCorrect) {
-      clear();
+      handleIncorrectAttempt()
       return;
     }
 
     //LAST -> CONSTRUCT AND NAVIGATE TO SYNC
     if (isLast) {
-      const lessonSubmission: LessonSubmission = {
-        id: uuidv4(),
-        lessonId: lesson.id,
-        submissions: merged,
-      };
-      router.navigate(
-        ludoNavigation.lesson.toSyncPage(lesson.id, lessonSubmission)
-      );
+      handleLastExercise(merged)
       return;
     }
 
     //CORRECT -> NAVIGATE TO NEXT EXERCISE
-    router.navigate(ludoNavigation.lesson.toNextExercise(lesson.id, position));
-
+    handleCorrectAttempt()
     return;
+
   }, [
     submissionBuffer,
     exerciseSubmissions,
@@ -75,9 +68,22 @@ export function useCommitAttempt({
     clearSubmissionBuffer,
   ]);
 
-  return {commitAttempt}
+  const handleLastExercise = (merged: ExerciseSubmission[]) => {
+      const lessonSubmission: LessonSubmission = {
+        id: uuidv4(),
+        lessonId: lesson.id,
+        submissions: merged,
+      };
+      router.navigate(
+        ludoNavigation.lesson.toSyncPage(lesson.id, lessonSubmission)
+      );
+  }
 
+  const handleIncorrectAttempt = () => clear()
 
+  const handleCorrectAttempt = () => router.navigate(ludoNavigation.lesson.toNextExercise(lesson.id, position))
+
+  return { commitAttempt };
 }
 
 export type useCommitAttemptResponse = {
