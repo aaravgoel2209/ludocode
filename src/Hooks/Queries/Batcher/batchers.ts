@@ -51,4 +51,4 @@ export const userStatsBatcher = makeIdBatcher<LudoStats>({
   idsKey: "userIds",
   scheduler: windowScheduler(10),
   createFn: create,
-})
+});

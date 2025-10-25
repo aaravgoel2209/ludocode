@@ -106,47 +106,57 @@ export function useExerciseFlow({
     });
   }, [allSlotsValid, buffer, currentExercise]);
 
-function mergeAttempt(
-  subs: ExerciseSubmission[],
-  attempt: ExerciseAttempt
-): ExerciseSubmission[] {
-  const i = subs.findIndex(s => s.exerciseId === attempt.exerciseId);
-  if (i === -1) return [...subs, { exerciseId: attempt.exerciseId, attempts: [attempt] }];
-  const next = subs.slice();
-  next[i] = { ...next[i], attempts: [...next[i].attempts, attempt] };
-  return next;
-}
-
-const commitAttempt = useCallback(() => {
-  if (!submissionBuffer) return;
-
-  const isLast = position === exercises.length;
-
-  if (submissionBuffer.isCorrect && isLast) {
-    const submissions = mergeAttempt(exerciseSubmissions, submissionBuffer);
-    const lessonSubmission: LessonSubmission = {
-      id: uuidv4(),
-      lessonId: lesson.id,
-      submissions,
-    };
-
-    console.log("Commited")
-
-    router.navigate(
-      ludoNavigation.lesson.toSyncPage(lesson.id, lessonSubmission),
-    );
-    return;
+  function mergeAttempt(
+    subs: ExerciseSubmission[],
+    attempt: ExerciseAttempt
+  ): ExerciseSubmission[] {
+    const i = subs.findIndex((s) => s.exerciseId === attempt.exerciseId);
+    if (i === -1)
+      return [...subs, { exerciseId: attempt.exerciseId, attempts: [attempt] }];
+    const next = subs.slice();
+    next[i] = { ...next[i], attempts: [...next[i].attempts, attempt] };
+    return next;
   }
 
-  // normal flow
-  setSubmissionBuffer(null);
-  if (submissionBuffer.isCorrect) {
-    setExerciseSubmissions((prev) => mergeAttempt(prev, submissionBuffer));
-    router.navigate(ludoNavigation.lesson.toNextExercise(lesson.id, position));
-  } else {
-    clear();
-  }
-}, [submissionBuffer, exerciseSubmissions, lesson.id, position, exercises.length, clear]);
+  const commitAttempt = useCallback(() => {
+    if (!submissionBuffer) return;
+
+    const isLast = position === exercises.length;
+
+    if (submissionBuffer.isCorrect && isLast) {
+      const submissions = mergeAttempt(exerciseSubmissions, submissionBuffer);
+      const lessonSubmission: LessonSubmission = {
+        id: uuidv4(),
+        lessonId: lesson.id,
+        submissions,
+      };
+
+      console.log("Commited");
+
+      router.navigate(
+        ludoNavigation.lesson.toSyncPage(lesson.id, lessonSubmission)
+      );
+      return;
+    }
+
+    // normal flow
+    setSubmissionBuffer(null);
+    if (submissionBuffer.isCorrect) {
+      setExerciseSubmissions((prev) => mergeAttempt(prev, submissionBuffer));
+      router.navigate(
+        ludoNavigation.lesson.toNextExercise(lesson.id, position)
+      );
+    } else {
+      clear();
+    }
+  }, [
+    submissionBuffer,
+    exerciseSubmissions,
+    lesson.id,
+    position,
+    exercises.length,
+    clear,
+  ]);
 
   return {
     currentExercise,

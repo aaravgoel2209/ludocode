@@ -24,13 +24,13 @@ export const mutations = {
 
   changeCourse: () => {
     return mutationOptions<ChangeCourseType, Error, ChangeCourseVariables>({
-        mutationKey: ["changeCourse"],
-        mutationFn: (variables) =>
-            ludoPost<ChangeCourseType, ChangeCourseVariables>(
-                CHANGE_COURSE,
-                variables,
-                true
-            )
-    })
+      mutationKey: ["changeCourse"],
+      mutationFn: (variables) =>
+        ludoPost<ChangeCourseType, ChangeCourseVariables>(
+          CHANGE_COURSE,
+          variables,
+          true
+        ),
+    });
   },
 };
