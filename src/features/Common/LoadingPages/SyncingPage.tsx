@@ -1,9 +1,9 @@
-import { useLocation } from "@tanstack/react-router";
-import type { LessonSubmission } from "../../../Types/Exercise/LessonSubmissionTypes";
+import { useLocation, useRouterState } from "@tanstack/react-router";
 import type { SyncState } from "../../../routes/Packets/SyncState";
 import { useSubmitLesson } from "../../../Hooks/Queries/Mutations/useSubmitLesson";
-import { useEffect } from "react";
-import { ClipLoader, PropagateLoader } from "react-spinners";
+import { useEffect, useRef } from "react";
+import { PropagateLoader } from "react-spinners";
+import { syncRoute } from "../../../routes/router";
 
 type SyncingPageProps = {};
 
@@ -12,16 +12,18 @@ function isSyncState(s: any): s is SyncState {
 }
 
 export function SyncingPage({}: SyncingPageProps) {
-    
   const { state } = useLocation();
-  if (!isSyncState(state)) throw new Error("Missing submission");
-  const { submission } = state;
-
-  const submitLessonMutation = useSubmitLesson();
+  const { oldStreak } = syncRoute.useLoaderData();
+  const submitLesson = useSubmitLesson({ oldStreak });
+  const firedRef = useRef(false);
 
   useEffect(() => {
-    submitLessonMutation.mutate(submission);
-  }, []);
+    if (firedRef.current) return;
+    if (isSyncState(state)) {
+      firedRef.current = true;
+      submitLesson.mutate(state.submission);
+    }
+  }, [state, submitLesson]);
 
   return (
     <>

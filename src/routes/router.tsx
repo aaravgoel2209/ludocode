@@ -37,6 +37,7 @@ import { coursesLoader } from "./Loaders/coursesLoader";
 import { SyncingPage } from "../features/Common/LoadingPages/SyncingPage.tsx";
 import { LessonCompletionPage } from "../features/Completion/LessonCompletionPage.tsx";
 import { StreakIncreasePage } from "../features/Completion/StreakIncreasePage.tsx";
+import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
 
 export const queryClient = new QueryClient();
 
@@ -150,6 +151,16 @@ export const lessonSectionRoute = createRoute({
 export const syncRoute = createRoute({
   getParentRoute: () => authedRoute,
   path: RP_SYNC,
+  loader: async ({}) => {
+    const currentUser = await queryClient.ensureQueryData(
+      qo.currentUser()
+    )
+    const userStats = await queryClient.ensureQueryData(
+      qo.stats(currentUser.id)
+    )
+    const oldStreak = userStats.streak
+    return {oldStreak}
+  },
   component: SyncingPage,
 });
 
@@ -199,3 +210,9 @@ export const router = createRouter({
     queryClient,
   },
 });
+
+declare module '@tanstack/react-router' {
+  interface HistoryState {
+    submission?: LessonSubmission;
+  }
+}

@@ -9,15 +9,24 @@ import { qo } from "../../Hooks/Queries/Definitions/queries";
 import type { LudoStats } from "../../Types/User/LudoStats";
 import Lottie from "lottie-react";
 import { useLottie } from "../../Hooks/Animation/useLottie";
+import { ludoNavigation } from "../../routes/ludoNavigation";
+import { completeRoute, router } from "../../routes/router";
 
 export function LessonCompletionPage() {
+
+
+
   const currentUser = useSuspenseQuery(qo.currentUser());
 
-  const coins = 10;
-  const accuracy = 60;
+  const {coins, accuracy, oldStreak, newStreak} = completeRoute.useParams()
+  const hasStreakIncreased = oldStreak < newStreak
 
-  const animationData = useLottie("/Animations/LC_CONFETTI.json")
-  const altAnimation = useLottie("/Animations/LC_TROPHY.json")
+  const animationData = useLottie("/Animations/LC_CONFETTI.json");
+  const altAnimation = useLottie("/Animations/LC_TROPHY.json");
+
+  const handleContinue = () => {
+    router.navigate(ludoNavigation.module.toCurrent())
+  }
 
   return (
     <MainGridWrapper gridRows="SITE_INVERSE">
@@ -39,7 +48,7 @@ export function LessonCompletionPage() {
         <div
           className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
         >
-          <ActionButton text="Continue" active={true} />
+          <ActionButton onClick={() => handleContinue()} text="Continue" active={true} />
         </div>
       </LessonFooter>
     </MainGridWrapper>

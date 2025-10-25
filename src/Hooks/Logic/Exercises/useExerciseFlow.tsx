@@ -1,6 +1,11 @@
-import { useCallback, useEffect, useState } from "react";
-
-import { areAllFilled, areAllValid, checkCorrect, getGapCount } from "./exerciseHelpers";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import {
+  areAllFilled,
+  areAllValid,
+  checkCorrect,
+  getGapCount,
+} from "./exerciseHelpers";
 import {
   useAttemptBuffer,
   type AttemptBufferResponse,
@@ -8,6 +13,7 @@ import {
 import type {
   ExerciseAttempt,
   ExerciseSubmission,
+  LessonSubmission,
 } from "../../../Types/Exercise/LessonSubmissionTypes";
 import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
 import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
@@ -30,6 +36,8 @@ export function useExerciseFlow({
   >([]);
 
   const index = position - 1;
+
+  const didNavigateRef = useRef(false);
 
   const [submissionBuffer, setSubmissionBuffer] =
     useState<ExerciseAttempt | null>(null);
@@ -63,6 +71,25 @@ export function useExerciseFlow({
   const allSlotsFilled = areAllFilled(buffer);
   const allSlotsValid = allSlotsFilled && areAllValid(buffer, currentExercise);
 
+  useEffect(() => {
+    if (didNavigateRef.current) return;
+    if (
+      exerciseSubmissions.length == exercises.length &&
+      position >= exercises.length
+    ) {
+      didNavigateRef.current = true;
+      const lessonSubmission: LessonSubmission = {
+        id: uuidv4(),
+        lessonId: lesson.id,
+        submissions: exerciseSubmissions,
+      };
+
+      router.navigate(
+        ludoNavigation.lesson.toSyncPage(lesson.id, lessonSubmission)
+      );
+    }
+  }, [exerciseSubmissions, position]);
+
   const submitAttemptBuffer = useCallback(() => {
     if (!allSlotsValid) return;
     const isCorrect = checkCorrect(buffer, currentExercise);
@@ -76,23 +103,50 @@ export function useExerciseFlow({
       exerciseId: currentExercise.id,
       isCorrect,
       answer: [...buffer],
-    })
+    });
   }, [allSlotsValid, buffer, currentExercise]);
 
-  const commitAttempt = useCallback(() => {
-    if (!submissionBuffer) return;
-    addAttempt(submissionBuffer);
+function mergeAttempt(
+  subs: ExerciseSubmission[],
+  attempt: ExerciseAttempt
+): ExerciseSubmission[] {
+  const i = subs.findIndex(s => s.exerciseId === attempt.exerciseId);
+  if (i === -1) return [...subs, { exerciseId: attempt.exerciseId, attempts: [attempt] }];
+  const next = subs.slice();
+  next[i] = { ...next[i], attempts: [...next[i].attempts, attempt] };
+  return next;
+}
 
-    if (submissionBuffer.isCorrect) {
-      setSubmissionBuffer(null);
-      router.navigate(
-        ludoNavigation.lesson.toNextExercise(lesson.id, position)
-      );
-    } else {
-      setSubmissionBuffer(null);
-      clear();
-    }
-  }, [submissionBuffer, addAttempt, lesson.id, position, clear]);
+const commitAttempt = useCallback(() => {
+  if (!submissionBuffer) return;
+
+  const isLast = position === exercises.length;
+
+  if (submissionBuffer.isCorrect && isLast) {
+    const submissions = mergeAttempt(exerciseSubmissions, submissionBuffer);
+    const lessonSubmission: LessonSubmission = {
+      id: uuidv4(),
+      lessonId: lesson.id,
+      submissions,
+    };
+
+    console.log("Commited")
+
+    router.navigate(
+      ludoNavigation.lesson.toSyncPage(lesson.id, lessonSubmission),
+    );
+    return;
+  }
+
+  // normal flow
+  setSubmissionBuffer(null);
+  if (submissionBuffer.isCorrect) {
+    setExerciseSubmissions((prev) => mergeAttempt(prev, submissionBuffer));
+    router.navigate(ludoNavigation.lesson.toNextExercise(lesson.id, position));
+  } else {
+    clear();
+  }
+}, [submissionBuffer, exerciseSubmissions, lesson.id, position, exercises.length, clear]);
 
   return {
     currentExercise,

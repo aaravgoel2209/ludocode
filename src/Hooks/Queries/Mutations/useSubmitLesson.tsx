@@ -3,20 +3,26 @@ import type { LessonCompletionPacket } from "../../../Types/Exercise/LessonCompl
 import { SUBMIT_LESSON } from "../../../constants/pathConstants";
 import type { LessonSubmission } from "../../../Types/Exercise/LessonSubmissionTypes";
 import { qk } from "../../../constants/qk";
+import { router } from "../../../routes/router";
+import { ludoNavigation } from "../../../routes/ludoNavigation";
 
-export function useSubmitLesson() {
+type Args = {
+  oldStreak: number;
+};
+
+export function useSubmitLesson({ oldStreak }: Args) {
   const qc = useQueryClient();
 
   return useMutation<LessonCompletionPacket, Error, LessonSubmission>({
     mutationFn: async (
       variables: LessonSubmission
     ): Promise<LessonCompletionPacket> => {
-      const { id, moduleId, lessonId, submissions } = variables;
+      const { id, lessonId, submissions } = variables;
 
       const res = await fetch(SUBMIT_LESSON, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id, moduleId, lessonId, submissions }),
+        body: JSON.stringify({ id, lessonId, submissions }),
         credentials: "include",
       });
 
@@ -32,13 +38,22 @@ export function useSubmitLesson() {
       const content = payload.content;
       const { newStats, newCourseProgress, updatedCompletedLesson } = content;
 
-      qc.setQueryData(qk.lesson(updatedCompletedLesson.id), updatedCompletedLesson);
-      qc.setQueryData(qk.courseProgress(newCourseProgress.id), newCourseProgress)
-      qc.setQueryData(qk.userStats(newStats.userId), newStats)
+      qc.setQueryData(
+        qk.lesson(updatedCompletedLesson.id),
+        updatedCompletedLesson
+      );
+      qc.setQueryData(
+        qk.courseProgress(newCourseProgress.id),
+        newCourseProgress
+      );
+      qc.setQueryData(qk.userStats(newStats.userId), newStats);
 
-      
-      
+      const { accuracy } = content;
+      const { coins, streak } = newStats;
 
+      router.navigate(
+        ludoNavigation.completion.toComplete(coins, accuracy, oldStreak, streak)
+      );
     },
   });
 }

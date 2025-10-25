@@ -11,10 +11,10 @@ export function CompletionStatsRow({userStats}: CompletionStatsRowProps) {
     return (
             <div className="flex bg-ludoGrayLight py-4 rounded-2xl gap-8 items-center justify-center">
               <HollowSlot>
-                <p>Coins: {coins}</p>
+                <p className="px-4">Coins: {coins}</p>
               </HollowSlot>
               <HollowSlot>
-                <p>Accuracy: {accuracy}</p>
+                <p className="px-4">Accuracy: {accuracy}</p>
               </HollowSlot>
             </div>
   );
