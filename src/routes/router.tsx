@@ -29,6 +29,7 @@ import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
 import { AuthPage } from "../features/Auth/AuthPage";
 import {
+  builderPageLoader,
   buildRedirectLoader,
   modulePageLoader,
   modulesRedirectLoader,
@@ -136,7 +137,7 @@ export const modulesRedirectRoute = createRoute({
 export const buildRoute = createRoute({
   getParentRoute: () => siteRoute,
   path: RP_BUILD,
-  loader: async ({ params }) => modulePageLoader(params, queryClient),
+  loader: async ({ params }) => builderPageLoader(params, queryClient),
   component: BuilderLayout,
 });
 

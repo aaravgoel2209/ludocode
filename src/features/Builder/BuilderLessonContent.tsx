@@ -1,12 +1,12 @@
 import { ListRow } from "../../components/Atoms/Row/ListRow";
 import { ListContainer } from "../../components/Molecules/List/ListContainer";
-import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
+import type { LessonSnap } from "../../Types/Snapshot/SnapshotTypes";
 
 type BuilderLessonContentProps = {
-  lessons: LudoLesson[];
+  lessons: LessonSnap[];
   moduleId: string;
-  currentLesson: LudoLesson;
-  changeSelectedLesson: (lesson: LudoLesson) => void;
+  currentLesson: LessonSnap;
+  changeSelectedLesson: (lesson: LessonSnap) => void;
 };
 
 export function BuilderLessonContent({

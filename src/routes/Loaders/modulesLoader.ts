@@ -71,3 +71,19 @@ export async function modulePageLoader(
   const tree = await ensureTreeData(courseId, queryClient);
   return { tree, courseId, moduleId };
 }
+
+export async function builderPageLoader(
+  params: {courseId: string; moduleId: string},
+  queryClient: QueryClient
+) {
+
+  const { courseId, moduleId } = params;
+
+  if (!courseId) {
+    throw redirect({ to: RP_AUTH, replace: true });
+  }
+
+  const snapshots = await queryClient.ensureQueryData(qo.courseSnapshot(courseId))
+  return {snapshots, moduleId, courseId}
+
+}

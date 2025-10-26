@@ -13,22 +13,22 @@ import { SubGridWrapper } from "../../Layouts/LayoutWrappers/SubGridWrapper";
 import { BuilderLessonContent } from "./BuilderLessonContent";
 import { useState } from "react";
 import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
+import type { LessonSnap, ModuleSnapshot } from "../../Types/Snapshot/SnapshotTypes";
 
 type BuilderPageProps = {};
 
 export function BuilderPage({}: BuilderPageProps) {
   const { courseId, moduleId } = buildRoute.useParams();
-  const { tree } = buildRoute.useLoaderData();
+  const { snapshots } = buildRoute.useLoaderData();
 
-  const { courseProgress, modules, lessons } = useTreeData({
-    tree,
-    courseId,
-    moduleId,
-  });
+  const modules : ModuleSnapshot[] = snapshots
 
-  const currentLesson = lessons.find((lesson) => lesson.orderIndex == 1)
-  const [selectedLesson, setSelectedLesson] = useState<LudoLesson>(currentLesson!)
-  const changeSelectedLesson = (lesson: LudoLesson) => setSelectedLesson(lesson)
+  const currentModule = modules.find((module) => module.moduleId == moduleId)
+  const currentModuleLessons = currentModule!.lessons
+
+  const currentLesson = currentModuleLessons.find((lesson) => lesson.orderIndex == 1)
+  const [selectedLesson, setSelectedLesson] = useState<LessonSnap>(currentLesson!)
+  const changeSelectedLesson = (lesson: LessonSnap) => setSelectedLesson(lesson)
 
 
   return (
@@ -38,7 +38,7 @@ export function BuilderPage({}: BuilderPageProps) {
         moduleId={moduleId}
         courseId={courseId}
       />
-    <BuilderLessonContent changeSelectedLesson={changeSelectedLesson} currentLesson={selectedLesson} lessons={lessons} moduleId={moduleId}/>
+    <BuilderLessonContent changeSelectedLesson={changeSelectedLesson} currentLesson={selectedLesson} lessons={currentModuleLessons} moduleId={moduleId}/>
 
       <AsideComponent orientation="RIGHT">
         <div></div>
