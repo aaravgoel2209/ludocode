@@ -9,11 +9,14 @@ import { useTreeData } from "../../Hooks/Logic/Catalog/useTreeData";
 import { ListRow } from "../../components/Atoms/Row/ListRow";
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { BuilderAsideModules } from "./BuilderAsideModules";
+import { SubGridWrapper } from "../../Layouts/LayoutWrappers/SubGridWrapper";
+import { BuilderLessonContent } from "./BuilderLessonContent";
+import { useState } from "react";
+import type { LudoLesson } from "../../Types/Catalog/LudoLesson";
 
 type BuilderPageProps = {};
 
 export function BuilderPage({}: BuilderPageProps) {
-
   const { courseId, moduleId } = buildRoute.useParams();
   const { tree } = buildRoute.useLoaderData();
 
@@ -23,10 +26,20 @@ export function BuilderPage({}: BuilderPageProps) {
     moduleId,
   });
 
+  const currentLesson = lessons.find((lesson) => lesson.orderIndex == 1)
+  const [selectedLesson, setSelectedLesson] = useState<LudoLesson>(currentLesson!)
+  const changeSelectedLesson = (lesson: LudoLesson) => setSelectedLesson(lesson)
+
+
   return (
     <div className="grid grid-cols-12 bg-ludoGrayDark">
-      <BuilderAsideModules modules={modules} moduleId={moduleId} courseId={courseId}/>
-      <div className="col-start-5 col-end-9 overflow-auto lg:col-start-6 lg:col-end-8 flex flex-col gap-10 lg:gap-8 items-center py-6 min-w-0"></div>
+      <BuilderAsideModules
+        modules={modules}
+        moduleId={moduleId}
+        courseId={courseId}
+      />
+    <BuilderLessonContent changeSelectedLesson={changeSelectedLesson} currentLesson={selectedLesson} lessons={lessons} moduleId={moduleId}/>
+
       <AsideComponent orientation="RIGHT">
         <div></div>
       </AsideComponent>
