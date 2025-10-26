@@ -17,9 +17,13 @@ export function BuilderAsideModules({modules, moduleId, courseId}: BuilderAsideM
                 onClick={() => router.navigate(ludoNavigation.build.toBuilder(courseId, module.id))}
                 key={module.id}
                 active={moduleId === module.id}
-                content={`${module.title} [${module.orderIndex}]`}
-              />
+              >
+                <p>{module.title} [{module.orderIndex}]</p>
+              </ListRow>
             ))}
+            <ListRow alignment="center" fill={true} py="py-2">
+                <p className="text-center text-xl font-bold">+</p>
+            </ListRow>
           </ListContainer>
         </div>
       </AsideComponent>
