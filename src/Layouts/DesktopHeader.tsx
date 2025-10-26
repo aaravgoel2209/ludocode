@@ -14,7 +14,6 @@ export function DesktopHeader({}: DesktopHeaderProps) {
   const icons = navIcons;
 
   const currentUserQuery = useSuspenseQuery(qo.currentUser())
-  const currentUser = currentUserQuery.data
   const { coins, streak } = useStatsContext();
 
   return (
@@ -24,7 +23,7 @@ export function DesktopHeader({}: DesktopHeaderProps) {
           {icons.map((icon) => (
             <HollowSlot key={icon.name}>
               <p
-                onClick={() => !!icon.onClick && icon.onClick(currentUser.currentCourse!)}
+                onClick={() => !!icon.onClick && icon.onClick()}
                 className="text-white"
               >
                 {icon.name}

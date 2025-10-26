@@ -23,9 +23,8 @@ export const ludoNavigation = {
   me: () => ({ to: RP_ME }),
 
   build: {
-    to: (courseId: string) => ({
+    to: () => ({
       to: buildRoute.to,
-      params: {courseId},
     })
   },
 

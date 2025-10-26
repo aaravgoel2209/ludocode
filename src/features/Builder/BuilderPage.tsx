@@ -5,19 +5,20 @@ import { AsideComponent } from "../../Layouts/Aside/AsideComponent";
 import { buildRoute } from "../../routes/router";
 import type { FlatModule } from "../../Types/Catalog/FlatCourseTree";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
+import { useTreeData } from "../../Hooks/Logic/Catalog/useTreeData";
 
 type BuilderPageProps = {};
 
 export function BuilderPage({}: BuilderPageProps) {
-  const { courseId } = buildRoute.useParams();
+  const { courseId, moduleId } = buildRoute.useParams();
+
   const { tree } = buildRoute.useLoaderData();
 
-  const moduleQueries = useSuspenseQueries({
-    queries: tree.modules.map((module: FlatModule) => qo.module(module.id)),
+  const { modules, lessons } = useTreeData({
+    tree,
+    courseId,
+    moduleId,
   });
-
-  const mappedModules = moduleQueries.map((moduleQuery) => moduleQuery.data);
-  const modules = mappedModules as LudoModule[]
 
   return (
     <div className="grid grid-cols-12 bg-ludoGrayDark">
