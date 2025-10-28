@@ -23,7 +23,6 @@ export function BuilderPage({}: BuilderPageProps) {
     (lesson) => lesson.orderIndex == 1
   );
 
-
   const [selectedLesson, setSelectedLesson] = useState<LessonSnap>(
     initialLesson!
   );

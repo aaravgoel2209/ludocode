@@ -24,7 +24,7 @@ import {
 } from "../../../constants/pathConstants.ts";
 import type { LudoUser } from "../../../Types/User/LudoUser";
 import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
-import type { ModuleSnapshot } from "../../../Types/Snapshot/SnapshotTypes.ts";
+import type { CourseSnap, ModuleSnapshot } from "../../../Types/Snapshot/SnapshotTypes.ts";
 
 export const qo = {
   user: (userId: string) =>
@@ -66,7 +66,7 @@ export const qo = {
   courseSnapshot: (courseId: string) =>
     queryOptions({
       queryKey: qk.courseSnapshot(courseId),
-      queryFn: () => ludoGet<ModuleSnapshot[]>(GET_COURSE_SNAPSHOT(courseId)),
+      queryFn: () => ludoGet<CourseSnap>(GET_COURSE_SNAPSHOT(courseId)),
       staleTime: 60_000 * 10
     }),
 

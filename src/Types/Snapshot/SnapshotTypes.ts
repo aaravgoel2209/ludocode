@@ -5,6 +5,11 @@ export type OptionSnap = {
   answerOrder: number | null
 }
 
+export type CourseSnap = {
+  courseId: string;
+  modules: ModuleSnapshot[]
+}
+
 export type ModuleSnapshot = {
   moduleId: string        // UUID string
   title: string
