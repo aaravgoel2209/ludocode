@@ -42,7 +42,6 @@ export function BuilderPage({}: BuilderPageProps) {
         lessons={currentModuleLessons}
         moduleId={moduleId}
       />
-
       <BuilderExerciseColumn currentLesson={selectedLesson} />
     </div>
   );
