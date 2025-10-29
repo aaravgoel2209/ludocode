@@ -19,70 +19,93 @@ export const ModuleForm = withForm({
   },
   render: ({ form, moduleId, courseId }) => {
     return (
-      <form.Field
-        name="modules"
-        mode="array"
-        children={(fieldArray) => (
+      <form.Field name="modules" mode="array">
+        {(fa) => (
           <AsideComponent customSpan="col-start-1 col-end-4" orientation="LEFT">
             <div className="flex flex-col py-6">
               <ListContainer title="Modules">
-                {fieldArray.state.value.map((m, index) => (
-                  <form.AppField
-                    key={m.moduleId}
-                    name={`modules[${index}]`}
-                    children={(subField) => (
-                      <ListRow
-                        hover={false}
-                        py="py-0"
-                        px="px-0"
-                        alignment="start"
-                        active={moduleId === subField.state.value.moduleId}
-                      >
-                        <div className=" w-full flex gap-2 flex-col p-4">
-                          <form.AppField
-                            name={`modules[${index}].title`}
-                            children={(field) => (
-                              <field.TitleField
-                                onDelete={() => {
-                                  fieldArray.removeValue(index);
+                {fa.state.value.map((m, index) => {
+                  if (!m) return null;
+                  const thisId = m.moduleId;
 
-                                }}
-                                deletable={true}
-                              />
-                            )}
-                          />
-                          <OrderSelector
-                            index={index}
-                            count={fieldArray.state.value.length}
-                            onChange={(newIndex) =>
-                              fieldArray.moveValue(index, newIndex)
-                            }
-                            className="border-ludoLightPurple hover:cursor-pointer border-2 rounded-md w-20"
-                          />
-                        </div>
-                        <SelectionSideTab
-                          active={!!moduleId && moduleId == subField.state.value.moduleId}
-                          onClick={() =>
-                            router.navigate(
-                              ludoNavigation.build.toBuilder(
-                                courseId,
-                                subField.state.value.moduleId
+                  const handleDelete = (e?: React.MouseEvent) => {
+                    e?.preventDefault?.();
+                    e?.stopPropagation?.();
+
+                    const mods = fa.state.value;
+                    const thisId = m.moduleId;
+                    const isCurrent = moduleId === thisId;
+
+                    // choose neighbor excluding current index
+                    const nextId =
+                      mods[index + 1]?.moduleId ??
+                      mods[index - 1]?.moduleId ??
+                      undefined;
+
+                    if (isCurrent) {
+                      router.navigate(
+                        nextId
+                          ? ludoNavigation.build.toBuilder(courseId, nextId)
+                          : ludoNavigation.build.redirect()
+                      );
+                    }
+
+                    // defer removal so LessonForm unmounts on route change
+                    queueMicrotask(() => fa.removeValue(index));
+                  };
+
+                  return (
+                    <form.AppField key={thisId} name={`modules[${index}]`}>
+                      {() => (
+                        <ListRow
+                          hover={false}
+                          py="py-0"
+                          px="px-0"
+                          alignment="start"
+                          active={moduleId === thisId}
+                        >
+                          <div className="w-full flex gap-2 flex-col p-4">
+                            <form.AppField name={`modules[${index}].title`}>
+                              {(f) => (
+                                <f.TitleField
+                                  deletable
+                                  onDelete={handleDelete}
+                                />
+                              )}
+                            </form.AppField>
+
+                            <OrderSelector
+                              index={index}
+                              count={fa.state.value.length}
+                              onChange={(newIndex) =>
+                                fa.moveValue(index, newIndex)
+                              }
+                              className="border-ludoLightPurple hover:cursor-pointer border-2 rounded-md w-20"
+                            />
+                          </div>
+
+                          <SelectionSideTab
+                            active={moduleId === thisId}
+                            onClick={() =>
+                              router.navigate(
+                                ludoNavigation.build.toBuilder(courseId, thisId)
                               )
-                            )
-                          }
-                        />
-                      </ListRow>
-                    )}
-                  />
-                ))}
-                <ListRow alignment="center" fill={true} py="py-2">
+                            }
+                          />
+                        </ListRow>
+                      )}
+                    </form.AppField>
+                  );
+                })}
+
+                <ListRow alignment="center" fill py="py-2">
                   <p className="text-center text-xl font-bold">+</p>
                 </ListRow>
               </ListContainer>
             </div>
           </AsideComponent>
         )}
-      />
+      </form.Field>
     );
   },
 });

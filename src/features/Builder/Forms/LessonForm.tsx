@@ -10,10 +10,7 @@ import { useEffect } from "react";
 
 export const LessonForm = withForm({
   ...courseFormOpts,
-  props: {
-    courseId: "" as string,
-    moduleId: "" as string,
-  },
+  props: { courseId: "" as string, moduleId: "" as string },
   render: ({ form, moduleId, courseId }) => {
     const { lessonId } = buildRoute.useSearch();
 
@@ -23,69 +20,79 @@ export const LessonForm = withForm({
 
     return (
       <form.Field
-        key={`lessons-${moduleId}-${mi}-${form.state.values.modules[mi].lessons.length}`}
+        key={`lessons-${moduleId}`} // force remount when module changes
         name={`modules[${mi}].lessons`}
         mode="array"
-        children={(fieldArray) => (
+      >
+        {(fa) => (
           <div className="col-start-4 col-end-8 overflow-auto flex flex-col gap-10 lg:gap-8 items-center px-8 py-14 min-w-0">
             <ListContainer title="Lessons">
-              {fieldArray.state.value.map((l, index) => (
-                <form.AppField
-                  key={
-                    form.state.values.modules[mi].lessons[index]?.id ??
-                    form.state.values.modules[mi].lessons[index]?.tempId ??
-                    `idx-${index}`
-                  }
-                  name={`modules[${mi}].lessons[${index}]`}
-                  children={(subField) => (
-                    <ListRow px="0" py="0" hover={false}>
-                      <div className="w-full p-4 flex gap-4 justify-between items-center">
-                        <form.AppField
-                          key={`tit-"${mi}-${moduleId}`}
-                          name={`modules[${mi}].lessons[${index}].title`}
-                          children={(field) => (
-                            <field.TitleField
-                              onDelete={() => fieldArray.removeValue(index)}
-                              deletable={true}
-                            />
-                          )}
-                        />
+              {fa.state.value.map((lesson, index) => {
+                if (!lesson) return null;
+                const key = lesson.id ?? lesson.tempId ?? `i-${index}`;
+                const thisKey = lesson.id ?? lesson.tempId ?? "";
+                const isActive = (lessonId ?? "") === thisKey;
 
-                        <OrderSelector
-                          index={index}
-                          count={fieldArray.state.value.length}
-                          onChange={(newIndex) =>
-                            fieldArray.moveValue(index, newIndex)
-                          }
-                          className="border-ludoLightPurple hover:cursor-pointer border-2 rounded-md w-20"
-                        />
-                      </div>
-                      <SelectionSideTab
-                        active={
-                          (lessonId ?? "") ===
-                          (subField.state.value.id ??
-                            subField.state.value.tempId ??
-                            "")
-                        }
-                        onClick={() =>
-                          router.navigate(
-                            ludoNavigation.build.toBuilder(
-                              courseId,
-                              moduleId,
-                              subField.state.value.id ??
-                                subField.state.value.tempId
-                            )
-                          )
-                        }
+                const handleDelete = (e?: React.MouseEvent) => {
+                  e?.preventDefault?.();
+                  e?.stopPropagation?.();
+                  const arr = fa.state.value;
+                  const nextKey =
+                    arr[index + 1]?.id ??
+                    arr[index + 1]?.tempId ??
+                    arr[index - 1]?.id ??
+                    arr[index - 1]?.tempId;
+
+                  if (isActive) {
+                    router.navigate(
+                      ludoNavigation.build.toBuilder(
+                        courseId,
+                        moduleId,
+                        nextKey
+                      )
+                    );
+                  }
+                  queueMicrotask(() => fa.removeValue(index));
+                };
+
+                return (
+                  <ListRow key={key} px="0" py="0" hover={false}>
+                    <div className="w-full p-4 flex gap-4 justify-between items-center">
+                      <form.AppField
+                        name={`modules[${mi}].lessons[${index}].title`}
+                      >
+                        {(f) => (
+                          <f.TitleField deletable onDelete={handleDelete} />
+                        )}
+                      </form.AppField>
+
+                      <OrderSelector
+                        index={index}
+                        count={fa.state.value.length}
+                        onChange={(newIndex) => fa.moveValue(index, newIndex)}
+                        className="border-ludoLightPurple hover:cursor-pointer border-2 rounded-md w-20"
                       />
-                    </ListRow>
-                  )}
-                />
-              ))}
+                    </div>
+
+                    <SelectionSideTab
+                      active={isActive}
+                      onClick={() =>
+                        router.navigate(
+                          ludoNavigation.build.toBuilder(
+                            courseId,
+                            moduleId,
+                            thisKey || undefined
+                          )
+                        )
+                      }
+                    />
+                  </ListRow>
+                );
+              })}
             </ListContainer>
           </div>
         )}
-      />
+      </form.Field>
     );
   },
 });

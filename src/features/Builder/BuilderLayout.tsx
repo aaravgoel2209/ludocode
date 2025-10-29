@@ -21,8 +21,6 @@ export function BuilderLayout({}: BuilderLayoutProps) {
 
   const { courseId, moduleId } = buildRoute.useParams();
 
-
-
   const form = useAppForm({
     ...courseFormOpts,
     defaultValues: { courseId, modules: snapshots },
@@ -43,12 +41,12 @@ export function BuilderLayout({}: BuilderLayoutProps) {
           <div className="grid grid-cols-12 bg-ludoGrayDark">
             <ModuleForm form={form} moduleId={moduleId} courseId={courseId} />
             <LessonForm form={form} moduleId={moduleId} courseId={courseId} />
-            {/* <ExerciseForm
+            <ExerciseForm
               changeCurrentIndex={changeCurrentExerciseIndex}
               form={form}
               moduleId={moduleId}
               currentIndex={currentExerciseIndex}
-            /> */}
+            />
           </div>
         </MainContentWrapper>
         <LessonFooter phase="DEFAULT">
