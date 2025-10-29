@@ -36,66 +36,69 @@ export const ExerciseSubForm = withForm({
               <form.Field
                 name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].options`}
                 mode="array"
-                children={(optionArray) => {
-                  const initialDistractors = optionArray.state.value.filter(
-                    (option) => option.answerOrder == null
+              >
+                {(optionArray) => {
+                  const withIndex = optionArray.state.value.map((opt, i) => ({
+                    opt,
+                    i,
+                  }));
+
+                  const initialCorrect = withIndex.filter(
+                    ({ opt }) => opt.answerOrder != null
                   );
-                  const initialCorrect = optionArray.state.value.filter(
-                    (option) => option.answerOrder != null
+                  const initialDistractors = withIndex.filter(
+                    ({ opt }) => opt.answerOrder == null
                   );
 
                   return (
                     <>
+                      {/* CORRECT */}
                       <ListRow hover={false} fill px="px-4" py="py-2">
                         <div className="flex flex-col w-full">
-                          <p>Correct: </p>
-
+                          <p>Correct:</p>
                           <div
                             className={`w-full py-2 px-4 grid ${
                               exercise.exerciseType == "CLOZE"
                                 ? "grid-cols-3 auto-rows-auto"
-                                : "grid-cols-1 "
-                            }  gap-2 items-start`}
+                                : "grid-cols-1"
+                            } gap-2 items-start`}
                           >
-                            {initialCorrect.map((option, index) => (
+                            {initialCorrect.map(({ opt, i }) => (
                               <form.AppField
-                                name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].options[${index}].content`}
-                                key={option.content}
-                                children={(optionContent) => (
+                                name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].options[${i}].content`}
+                              >
+                                {() => (
                                   <ExerciseOptionInputField
-                                    onEmpty={() =>
-                                      optionArray.removeValue(index)
-                                    }
+                                    onEmpty={() => optionArray.removeValue(i)}
                                   />
                                 )}
-                              />
+                              </form.AppField>
                             ))}
                           </div>
                         </div>
                       </ListRow>
 
+                      {/* DISTRACTORS */}
                       <ListRow hover={false} fill px="px-4" py="py-2">
                         <div className="flex flex-col w-full">
-                          <p>Distractors: </p>
+                          <p>Distractors:</p>
                           <div
                             className={`w-full py-2 px-4 grid ${
                               exercise.exerciseType == "CLOZE"
                                 ? "grid-cols-3 auto-rows-auto"
-                                : "grid-cols-1 "
-                            }  gap-2 items-start`}
+                                : "grid-cols-1"
+                            } gap-2 items-start`}
                           >
-                            {initialDistractors.map((option, index) => (
+                            {initialDistractors.map(({ opt, i }) => (
                               <form.AppField
-                                key={option.content}
-                                name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].options[${index}].content`}
-                                children={(optionContent) => (
+                                name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].options[${i}].content`}
+                              >
+                                {() => (
                                   <ExerciseOptionInputField
-                                    onEmpty={() =>
-                                      optionArray.removeValue(index)
-                                    }
+                                    onEmpty={() => optionArray.removeValue(i)}
                                   />
                                 )}
-                              />
+                              </form.AppField>
                             ))}
                           </div>
                         </div>
@@ -129,7 +132,7 @@ export const ExerciseSubForm = withForm({
                     </>
                   );
                 }}
-              />
+              </form.Field>
             </ListContainer>
           );
         }}
