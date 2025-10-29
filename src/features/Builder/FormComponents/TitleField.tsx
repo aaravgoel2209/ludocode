@@ -1,7 +1,13 @@
 import { useStore } from "@tanstack/react-form";
 import { useFieldContext } from "../../../form/formKit";
 
-export default function TitleField({ deletable }: { deletable?: boolean }) {
+export default function TitleField({
+  deletable,
+  onDelete,
+}: {
+  deletable?: boolean;
+  onDelete?: () => void;
+}) {
   const field = useFieldContext<string>();
 
   const errors = useStore(field.store, (state) => state.meta.errors);
@@ -16,6 +22,11 @@ export default function TitleField({ deletable }: { deletable?: boolean }) {
       />
       {deletable && (
         <button
+          onClick={() => {
+            if (isEmpty) {
+              onDelete?.()
+            }
+          }}
           disabled={!isEmpty}
           className={
             isEmpty

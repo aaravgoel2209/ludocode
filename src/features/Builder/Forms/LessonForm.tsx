@@ -31,7 +31,11 @@ export const LessonForm = withForm({
             <ListContainer title="Lessons">
               {fieldArray.state.value.map((l, index) => (
                 <form.AppField
-                  key={l.id}
+                  key={
+                    form.state.values.modules[mi].lessons[index]?.id ??
+                    form.state.values.modules[mi].lessons[index]?.tempId ??
+                    `idx-${index}`
+                  }
                   name={`modules[${mi}].lessons[${index}]`}
                   children={(subField) => (
                     <ListRow px="0" py="0" hover={false}>
@@ -40,7 +44,10 @@ export const LessonForm = withForm({
                           key={`tit-"${mi}-${moduleId}`}
                           name={`modules[${mi}].lessons[${index}].title`}
                           children={(field) => (
-                            <field.TitleField deletable={true} />
+                            <field.TitleField
+                              onDelete={() => fieldArray.removeValue(index)}
+                              deletable={true}
+                            />
                           )}
                         />
 

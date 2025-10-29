@@ -42,7 +42,13 @@ export const ModuleForm = withForm({
                           <form.AppField
                             name={`modules[${index}].title`}
                             children={(field) => (
-                              <field.TitleField deletable={true} />
+                              <field.TitleField
+                                onDelete={() => {
+                                  fieldArray.removeValue(index);
+
+                                }}
+                                deletable={true}
+                              />
                             )}
                           />
                           <OrderSelector
@@ -55,7 +61,7 @@ export const ModuleForm = withForm({
                           />
                         </div>
                         <SelectionSideTab
-                          active={moduleId == subField.state.value.moduleId}
+                          active={!!moduleId && moduleId == subField.state.value.moduleId}
                           onClick={() =>
                             router.navigate(
                               ludoNavigation.build.toBuilder(
