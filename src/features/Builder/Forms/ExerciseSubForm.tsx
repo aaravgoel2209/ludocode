@@ -62,7 +62,11 @@ export const ExerciseSubForm = withForm({
                                 name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].options[${index}].content`}
                                 key={option.content}
                                 children={(optionContent) => (
-                                  <ExerciseOptionInputField />
+                                  <ExerciseOptionInputField
+                                    onEmpty={() =>
+                                      optionArray.removeValue(index)
+                                    }
+                                  />
                                 )}
                               />
                             ))}
@@ -85,7 +89,11 @@ export const ExerciseSubForm = withForm({
                                 key={option.content}
                                 name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].options[${index}].content`}
                                 children={(optionContent) => (
-                                  <ExerciseOptionInputField />
+                                  <ExerciseOptionInputField
+                                    onEmpty={() =>
+                                      optionArray.removeValue(index)
+                                    }
+                                  />
                                 )}
                               />
                             ))}

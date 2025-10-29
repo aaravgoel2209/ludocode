@@ -1,24 +1,27 @@
-import { HollowSlot } from "../../../components/Atoms/Slot/HollowSlot";
+import { Textarea } from "@/components/ui/textarea";
 import { useFieldContext } from "../../../form/formKit";
 
-type ExerciseOptionInputFieldProps = {};
+type ExerciseOptionInputFieldProps = { onEmpty: () => void };
 
-export function ExerciseOptionInputField({}: ExerciseOptionInputFieldProps) {
+export function ExerciseOptionInputField({
+  onEmpty,
+}: ExerciseOptionInputFieldProps) {
   const field = useFieldContext<string>();
 
   const val = field.state.value ?? "";
   const ph = "…";
 
-  
-
   return (
-    <HollowSlot padding="px-3 py-0.5 w-full border border-ludoLightPurple">
-      <textarea
-        className="outline-none text-md w-full border-none p-2"
-        placeholder={ph}
-        value={val}
-        onChange={(e) => field.handleChange(e.target.value)}
-      />
-    </HollowSlot>
+    <Textarea
+      placeholder={ph}
+      value={val}
+      onChange={(e) => field.handleChange(e.target.value)}
+      onBlur={() => {
+        if (!val.trim()) {
+          onEmpty();
+        }
+      }}
+      className="w-full resize-none min-h-8 overflow-hidden"
+    />
   );
 }
