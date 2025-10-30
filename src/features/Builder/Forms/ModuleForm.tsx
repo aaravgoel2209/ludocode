@@ -19,6 +19,7 @@ export const ModuleForm = withForm({
     courseId: "" as string,
   },
   render: ({ form, moduleId, courseId }) => {
+    console.log("FSV: " + JSON.stringify(form.state.values.modules));
     return (
       <form.Field name="modules" mode="array">
         {(fa) => (
@@ -26,6 +27,7 @@ export const ModuleForm = withForm({
             <div className="flex flex-col py-6">
               <ListContainer title="Modules">
                 {fa.state.value.map((m, index) => {
+                  console.log(m);
                   if (!m) return null;
                   const thisId = m.moduleId;
 
@@ -97,11 +99,18 @@ export const ModuleForm = withForm({
                   );
                 })}
 
-                <ListRow alignment="center" fill py="py-2" onClick={() => fa.pushValue({
-                    moduleId: uuid(),
-                    title: "",
-                    lessons: []
-                })}>
+                <ListRow
+                  alignment="center"
+                  fill
+                  py="py-2"
+                  onClick={() =>
+                    fa.pushValue({
+                      moduleId: uuid(),
+                      title: "",
+                      lessons: [],
+                    })
+                  }
+                >
                   <p className="text-center text-xl font-bold">+</p>
                 </ListRow>
               </ListContainer>

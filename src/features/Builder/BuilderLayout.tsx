@@ -15,15 +15,17 @@ import { ExerciseForm } from "./Forms/ExerciseForm";
 type BuilderLayoutProps = {};
 
 export function BuilderLayout({}: BuilderLayoutProps) {
-  const { snapshots } = buildRoute.useLoaderData() as {
-    snapshots: ModuleSnapshot[];
-  };
+  const { courseSnapshot } = buildRoute.useLoaderData()
+  const typedSnapshot : CourseSnap = courseSnapshot
 
-  const { courseId, moduleId } = buildRoute.useParams();
+  const courseId = typedSnapshot.courseId
+  const modules = typedSnapshot.modules
+
+  const { moduleId } = buildRoute.useParams();
 
   const form = useAppForm({
     ...courseFormOpts,
-    defaultValues: { courseId, modules: snapshots },
+    defaultValues: { courseId, modules },
     onSubmit: () => {},
   });
 
@@ -34,6 +36,7 @@ export function BuilderLayout({}: BuilderLayoutProps) {
   useEffect(() => {
     setCurrentExerciseIndex(0);
   }, [moduleId, lessonId]);
+
   return (
     <form.AppForm>
       <div className="grid grid-rows-[1fr_auto] min-h-0">

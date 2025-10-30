@@ -83,7 +83,8 @@ export async function builderPageLoader(
     throw redirect({ to: RP_AUTH, replace: true });
   }
 
-  const snapshots = await queryClient.ensureQueryData(qo.courseSnapshot(courseId))
-  return {snapshots, moduleId, courseId}
+  const courseSnapshot = await queryClient.ensureQueryData(qo.courseSnapshot(courseId))
+  console.log(JSON.stringify(courseSnapshot.modules))
+  return {courseSnapshot}
 
 }

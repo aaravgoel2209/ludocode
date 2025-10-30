@@ -4,7 +4,7 @@ import {
   createFormHookContexts,
   formOptions,
 } from "@tanstack/react-form";
-import type { ModuleSnapshot } from "../Types/Snapshot/SnapshotTypes";
+import type { CourseSnap, ModuleSnapshot } from "../Types/Snapshot/SnapshotTypes";
 import TitleField from "../features/Builder/Fields/TitleField";
 import { AddExerciseFieldButton } from "../features/Builder/Fields/AddExerciseFieldButton";
 
@@ -21,5 +21,5 @@ export const { useAppForm, withForm } = createFormHook({
 });
 
 export const courseFormOpts = formOptions({
-  defaultValues: { courseId: "", modules: [] as ModuleSnapshot[] },
+  defaultValues: { courseId: "", modules: [] as ModuleSnapshot[] } as CourseSnap,
 });
