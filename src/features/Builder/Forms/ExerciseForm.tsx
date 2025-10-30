@@ -6,6 +6,7 @@ import { ExerciseSubForm } from "./ExerciseSubForm";
 import { buildRoute } from "../../../routes/router";
 import { AddExerciseFieldButton } from "../Fields/AddExerciseFieldButton";
 import { ExerciseIndexSlot } from "../UI/ExerciseIndexSlot";
+import { ExerciseSnapSchema } from "@/Types/Zod/ExerciseSnapSchema";
 
 export const ExerciseForm = withForm({
   ...courseFormOpts,
@@ -49,14 +50,27 @@ export const ExerciseForm = withForm({
               <div className="w-full py-2 px-4 rounded-3xl flex bg-ludoGrayLight items-center gap-4">
                 {<AddExerciseFieldButton />}
                 {fieldArray.state.value.map((_, index) => (
-                  <ExerciseIndexSlot
-                    onClick={() => changeCurrentIndex(index)}
-                    active={currentIndex == index}
-                    index={index}
+                  <form.AppField
+                    name={`modules[${mi}].lessons[${li}].exercises[${index}]`}
+                    validators={{
+                      onChange: ExerciseSnapSchema,
+                      onSubmit: ExerciseSnapSchema,
+                    }}
+                    children={(subField) => {
+                      const perExerciseError =
+                        (subField.state.meta?.errors?.length ?? 0) > 0;
+                      return (
+                        <ExerciseIndexSlot
+                          hasError={perExerciseError}
+                          onClick={() => changeCurrentIndex(index)}
+                          active={currentIndex == index}
+                          index={index}
+                        />
+                      );
+                    }}
                   />
                 ))}
               </div>
-
             </div>
           </AsideComponent>
         )}

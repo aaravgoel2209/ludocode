@@ -57,6 +57,7 @@ const Info = Base.extend({
   exerciseType: z.literal("INFO"),
 }).superRefine((v, ctx) => {
   if (!v.title) ctx.addIssue({ code: "custom", path: ["title"], message: "Title required" });
+  if (v.correctOptions.length !== 0) ctx.addIssue({ code: "custom", path: ["correctOptions"], message: "INFO must not have Correct Options" });
   if (v.distractors.length !== 0) ctx.addIssue({ code: "custom", path: ["distractors"], message: "INFO must not have distractors" });
 });
 
