@@ -21,7 +21,7 @@ export const ExerciseSubForm = withForm({
         name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}]`}
         children={(exerciseField) => {
           const exercise = exerciseField.state.value;
-          if (!exercise || !exercise.title) return null; 
+          if (!exercise) return null;
 
           return (
             <ListContainer title={exerciseField.state.value.title}>
@@ -61,7 +61,9 @@ export const ExerciseSubForm = withForm({
                                   />
                                   <OrderSelector
                                     index={index}
-                                    count={correctOptionsArray.state.value.length}
+                                    count={
+                                      correctOptionsArray.state.value.length
+                                    }
                                     prefix=""
                                     onChange={(newIndex) =>
                                       correctOptionsArray.moveValue(
@@ -125,12 +127,17 @@ export const ExerciseSubForm = withForm({
                     name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises[${currentExerciseIndex}].correctOptions`}
                     children={(optionArray) => (
                       <button
-                        onClick={() =>
-                          optionArray.pushValue({
-                            content: "Sample",
-                            answerOrder: optionArray.state.value.length + 1,
-                          })
-                        }
+                        onClick={() => {
+                          if (
+                            exercise.exerciseType == "CLOZE" ||
+                            optionArray.state.value.length < 1
+                          ) {
+                            optionArray.pushValue({
+                              content: "Sample",
+                              answerOrder: optionArray.state.value.length + 1,
+                            });
+                          }
+                        }}
                         className="py-0.5 px-2 border-ludoLightPurple border-2 rounded-md"
                       >
                         Add Correct

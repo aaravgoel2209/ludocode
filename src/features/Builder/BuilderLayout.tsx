@@ -41,6 +41,7 @@ export function BuilderLayout({}: BuilderLayoutProps) {
       );
 
       qc.setQueryData(qk.courseSnapshot(fresh.courseId), fresh);
+      form.update({defaultValues: fresh})
       form.reset();
     },
   });

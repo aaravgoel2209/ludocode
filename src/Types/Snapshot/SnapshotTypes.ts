@@ -11,7 +11,8 @@ export type CourseSnap = {
 };
 
 export type ModuleSnapshot = {
-  moduleId: string; // UUID string
+  moduleId: string | null;
+  tempId: string;
   title: string;
   lessons: LessonSnap[];
 };

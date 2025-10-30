@@ -18,7 +18,7 @@ export const ExerciseForm = withForm({
     const { lessonId } = buildRoute.useSearch();
 
     const mods = form.state.values.modules;
-    const mi = mods.findIndex((m) => m.moduleId === moduleId);
+    const mi = mods.findIndex((m) => m.tempId === moduleId);
     if (mi < 0) return null;
 
     const lessons = mods[mi].lessons;
@@ -30,7 +30,7 @@ export const ExerciseForm = withForm({
     return (
       <form.AppField
         name={`modules[${mi}].lessons[${li}].exercises`}
-        key={`ex-list-${mi}-${li}`}
+        key={`ex-list-${mi}-${li}-${lessonId}`}
         mode="array"
         children={(fieldArray) => (
           <AsideComponent
