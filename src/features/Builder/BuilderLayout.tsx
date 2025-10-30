@@ -19,8 +19,8 @@ type BuilderLayoutProps = {};
 export function BuilderLayout({}: BuilderLayoutProps) {
   const { courseSnapshot } = buildRoute.useLoaderData();
   const typedSnapshot = CourseSnapSchema.parse(courseSnapshot);
-  const courseId: string = typedSnapshot.courseId
-  const modules: ModuleSnap[] = typedSnapshot.modules
+  const courseId: string = typedSnapshot.courseId;
+  const modules: ModuleSnap[] = typedSnapshot.modules;
 
   const qc = useQueryClient();
   const { moduleId } = buildRoute.useParams();
@@ -28,7 +28,7 @@ export function BuilderLayout({}: BuilderLayoutProps) {
 
   const form = useAppForm({
     ...courseFormOpts,
-    defaultValues: {courseId, modules},
+    defaultValues: { courseId, modules },
     onSubmit: async ({ value }) => {
       const fresh = await ludoPost<CourseSnap>(
         SUBMIT_COURSE_SNAPSHOT,
@@ -70,7 +70,10 @@ export function BuilderLayout({}: BuilderLayoutProps) {
             <ActionButton
               text="submit"
               active={true}
-              onClick={() => form.handleSubmit()}
+              onClick={async () => {
+                await form.validate("submit");
+                form.handleSubmit();
+              }}
             />
           </div>
         </LessonFooter>
