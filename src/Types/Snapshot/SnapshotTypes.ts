@@ -1,28 +1,35 @@
-import type { ExerciseType } from "../Exercise/ExerciseType"
+import type { ExerciseType } from "../Exercise/ExerciseType";
 
 export type OptionSnap = {
-  content: string
-  answerOrder: number | null
-}
+  content: string;
+  answerOrder: number | null;
+};
+
+export type CourseSnap = {
+  courseId: string;
+  modules: ModuleSnapshot[];
+};
 
 export type ModuleSnapshot = {
-  moduleId: string        // UUID string
-  title: string
-  lessons: LessonSnap[]
-}
+  moduleId: string | null;
+  tempId: string;
+  title: string;
+  lessons: LessonSnap[];
+};
 
 export type ExerciseSnap = {
-  id: string | null   // UUID string or null
-  title: string
-  prompt: string
-  exerciseType: ExerciseType    // your existing enum
-  options: OptionSnap[]
-}
+  id: string | null; // UUID string or null
+  title: string;
+  prompt: string;
+  exerciseType: ExerciseType; // your existing enum
+  correctOptions: OptionSnap[];
+  distractors: OptionSnap[];
+};
 
 export type LessonSnap = {
-  id: string | null   // UUID string or null
-  tempId: string      // UUID string
-  title: string
-  orderIndex: number
-  exercises: ExerciseSnap[]
-}
+  id: string | null; // UUID string or null
+  tempId: string; // UUID string
+  title: string;
+  orderIndex: number;
+  exercises: ExerciseSnap[];
+};

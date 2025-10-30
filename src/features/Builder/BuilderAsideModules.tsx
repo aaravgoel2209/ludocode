@@ -15,7 +15,7 @@ export function BuilderAsideModules({modules, moduleId, courseId}: BuilderAsideM
           <ListContainer title="Modules">
             {modules.map((module: ModuleSnapshot) => (
               <ListRow
-                onClick={() => router.navigate(ludoNavigation.build.toBuilder(courseId, module.moduleId))}
+                onClick={() => router.navigate(ludoNavigation.build.toBuilder(courseId, module.tempId))}
                 key={module.moduleId}
                 active={moduleId === module.moduleId}
               >
