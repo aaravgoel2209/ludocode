@@ -22,27 +22,6 @@ export const ModuleSnapshotSchema = z
       });
     }
 
-    // --- lesson orderIndex ---
-    const orders = m.lessons.map((l) => l.orderIndex);
-    const set = new Set(orders);
-    if (set.size !== orders.length) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["lessons"],
-        message: "Each lesson must have a unique orderIndex",
-      });
-    }
-
-    const max = Math.max(...orders);
-    const min = Math.min(...orders);
-    if (min !== 1 || max !== m.lessons.length) {
-      ctx.addIssue({
-        code: "custom",
-        path: ["lessons"],
-        message: "orderIndex must be contiguous from 1 to lessons.length",
-      });
-    }
-
     // --- Lesson ID and tempId uniqueness ---
     const ids = m.lessons.map((l) => l.id).filter(Boolean) as string[];
     const tempIds = m.lessons.map((l) => l.tempId);

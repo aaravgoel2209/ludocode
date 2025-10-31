@@ -29,17 +29,24 @@ export function BuilderLayout({}: BuilderLayoutProps) {
   const form = useAppForm({
     ...courseFormOpts,
     defaultValues: { courseId, modules },
-    onSubmit: async ({ value }) => {
+  onSubmit: async ({ value }) => {
+    try {
+      console.log("1")
       const fresh = await ludoPost<CourseSnap>(
         SUBMIT_COURSE_SNAPSHOT,
         value,
         true
       );
+      console.log("2")
+
       qc.setQueryData(qk.courseSnapshot(fresh.courseId), fresh);
       form.update({ defaultValues: fresh });
       form.reset();
-    },
-  });
+    } catch (err) {
+      console.log("Error")
+      console.error("❌ Submission failed:", err);
+    }}
+});
 
   const [currentExerciseIndex, setCurrentExerciseIndex] = useState<number>(0);
   const changeCurrentExerciseIndex = (index: number) =>
@@ -71,7 +78,10 @@ export function BuilderLayout({}: BuilderLayoutProps) {
               text="submit"
               active={true}
               onClick={async () => {
-                await form.validate("submit");
+              console.log( "hi" )
+                const result = await form.validate("submit");
+                console.log(JSON.stringify(result))
+
                 form.handleSubmit();
               }}
             />

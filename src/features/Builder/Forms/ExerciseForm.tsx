@@ -7,6 +7,8 @@ import { buildRoute } from "../../../routes/router";
 import { AddExerciseFieldButton } from "../Fields/AddExerciseFieldButton";
 import { ExerciseIndexSlot } from "../UI/ExerciseIndexSlot";
 import { ExerciseSnapSchema } from "@/Types/Zod/ExerciseSnapSchema";
+import { ListRow } from "@/components/Atoms/Row/ListRow";
+import { OrderSelector } from "../UI/OrderSelector";
 
 export const ExerciseForm = withForm({
   ...courseFormOpts,
@@ -46,6 +48,19 @@ export const ExerciseForm = withForm({
                 lessonIndex={li}
                 currentExerciseIndex={currentIndex}
               />
+              <ListRow>
+                <div className="w-full">
+                    <OrderSelector
+                      index={currentIndex}
+                      count={fieldArray.state.value.length}
+                      onChange={(newIndex) => {
+                        fieldArray.moveValue(currentIndex, newIndex)
+                        changeCurrentIndex(newIndex)
+                      }}
+                      className="border-ludoLightPurple hover:cursor-pointer border-2 rounded-md w-20"
+                    />
+                </div>
+              </ListRow>
 
               <div className="w-full py-2 px-4 rounded-3xl flex bg-ludoGrayLight items-center gap-4">
                 {<AddExerciseFieldButton />}
