@@ -16,6 +16,7 @@ import type {
 import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
 import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
 import { useCommitAttempt } from "./useCommitAttempt";
+import { playSound } from "@/Sounds/soundManager";
 
 type Args = {
   exercises: LudoExercise[];
@@ -54,11 +55,18 @@ export function useExerciseFlow({
   const { buffer, clear } = bufferState;
 
   const allSlotsFilled = areAllFilled(buffer);
-  const allSlotsValid = allSlotsFilled && areAllValid(buffer, currentExercise);
+  const allSlotsValid = (currentExercise.exerciseType == "INFO") || allSlotsFilled && areAllValid(buffer, currentExercise);
 
   const submitAttemptBuffer = useCallback(() => {
     if (!allSlotsValid) return;
     const isCorrect = checkCorrect(buffer, currentExercise);
+    if (isCorrect) {
+      playSound("correct")
+    } else {
+      playSound("wrong")
+    } 
+
+
     setSubmissionBuffer({
       exerciseId: currentExercise.id,
       isCorrect,
@@ -69,6 +77,7 @@ export function useExerciseFlow({
   const { commitAttempt } = useCommitAttempt({
     position,
     exercises,
+    exerciseId: currentExercise.id,
     lesson,
     clear,
     submissionBuffer,
@@ -93,6 +102,6 @@ export type ExerciseFlowResponse = {
   bufferState: AttemptBufferResponse;
   submissionBuffer: ExerciseAttempt | null;
   submitAttemptBuffer: () => void;
-  commitAttempt: () => void;
+  commitAttempt: (info?: boolean) => void;
   canSubmit: boolean;
 };
