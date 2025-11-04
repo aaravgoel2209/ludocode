@@ -44,6 +44,8 @@ import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.t
 import { BuilderLayout } from "../features/Builder/BuilderLayout.tsx";
 import { ensureTreeData } from "./routerEnsures.ts";
 import { OnboardingLayout } from "@/features/Onboarding/OnboardingLayout.tsx";
+import { stepOrder, type StageKey } from "@/Types/Onboarding/OnboardingSteps.ts";
+import { OnboardingStagePage } from "@/features/Onboarding/OnboardingStagePage.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -59,18 +61,21 @@ const authedRoute = createRoute({
   getParentRoute: () => rootRoute,
   id: "authed",
   beforeLoad: async ({ location }) => {
-    const user = await queryClient.ensureQueryData(qo.currentUser()).catch(() => null)
-    if (!user) throw redirect({ to: RP_AUTH })
+    const user = await queryClient
+      .ensureQueryData(qo.currentUser())
+      .catch(() => null);
+    if (!user) throw redirect({ to: RP_AUTH });
 
-    if (location.pathname === RP_ONBOARDING) return
+    if (location.pathname === RP_ONBOARDING) return;
+    if (location.pathname.startsWith(RP_ONBOARDING)) return
 
     const currentCourseId = await queryClient
       .ensureQueryData(qo.currentCourseId())
-      .catch(() => null)
+      .catch(() => null);
 
-    if (!currentCourseId) throw redirect({ to: RP_ONBOARDING })
+    if (!currentCourseId) throw redirect({ to: RP_ONBOARDING });
   },
-})
+});
 
 export const siteRoute = createRoute({
   getParentRoute: () => authedRoute,
@@ -111,11 +116,24 @@ export const authRoute = createRoute({
   component: AuthPage,
 });
 
+// parent: /onboarding
 export const onboardingRoute = createRoute({
   getParentRoute: () => authedRoute,
-  path: RP_ONBOARDING,
-  component: OnboardingLayout,
-})
+  path: "onboarding",
+  component: OnboardingLayout, // must render <Outlet />
+});
+
+// child
+export const onboardingStageRoute = createRoute({
+  getParentRoute: () => onboardingRoute,
+  path: "$stage", // relative, no slash
+  parseParams: (p) => ({
+    stage: (stepOrder.includes(p.stage as StageKey) ? p.stage : "course") as StageKey,
+  }),
+  component: OnboardingStagePage,
+});
+
+
 
 export const profileMeRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
@@ -222,7 +240,7 @@ export const lessonRoute = createRoute({
 
 const routeTree = rootRoute.addChildren([
   authedRoute.addChildren([
-    onboardingRoute,
+    onboardingRoute.addChildren([onboardingStageRoute]),
     siteRoute.addChildren([
       defaultSectionRoute.addChildren([
         courseRoute,
