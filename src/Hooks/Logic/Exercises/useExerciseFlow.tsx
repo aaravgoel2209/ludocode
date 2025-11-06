@@ -24,6 +24,8 @@ type Args = {
   position: number;
 };
 
+export type AnswerToken = {id?: string; value: string}
+
 export function useExerciseFlow({
   exercises,
   lesson,

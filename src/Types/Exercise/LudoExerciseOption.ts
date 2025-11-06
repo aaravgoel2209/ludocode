@@ -1,5 +1,5 @@
 export type LudoExerciseOption = {
-    id: number;
+    id: string;
     content: string;
     answerOrder: number | null;
     exerciseVersion: number;

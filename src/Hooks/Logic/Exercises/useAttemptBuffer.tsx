@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { findLastAttempt } from "./exerciseHelpers";
 import type { ExerciseSubmission } from "../../../Types/Exercise/LessonSubmissionTypes";
+import type { AnswerToken } from "./useExerciseFlow";
 
 type Args = {
   exerciseId: string;
@@ -8,21 +9,29 @@ type Args = {
   submissions: ExerciseSubmission[];
 };
 
+const makeEmpty = (): AnswerToken => ({ id: undefined, value: "" });
+
 export function useAttemptBuffer({
   exerciseId,
   gapCount,
   submissions,
 }: Args): AttemptBufferResponse {
-  const [buffer, setBuffer] = useState<string[]>(() =>
-    Array(gapCount).fill("")
+  const [buffer, setBuffer] = useState<AnswerToken[]>(() =>
+    Array.from({ length: gapCount }, makeEmpty)
   );
 
   const changeBufferExercise = useCallback(() => {
     const lastAttempt = findLastAttempt(submissions, exerciseId);
-    if (lastAttempt != null) {
-      setBuffer([...lastAttempt.answer]);
+    if (lastAttempt) {
+      // lastAttempt.answer might be strings or tokens; normalize to fresh tokens
+      const tokens: AnswerToken[] = lastAttempt.answer.map((a: any) =>
+        typeof a === "string"
+          ? { id: undefined, value: a }
+          : { id: a.id, value: a.value ?? "" }
+      );
+      setBuffer(tokens);
     } else {
-      setBuffer(Array(gapCount).fill(""));
+      setBuffer(Array.from({ length: gapCount }, makeEmpty));
     }
   }, [exerciseId, gapCount, submissions]);
 
@@ -30,36 +39,34 @@ export function useAttemptBuffer({
     changeBufferExercise();
   }, [changeBufferExercise]);
 
- const addAnswer = useCallback((value: string) => {
-    const trimmed = value.trim();
+  const addAnswer = useCallback((token: AnswerToken) => {
     setBuffer((prev) => {
-      const tempArray = [...prev];
-      const firstSlot = tempArray.findIndex((slot) => slot === "");
-      if (firstSlot === -1) return tempArray;
-      tempArray[firstSlot] = trimmed;
-      return tempArray;
+      const next = prev.slice();
+      const firstEmpty = next.findIndex((slot) => slot.value === "");
+      if (firstEmpty !== -1)
+        next[firstEmpty] = { id: token.id, value: token.value };
+      return next;
     });
   }, []);
 
-  const replaceAnswer = useCallback((index: number, value: string) => {
-    const trimmed = value.trim();
+  const replaceAnswer = useCallback((index: number, token: AnswerToken) => {
     setBuffer((prev) => {
-      const copy = [...prev];
-      copy[index] = trimmed;
-      return copy;
+      const next = prev.slice();
+      next[index] = { id: token.id, value: token.value };
+      return next;
     });
   }, []);
 
   const clear = useCallback(() => {
-    setBuffer(Array(gapCount).fill(""));
+    setBuffer(Array.from({ length: gapCount }, makeEmpty));
   }, [gapCount]);
 
   return { buffer, addAnswer, replaceAnswer, clear };
 }
 
 export type AttemptBufferResponse = {
-  buffer: string[];
-  addAnswer: (value: string) => void;
-  replaceAnswer: (index: number, value: string) => void;
+  buffer: AnswerToken[];
+  addAnswer: (token: AnswerToken) => void;
+  replaceAnswer: (index: number, token: AnswerToken) => void;
   clear: () => void;
 };

@@ -1,14 +1,17 @@
-import { useCallback, useRef, type RefObject } from "react";
-import type { LudoExerciseOption } from "../../../Types/Exercise/LudoExerciseOption";
-import { findNextEmptyIndex } from "../../../features/Exercise/util";
+import { findNextEmptyIndex } from "@/features/Exercise/util";
+import type { LudoExerciseOption } from "@/Types/Exercise/LudoExerciseOption";
+import { useCallback, useMemo, useRef } from "react";
+
+// types
+export type AnswerToken = { id?: string; value: string };
 
 type Args = {
   options: LudoExerciseOption[];
-  userResponses: string[];
+  userResponses: AnswerToken[]; // was string[]
 };
 
 type useInputAssistanceResponse = {
-  refs: RefObject<HTMLInputElement[]>;
+  refs: React.RefObject<HTMLInputElement[]>;
   jumpOnValidWord: (index: number, value: string) => void;
   focusPrev: (index: number) => void;
   focusNextEmptyAfter: (index: number) => void;
@@ -19,6 +22,11 @@ export function useInputAssistance({
   userResponses,
 }: Args): useInputAssistanceResponse {
   const optionPrompts = options.map((option) => option.content);
+
+  const responses = useMemo(
+    () => userResponses.map((t) => (t?.value ?? "").trim()),
+    [userResponses]
+  );
 
   const refs = useRef<HTMLInputElement[]>([]);
 
@@ -38,16 +46,17 @@ export function useInputAssistance({
     [options, optionPrompts]
   );
 
-  const jumpOnValidWord = (index: number, value: string) => {
-    const trimmed = value.trim();
-
-    if (optionPrompts.includes(trimmed)) {
-      const nextIndex = findNextEmptyIndex(index, userResponses);
-      if (nextIndex !== -1) {
-        refs.current[nextIndex]?.focus({ preventScroll: true });
+  const jumpOnValidWord = useCallback(
+    (index: number, raw: string) => {
+      const trimmed = raw.trim();
+      if (optionPrompts.includes(trimmed)) {
+        const nextIndex = findNextEmptyIndex(index, responses);
+        if (nextIndex !== -1)
+          refs.current[nextIndex]?.focus({ preventScroll: true });
       }
-    }
-  };
+    },
+    [optionPrompts, responses]
+  );
 
   return { refs, jumpOnValidWord, focusPrev, focusNextEmptyAfter };
 }

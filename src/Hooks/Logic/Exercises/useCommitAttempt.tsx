@@ -43,7 +43,7 @@ export function useCommitAttempt({
         const infoSubmission: ExerciseAttempt = {
           exerciseId: exerciseId,
           isCorrect: true,
-          answer: ["I"],
+          answer: [{id: uuidv4(), value: "I"}],
         };
         const merged = mergeAttempt(
           exerciseSubmissions,

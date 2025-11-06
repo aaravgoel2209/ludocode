@@ -3,19 +3,19 @@ import { ClickableOption } from "./ClickableOption";
 import { OptionListWrapper } from "../../components/Molecules/Wrapper/OptionListWrapper.tsx";
 import { ExerciseAnswerField } from "./ExerciseAnswerField";
 import { CodeBoxWrapper } from "../../components/Molecules/Wrapper/CodeBoxWrapper.tsx";
+import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance.tsx";
 
 type ClozeExerciseProps = {
   answerField: string;
   options: LudoExerciseOption[];
   distractors: LudoExerciseOption[];
-  userResponses: string[];
-  setAnswerAt: (index: number, value: string) => void;
-  addSelection: (option: string) => void;
+  userResponses: AnswerToken[];
+  setAnswerAt: (index: number, value: AnswerToken) => void;
+  addSelection: (option: AnswerToken) => void;
 };
 
 export function ClozeExercise({
   answerField,
-
   options,
   userResponses,
   setAnswerAt,
@@ -36,7 +36,7 @@ export function ClozeExercise({
         {options.map((option) => (
           <ClickableOption
             addSelection={addSelection}
-            option={option.content}
+            option={option}
             userSelections={userResponses}
           />
         ))}

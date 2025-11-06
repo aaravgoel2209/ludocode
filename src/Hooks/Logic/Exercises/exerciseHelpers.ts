@@ -3,6 +3,7 @@ import type {
   ExerciseSubmission,
 } from "../../../Types/Exercise/LessonSubmissionTypes";
 import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
+import type { AnswerToken } from "./useExerciseFlow";
 
 export function findLastAttempt(
   submissions: ExerciseSubmission[],
@@ -32,8 +33,6 @@ export function mergeAttempt(
 }
 
 
-type Opt = { content: string; answerOrder: number | null | undefined };
-
 const norm = (s: string) => (s ?? "").trim();
 
 export const getGapCount = (exercise: LudoExercise) =>
@@ -43,30 +42,28 @@ export const getGapCount = (exercise: LudoExercise) =>
     ? 0
     : 1;
 
-export function areAllFilled(buffer: string[]) {
-  return buffer.every((slot) => norm(slot) !== "");
+
+export function areAllFilled(buffer: AnswerToken[]) {
+  return buffer.every(t => norm(t.value) !== "");
 }
 
-export function areAllValid(buffer: string[], exercise: LudoExercise) {
+export function areAllValid(buffer: AnswerToken[], exercise: LudoExercise) {
   const allowed = new Set(
-    [...exercise.correctOptions, ...exercise.distractors].map((o) =>
+    [...exercise.correctOptions, ...exercise.distractors].map(o =>
       norm(o.content)
     )
   );
-  return buffer.every((slot) => allowed.has(norm(slot)));
+  return buffer.every(t => allowed.has(norm(t.value)));
 }
 
-export function checkCorrect(buffer: string[], exercise: LudoExercise): boolean {
+export function checkCorrect(buffer: AnswerToken[], exercise: LudoExercise): boolean {
   const correct = exercise.correctOptions
     .slice()
-    .sort((a: Opt, b: Opt) => (a.answerOrder ?? 0) - (b.answerOrder ?? 0))
-    .map((o) => norm(o.content));
+    .sort((a, b) => a.answerOrder! - b.answerOrder!)
+    .map(o => norm(o.content));
 
-  const candidate = buffer.map(norm);
+  const candidate = buffer.map(t => norm(t.value));
 
   if (candidate.length !== correct.length) return false;
-  for (let i = 0; i < candidate.length; i++) {
-    if (candidate[i] !== correct[i]) return false;
-  }
-  return true;
+  return candidate.every((c, i) => c === correct[i]);
 }

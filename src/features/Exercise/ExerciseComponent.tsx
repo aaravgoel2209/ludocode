@@ -1,3 +1,4 @@
+import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance";
 import type { LudoExercise } from "../../Types/Exercise/LudoExercise";
 import { AnalyzeExercise } from "./AnalyzeExercise";
 import { ClozeExercise } from "./ClozeExercise";
@@ -7,9 +8,9 @@ import { TriviaExercise } from "./TriviaExercise";
 
 type ExerciseComponentProps = {
   exercise: LudoExercise;
-  userResponses: string[];
-  setAnswerAt: (index: number, value: string) => void;
-  addAnswer: (option: string) => void;
+  userResponses: AnswerToken[];
+  setAnswerAt: (index: number, value: AnswerToken) => void;
+  addAnswer: (option: AnswerToken) => void;
 };
 
 export function ExerciseComponent({
