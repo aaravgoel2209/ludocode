@@ -3,6 +3,7 @@ import type {
   ExerciseSubmission,
 } from "../../../Types/Exercise/LessonSubmissionTypes";
 import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
+import type { AnswerToken } from "./useExerciseFlow";
 
 export function findLastAttempt(
   submissions: ExerciseSubmission[],
@@ -31,46 +32,38 @@ export function mergeAttempt(
   return next;
 }
 
-export const getGapCount = (exercise: LudoExercise) => {
-  if (exercise.exerciseType != "CLOZE") {
-    return 1;
-  } else {
-    return (exercise.prompt ?? exercise.title).split("___").length - 1;
-  }
-};
 
-export function areAllFilled(buffer: string[]) {
-  return buffer.every((slot) => slot.trim() !== "");
+const norm = (s: string) => (s ?? "").trim();
+
+export const getGapCount = (exercise: LudoExercise) =>
+  exercise.exerciseType === "CLOZE"
+    ? ((exercise.prompt ?? exercise.title ?? "").match(/___/g) ?? []).length
+    : exercise.exerciseType === "INFO"
+    ? 0
+    : 1;
+
+
+export function areAllFilled(buffer: AnswerToken[]) {
+  return buffer.every(t => norm(t.value) !== "");
 }
 
-export function areAllValid(buffer: string[], exercise: LudoExercise) {
-  return buffer.every((slot) => {
-    return exercise.exerciseOptions
-      .map((option) => option.content)
-      .includes(slot.trim());
-  });
-}
-
-export function checkCorrect(
-  buffer: string[],
-  exercise: LudoExercise
-): boolean {
-  const correctOptions = exercise.exerciseOptions.filter(
-    (o) => o.answerOrder !== null
+export function areAllValid(buffer: AnswerToken[], exercise: LudoExercise) {
+  const allowed = new Set(
+    [...exercise.correctOptions, ...exercise.distractors].map(o =>
+      norm(o.content)
+    )
   );
+  return buffer.every(t => allowed.has(norm(t.value)));
+}
 
-  const expected = correctOptions
+export function checkCorrect(buffer: AnswerToken[], exercise: LudoExercise): boolean {
+  const correct = exercise.correctOptions
+    .slice()
     .sort((a, b) => a.answerOrder! - b.answerOrder!)
-    .map((o) => o.content.trim());
+    .map(o => norm(o.content));
 
-  const candidate = buffer.map((s) => (s ?? "").trim());
+  const candidate = buffer.map(t => norm(t.value));
 
-  if (candidate.length !== expected.length) return false;
-
-  if (candidate.some((s) => s === "")) return false;
-
-  const correctContents = new Set(correctOptions.map((o) => o.content.trim()));
-  if (candidate.some((s) => !correctContents.has(s))) return false;
-
-  return candidate.every((s, i) => s === expected[i]);
+  if (candidate.length !== correct.length) return false;
+  return candidate.every((c, i) => c === correct[i]);
 }

@@ -3,13 +3,14 @@ import { OptionListWrapper } from "../../components/Molecules/Wrapper/OptionList
 import { ExerciseAnswerField } from "./ExerciseAnswerField";
 import { CodeBoxWrapper } from "../../components/Molecules/Wrapper/CodeBoxWrapper.tsx";
 import { WideClickableOption } from "./WideClickableOption";
+import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance.tsx";
 
 type AnalyzeExerciseProps = {
   answerField: string;
   options: LudoExerciseOption[];
-  userResponses: string[];
-  setAnswerAt: (index: number, value: string) => void;
-  addSelection: (option: string) => void;
+  userResponses: AnswerToken[];
+  setAnswerAt: (index: number, value: AnswerToken) => void;
+  addSelection: (option: AnswerToken) => void;
 };
 
 export function AnalyzeExercise({
@@ -33,7 +34,7 @@ export function AnalyzeExercise({
         {options.map((option) => (
           <WideClickableOption
             setAnswerAt={setAnswerAt}
-            option={option.content}
+            option={option}
             userSelections={userResponses}
           />
         ))}

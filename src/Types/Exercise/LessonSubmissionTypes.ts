@@ -1,3 +1,5 @@
+import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance";
+
 export type LessonSubmission = {
   id: string;
   lessonId: string;
@@ -13,5 +15,5 @@ export type ExerciseSubmission = {
 export type ExerciseAttempt = {
   exerciseId: string;
   isCorrect: boolean;
-  answer: string[];
+  answer: AnswerToken[];
 };

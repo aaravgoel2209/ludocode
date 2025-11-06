@@ -1,7 +1,10 @@
+import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance";
+import type { LudoExerciseOption } from "@/Types/Exercise/LudoExerciseOption";
+
 type ClickableOptionProps = {
-  option: string;
-  userSelections: string[];
-  addSelection: (option: string) => void;
+  option: LudoExerciseOption;
+  userSelections: AnswerToken[];
+  addSelection: (option: AnswerToken) => void;
 };
 
 export function ClickableOption({
@@ -11,11 +14,11 @@ export function ClickableOption({
 }: ClickableOptionProps) {
   const norm = (s: string) => s.trim();
 
-  const isSelected = userSelections.some((s) => norm(s) === norm(option));
+  const isSelected = userSelections.some((s) => (s.id && option.id) && norm(s.id) === norm(option.id));
 
   const handleClick = () => {
     if (isSelected) return;
-    addSelection(option);
+    addSelection({id: option.id, value: option.content});
   };
 
   const allowedStyle = `text-white border-ludoGrayLight/50`;
@@ -27,7 +30,7 @@ export function ClickableOption({
       onClick={() => handleClick()}
       className={`py-2 hover:cursor-pointer ${displayStyle} px-4 border-3 border-ludoGrayLight rounded-xl`}
     >
-      <p className="text-lg">{option}</p>
+      <p className="text-lg">{option.content}</p>
     </div>
   );
 }
