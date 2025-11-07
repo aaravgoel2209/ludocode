@@ -28,7 +28,7 @@ export function OptionInputField({
   };
 
   return (
-    <span className="inline-block align-baseline relative">
+    <span className="inline-block code align-baseline relative">
       <input
         ref={inputRef}
         value={value}

@@ -4,25 +4,25 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-ludoGrayDark: #22273E;
+  --color-ludoGrayDark: #22273e;
   --color-ludoGrayLight: #303966;
   --color-ludoGraySoft: #d9d9d9;
   --color-ludoYellow: #fff887;
-  --color-ludoLightPurple: #C1ADFF;
-  --color-ludoGrayLightShadow: #262E57;
+  --color-ludoLightPurple: #c1adff;
+  --color-ludoGrayLightShadow: #262e57;
   --color-ludoGrayText: #364153;
 
-  --shadow-ludoDarkPurpleShadow: 0 6px 0 #8F6AFF;
+  --shadow-ludoDarkPurpleShadow: 0 6px 0 #8f6aff;
 
-  --shadow-buttonShadow: 0 10px 0 #262E57;
+  --shadow-buttonShadow: 0 10px 0 #262e57;
 
   --color-ludoBlueGray: #323b44;
 
-  --color-ludoPastelYellow: #FFCDAA;
-  --color-ludoPink: #FF7BC0;
+  --color-ludoPastelYellow: #ffcdaa;
+  --color-ludoPink: #ff7bc0;
 
-  --color-pythonYellow: #FFD140;
-  --color-pythonBlue: #376F9E;
+  --color-pythonYellow: #ffd140;
+  --color-pythonBlue: #376f9e;
 }
 
 @font-face {
@@ -67,6 +67,48 @@
   font-style: italic;
 }
 
+@font-face {
+  font-family: "NeueHaasDisplay";
+  src: url("/fonts/NeueHaasDisplayLight.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeueHaasDisplay";
+  src: url("/fonts/NeueHaasDisplayLightItalic.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "NeueHaasDisplay";
+  src: url("/fonts/NeueHaasDisplayRoman.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeueHaasDisplay";
+  src: url("/fonts/NeueHaasDisplayRomanItalic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "NeueHaasDisplay";
+  src: url("/fonts/NeueHaasDisplayMedium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeueHaasDisplay";
+  src: url("/fonts/NeueHaasDisplayMediumItalic.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+}
+
 @layer utilities {
   .scrollbar-ludoYellow {
     scrollbar-width: thin;
@@ -98,6 +140,10 @@
 }
 
 body {
+  font-family: "NeueHaasDisplay", monospace;
+}
+
+.code {
   font-family: "DMMono", monospace;
 }
 
