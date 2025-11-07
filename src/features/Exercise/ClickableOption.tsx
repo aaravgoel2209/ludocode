@@ -28,7 +28,7 @@ export function ClickableOption({
   return (
     <div
       onClick={() => handleClick()}
-      className={`py-2 hover:cursor-pointer ${displayStyle} px-4 border-3 border-ludoGrayLight rounded-xl`}
+      className={`py-2 code hover:cursor-pointer ${displayStyle} px-4 border-3 border-ludoGrayLight rounded-xl`}
     >
       <p className="text-lg">{option.content}</p>
     </div>

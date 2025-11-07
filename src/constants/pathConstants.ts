@@ -25,7 +25,6 @@ export const GET_COURSE_PROGRESS_FROM_IDS = (courseIds: string) =>
 export const GET_USER_STATS_FROM_USER_IDS = (userIds: string) =>
   API_PATH + `/progress/stats/ids?${userIds}`;
 
-export const CHANGE_COURSE = API_PATH + `/progress/course/update/course`;
 
 export const GOOGLE_LOGIN = API_PATH + `/auth/google-login`;
 
@@ -40,9 +39,10 @@ export const GET_EXERCISES_FROM_LESSON = (lessonId: string) =>
 
 export const GET_ENROLLED_IDS = API_PATH + `/progress/course/enrolled`;
 
-export const SUBMIT_ONBOARDING = API_PATH + `/users/onboarding/submit`
-
 export const GET_COURSE_SNAPSHOT = (courseId: string) =>
   API_PATH + `/snapshot/${courseId}`;
 
+
+export const CHANGE_COURSE = API_PATH + `/progress/course/update/course`;
+export const SUBMIT_ONBOARDING = API_PATH + `/users/onboarding/submit`
 export const SUBMIT_COURSE_SNAPSHOT = API_PATH + `/snapshot/submit`;
