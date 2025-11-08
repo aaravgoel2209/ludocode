@@ -8,6 +8,7 @@ import { MainGridWrapper } from "./LayoutWrappers/MainGridWrapper";
 import { useExerciseFlow } from "../Hooks/Logic/Exercises/useExerciseFlow";
 import { useState } from "react";
 import { ExitDialog } from "@/components/Molecules/Dialog/ExitDialog";
+import { useModal } from "@/Hooks/UI/useModal";
 
 export function LessonLayout() {
   const { exercises, lesson } = lessonSectionRoute.useLoaderData();
@@ -16,9 +17,7 @@ export function LessonLayout() {
 
   const state = useExerciseFlow({ exercises, lesson, position });
 
-  const [intendsToExit, setIntendsToExit] = useState(false)
-  const openModal = () => setIntendsToExit(true)
-  const closeModal = () => setIntendsToExit(false)
+  const {modalOpen: exitOpen, openModal: openExit, closeModal: closeExit} = useModal()
 
   const { currentExercise, canSubmit, submitAttemptBuffer, commitAttempt, submissionBuffer } =
     state;
@@ -29,7 +28,7 @@ export function LessonLayout() {
         <TutorialHeader
           total={exercises.length}
           position={exercisePosition - 1}
-          onExit={() => openModal()}
+          onExit={() => openExit()}
         />
         <MainContentWrapper>
           <Outlet />
@@ -43,7 +42,7 @@ export function LessonLayout() {
         />
       </MainGridWrapper>
 
-      <ExitDialog close={() => closeModal()} open={intendsToExit}/>
+      <ExitDialog close={() => closeExit()} open={exitOpen}/>
 
     </LessonContext.Provider>
   );
