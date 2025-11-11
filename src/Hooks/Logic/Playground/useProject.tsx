@@ -1,16 +1,29 @@
-import type { ProjectFile } from "@/features/Playground/ProjectPage";
-import { useCallback, useState } from "react";
+import * as monaco from "monaco-editor";
+import { useState, useEffect, useCallback } from "react";
+
+export type ProjectFile = { path: string; language: string; content: string };
+
 
 export function useProject() {
-  const files: ProjectFile[] = [
-    { fileName: "main.py", fileType: ".py" },
-    { fileName: "card.py", fileType: ".py" },
-  ];
+  const [files, setFiles] = useState<ProjectFile[]>([
+    { path: 'inmem:///main.py', language: 'python', content: 'print("hi")\n' },
+    { path: 'inmem:///card.py', language: 'python', content: '# todo\n' },
+  ]);
+  const [current, setCurrent] = useState(0);
 
-  const [currentFileIdx, setCurrentFileIdx] = useState(0);
-  const changeFile = useCallback((index: number) => {
-    setCurrentFileIdx((prev) => (prev === index ? prev : index));
-  }, []);
+  const updateContent = useCallback((val: string) => {
+    setFiles(fs => {
+      const next = fs.slice();
+      next[current] = { ...next[current], content: val };
+      return next;
+    });
+  }, [current]);
 
-  return { files, currentFileIdx, changeFile };
+  return {
+    files,
+    current,
+    active: files[current],
+    setCurrent,
+    updateContent,
+  };
 }

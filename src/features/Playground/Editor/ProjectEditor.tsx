@@ -1,7 +1,17 @@
 import Editor, { type BeforeMount, type OnMount } from "@monaco-editor/react";
-type ProjectEditorProps = {};
+type ProjectEditorProps = {
+  path: string;
+  language: string;
+  value: string;
+  onChange: (v: string) => void;
+};
 
-export function ProjectEditor({}: ProjectEditorProps) {
+export function ProjectEditor({
+  path,
+  language,
+  value,
+  onChange,
+}: ProjectEditorProps) {
   const beforeMount: BeforeMount = (monaco) => {
     monaco.editor.defineTheme("custom-theme", {
       base: "vs-dark",
@@ -20,11 +30,14 @@ export function ProjectEditor({}: ProjectEditorProps) {
 
   return (
     <Editor
+      path={path}
       height="100%"
       theme="custom-theme"
+      value={value}
+      onChange={(v) => onChange(v ?? "")}
       beforeMount={beforeMount}
       onMount={onMount}
-      language="python"
+      language={language}
       options={{
         minimap: { enabled: false },
         fontSize: 16,

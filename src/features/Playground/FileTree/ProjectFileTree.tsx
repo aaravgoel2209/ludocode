@@ -1,4 +1,4 @@
-import type { ProjectFile } from "../ProjectPage";
+import type { ProjectFile } from "@/Hooks/Logic/Playground/useProject";
 import { TreeFile } from "./TreeFile";
 
 type ProjectFileTreeProps = { projects: ProjectFile[]; current: number, changeFile: (index: number) => void; };
@@ -9,7 +9,7 @@ export function ProjectFileTree({ projects, current, changeFile }: ProjectFileTr
       {projects.map((project, index) => (
         <TreeFile
           onClick={() => changeFile(index)}
-          fileName={project.fileName}
+          fileName={project.path}
           fileType="Python"
           index={index}
           isSelected={current == index}
