@@ -15,6 +15,7 @@ import {
   buildRoute,
   completeRoute,
   lessonRoute,
+  playgroundRoute,
   streakIncreaseRoute,
   syncRoute,
 } from "./router";
@@ -59,6 +60,10 @@ export const ludoNavigation = {
       state: (prev: HistoryState) => ({ ...(prev ?? {}), submission }),
       replace: true,
     }),
+  },
+
+  playground: {
+    toPlayground: () => ({to: playgroundRoute.to})
   },
 
   completion: {
