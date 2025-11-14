@@ -1,15 +1,23 @@
-import { useState,  useCallback } from "react";
-import { extFor, nextName, type Lang } from "./playgroundFileUtils";
+import { useState, useCallback } from "react";
+import { extFor, nextName } from "./playgroundFileUtils";
+import type { ProjectFileSnapshot } from "@/Types/Playground/ProjectFileSnapshot";
+import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
+import type { LanguageType } from "@/Types/Playground/LanguageType";
 
 export type ProjectFile = { path: string; language: string; content: string };
 
-export type ProjectFileChoice = { name: string; lang: Lang; base: string };
+export type ProjectFileChoice = {
+  name: string;
+  lang: LanguageType;
+  base: string;
+};
 
-export function useProject() {
-  const [files, setFiles] = useState<ProjectFile[]>([
-    { path: "inmem:///main.py", language: "python", content: 'print("hi")\n' },
-    { path: "inmem:///card.py", language: "python", content: "# todo\n" },
-  ]);
+type Args = {
+  project: ProjectSnapshot;
+};
+
+export function useProject({ project }: Args) {
+  const [files, setFiles] = useState<ProjectFileSnapshot[]>(project.files);
 
   const addFileChoices: ProjectFileChoice[] = [
     { name: "Python", lang: "python", base: "script" },
@@ -28,20 +36,23 @@ export function useProject() {
     [current]
   );
 
-  const addFile = useCallback((lang: Lang, base: string = "untitled") => {
-    setFiles((fs) => {
-      const ext = extFor(lang);
-      const name = nextName(fs, base, ext);
-      const file: ProjectFile = {
-        path: `inmem:///${name}`,
-        language: lang,
-        content: "",
-      };
-      const next = [...fs, file];
-      setCurrent(next.length - 1);
-      return next;
-    });
-  }, []);
+  const addFile = useCallback(
+    (lang: LanguageType, base: string = "untitled") => {
+      setFiles((fs) => {
+        const ext = extFor(lang);
+        const name = nextName(fs, base, ext);
+        const file: ProjectFileSnapshot = {
+          path: `${name}`,
+          language: lang,
+          content: "",
+        };
+        const next = [...fs, file];
+        setCurrent(next.length - 1);
+        return next;
+      });
+    },
+    []
+  );
 
   return {
     files,

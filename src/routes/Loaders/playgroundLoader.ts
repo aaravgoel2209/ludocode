@@ -26,8 +26,8 @@ export async function projectLoader (params: {projectId: string}, queryClient: Q
         qo.allProjects()
     )
 
-    const selectedProject = projects.projects.find((project) => project.projectId == projectId)
+    const project = projects.projects.find((project) => project.projectId == projectId)
 
-    return {selectedProject}
+    return {project}
 
 }

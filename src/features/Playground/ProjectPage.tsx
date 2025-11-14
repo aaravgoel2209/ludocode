@@ -10,10 +10,15 @@ import { stripFileName } from "@/Hooks/Logic/Playground/playgroundFileUtils";
 import { useRunner } from "@/Hooks/Logic/Playground/useRunner";
 import { RunnerWinbar } from "./Runner/RunnerWinbar";
 import { EditorWinbar } from "./Editor/EditorWinbar";
+import { useLoaderData } from "@tanstack/react-router";
+import { projectRoute } from "@/routes/router";
 
 type ProjectPageProps = {};
 
 export function ProjectPage({}: ProjectPageProps) {
+
+  const {project} = useLoaderData({from: projectRoute.id})
+
   const {
     files,
     current,
@@ -22,7 +27,7 @@ export function ProjectPage({}: ProjectPageProps) {
     updateContent,
     addFile,
     addFileChoices,
-  } = useProject();
+  } = useProject({project});
 
   const { outputLog, clearOutput } = useRunner();
 

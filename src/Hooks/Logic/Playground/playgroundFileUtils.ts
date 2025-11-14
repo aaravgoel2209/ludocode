@@ -1,23 +1,25 @@
+import type { LanguageType } from "@/Types/Playground/LanguageType";
 import type { ProjectFile } from "./useProject";
 
-export type Lang = "python" | "html" | "css" | "javascript";
-
-export function extFor(lang: Lang) {
-  return lang === "python"
-    ? ".py"
-    : lang === "html"
-    ? ".html"
-    : lang === "css"
-    ? ".css"
-    : ".js";
+export function extFor(lang: LanguageType) {
+  return lang === "python" ? ".py" : ".html";
 }
 
-export const stripFileName = (fileName: string) => fileName.replace("inmem:///", "");
+export const stripFileName = (fileName: string) =>
+  fileName.replace("inmem:///", "");
+
+function fileName(p: string) {
+  return p.split("/").pop()!;
+}
 
 export function nextName(files: ProjectFile[], base: string, ext: string) {
-  const has = (n: string) => files.some((f) => f.path.endsWith("/" + n));
-  if (!has(base + ext)) return base + ext;
+  const has = (n: string) => files.some((f) => fileName(f.path) === n);
+
+  const first = `${base}${ext}`;
+  if (!has(first)) return first;
+
   let i = 1;
-  while (has(`${base}${i}${ext}`)) i++;
-  return `${base}${i}${ext}`;
+  while (has(`${base}-${i}${ext}`)) i++;
+
+  return `${base}-${i}${ext}`;
 }
