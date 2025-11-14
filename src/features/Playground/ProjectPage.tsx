@@ -12,12 +12,12 @@ import { RunnerWinbar } from "./Runner/RunnerWinbar";
 import { EditorWinbar } from "./Editor/EditorWinbar";
 import { useLoaderData } from "@tanstack/react-router";
 import { projectRoute } from "@/routes/router";
+import { useAutoSaveProject } from "@/Hooks/Logic/Playground/useAutoSaveProject";
 
 type ProjectPageProps = {};
 
 export function ProjectPage({}: ProjectPageProps) {
-
-  const {project} = useLoaderData({from: projectRoute.id})
+  const { project } = useLoaderData({ from: projectRoute.id });
 
   const {
     files,
@@ -27,7 +27,9 @@ export function ProjectPage({}: ProjectPageProps) {
     updateContent,
     addFile,
     addFileChoices,
-  } = useProject({project});
+  } = useProject({ project });
+
+  useAutoSaveProject({ project, files, debounceMs: 1000 });
 
   const { outputLog, clearOutput } = useRunner();
 
