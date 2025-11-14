@@ -30,6 +30,7 @@ import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
 import type { CourseSnap } from "../../../Types/Snapshot/SnapshotTypes.ts";
 import type { UserPreferences } from "@/Types/User/UserPreferences.ts";
 import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot.ts";
+import type { ProjectListResponse } from "@/Types/Playground/ProjectListResponse.ts";
 
 export const qo = {
   user: (userId: string) =>
@@ -100,7 +101,7 @@ export const qo = {
   allProjects: () =>
     queryOptions({
       queryKey: qk.projects(),
-      queryFn: () => ludoGet<ProjectSnapshot[]>(GET_USER_PROJECTS, true),
+      queryFn: () => ludoGet<ProjectListResponse>(GET_USER_PROJECTS, true),
       staleTime: 60_000
     }),
 

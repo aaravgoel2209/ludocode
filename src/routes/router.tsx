@@ -54,6 +54,7 @@ import {
 import { OnboardingStagePage } from "@/features/Onboarding/OnboardingStagePage.tsx";
 import { ProjectPage } from "@/features/Playground/ProjectPage.tsx";
 import { PlaygroundPage } from "@/features/Playground/Projects/PlaygroundPage.tsx";
+import { playgroundLoader } from "./Loaders/playgroundLoader.ts";
 
 export const queryClient = new QueryClient();
 
@@ -133,6 +134,7 @@ export const authRoute = createRoute({
 export const playgroundRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
   path: RP_PLAYGROUND,
+  loader: async ({}) => playgroundLoader(queryClient),
   component: PlaygroundPage 
 })
 

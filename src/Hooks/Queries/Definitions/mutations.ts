@@ -15,6 +15,7 @@ import type { OnboardingResponse } from "@/Types/Onboarding/OnboardingResponse";
 import type { OnboardingSubmission } from "@/Types/Onboarding/OnboardingCourse";
 import { type ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
 import { type CreateProjectRequest } from "@/Types/Playground/CreateProjectRequest";
+import type { ProjectListResponse } from "@/Types/Playground/ProjectListResponse";
 
 export interface ChangeCourseVariables {
   newCourseId: string;
@@ -34,10 +35,10 @@ export const mutations = {
   },
 
   createProject: () => {
-    return mutationOptions<ProjectSnapshot[], Error, CreateProjectRequest>({
+    return mutationOptions<ProjectListResponse, Error, CreateProjectRequest>({
       mutationKey: ["createProject"],
       mutationFn: (variables) =>
-        ludoPost<ProjectSnapshot[], CreateProjectRequest>(
+        ludoPost<ProjectListResponse, CreateProjectRequest>(
           SUBMIT_CREATE_PROJECT,
           variables,
           true

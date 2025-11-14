@@ -7,6 +7,7 @@ import {
   RP_MODULE_REDIRECT,
   RP_ME,
   RP_BUILD_REDIRECT,
+  RP_PLAYGROUND,
 } from "../constants/routes.ts";
 import type { HistoryState } from "@tanstack/react-router";
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
@@ -60,7 +61,7 @@ export const ludoNavigation = {
   },
 
   playground: {
-    toPlayground: () => ({ to: playgroundRoute.to }),
+    toPlayground: () => ({ to: RP_PLAYGROUND }),
     toProject: (projectId: string) => ({to: projectRoute.to, params: {projectId}})
   },
 

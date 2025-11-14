@@ -1,18 +1,19 @@
 import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
 import { ProjectsGrid } from "./ProjectsGrid";
-import { CustomIcon } from "@/components/Atoms/Icons/CustomIcon";
-import { router } from "@/routes/router";
+import { playgroundRoute, router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { useModal } from "@/Hooks/UI/useModal";
 import { CreateProjectDialog } from "@/components/Molecules/Dialog/CreateProjectDialog";
 import { uuid } from "@tanstack/react-form";
+import { useLoaderData } from "@tanstack/react-router";
+import { RP_PLAYGROUND } from "@/constants/routes";
 
 type PlaygroundPageProps = {};
 
 export function PlaygroundPage({}: PlaygroundPageProps) {
-  const projects: ProjectSnapshot[] = [
-    { projectId: "123", projectName: "Untitled Project", files: [] },
-  ];
+
+
+  const { allProjects } = useLoaderData({ from: playgroundRoute.id })
 
   const {
     modalOpen: createProjectOpen,
@@ -30,7 +31,7 @@ export function PlaygroundPage({}: PlaygroundPageProps) {
         <div className="col-span-1 bg-ludoGrayDark border-r-2 border-r-ludoGrayLight lg:col-span-2"></div>
         <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
           <ProjectsGrid>
-            {projects.map((project) => (
+            {allProjects.map((project: ProjectSnapshot) => (
               <div
                 onClick={() =>
                   router.navigate(
