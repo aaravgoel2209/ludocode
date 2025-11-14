@@ -10,6 +10,8 @@ export const RP_AUTH = `/auth`
 
 export const RP_PLAYGROUND = `/playground`
 
+export const RP_PROJECT = `/project/$projectId`
+
 export const RP_ONBOARDING = `/onboarding`
 
 export const RP_ONBOARDING_START = `/onboarding/career`

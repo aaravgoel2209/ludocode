@@ -1,6 +1,8 @@
 import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
 import { ProjectsGrid } from "./ProjectsGrid";
 import { CustomIcon } from "@/components/Atoms/Icons/CustomIcon";
+import { router } from "@/routes/router";
+import { ludoNavigation } from "@/routes/ludoNavigation";
 
 type PlaygroundPageProps = {};
 
@@ -20,7 +22,7 @@ export function PlaygroundPage({}: PlaygroundPageProps) {
       <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
         <ProjectsGrid>
             {projects.map((project) => (
-                <div className="w-full h-40 hover:cursor-pointer border-ludoLightPurple border p-4 rounded-xl bg-ludoGrayLight">
+                <div onClick={() => router.navigate(ludoNavigation.playground.toProject(project.projectId))} className="w-full h-40 hover:cursor-pointer border-ludoLightPurple border p-4 rounded-xl bg-ludoGrayLight">
                     <h4 className="text-white text-xl underline-offset-3 underline">{project.projectName}</h4>
                 </div>
             ))}

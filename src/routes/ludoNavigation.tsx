@@ -16,6 +16,7 @@ import {
   completeRoute,
   lessonRoute,
   playgroundRoute,
+  projectRoute,
   streakIncreaseRoute,
   syncRoute,
 } from "./router";
@@ -29,11 +30,7 @@ export const ludoNavigation = {
     redirect: () => ({
       to: RP_BUILD_REDIRECT,
     }),
-    toBuilder: (
-      courseId: string,
-      moduleId: string,
-      lessonId?: string
-    ) => ({
+    toBuilder: (courseId: string, moduleId: string, lessonId?: string) => ({
       to: RP_BUILD,
       params: { courseId, moduleId },
       search: lessonId ? { lessonId } : undefined,
@@ -63,7 +60,8 @@ export const ludoNavigation = {
   },
 
   playground: {
-    toPlayground: () => ({to: playgroundRoute.to})
+    toPlayground: () => ({ to: playgroundRoute.to }),
+    toProject: (projectId: string) => ({to: projectRoute.to, params: {projectId}})
   },
 
   completion: {

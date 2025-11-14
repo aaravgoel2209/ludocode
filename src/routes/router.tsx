@@ -27,6 +27,7 @@ import {
   RP_ONBOARDING,
   RP_ONBOARDING_START,
   RP_PLAYGROUND,
+  RP_PROJECT,
 } from "../constants/routes.ts";
 import { LessonLayout } from "../Layouts/LessonLayout";
 import { QueryClient } from "@tanstack/react-query";
@@ -133,6 +134,12 @@ export const playgroundRoute = createRoute({
   getParentRoute: () => defaultSectionRoute,
   path: RP_PLAYGROUND,
   component: PlaygroundPage 
+})
+
+export const projectRoute = createRoute({
+  getParentRoute: () => defaultSectionRoute,
+  path: RP_PROJECT,
+  component: ProjectPage
 })
 
 
@@ -266,6 +273,7 @@ const routeTree = rootRoute.addChildren([
         profileMeRoute,
         playgroundRoute,
         profileByIdRoute,
+        projectRoute
       ]),
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
       buildRedirectRoute,
