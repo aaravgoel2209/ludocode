@@ -9,6 +9,8 @@ import { useLoaderData } from "@tanstack/react-router";
 import { RP_PLAYGROUND } from "@/constants/routes";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/Hooks/Queries/Definitions/queries";
+import { ProjectCard } from "./ProjectCard";
+import { Button } from "@/components/ui/button";
 
 type PlaygroundPageProps = {};
 
@@ -24,35 +26,24 @@ export function PlaygroundPage({}: PlaygroundPageProps) {
 
   return (
     <>
-      <div className="grid col-span-full h-full grid-cols-12">
-        <div className="col-span-1 bg-ludoGrayDark border-r-2 border-r-ludoGrayLight lg:col-span-2"></div>
+      <div className="grid col-span-full p-8 h-full grid-cols-12">
+        <div className="col-span-1 bg-ludoGrayDark lg:col-span-2"></div>
         <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
-          <ProjectsGrid>
-            {allProjects.map((project: ProjectSnapshot) => (
-              <div
-                onClick={() =>
-                  router.navigate(
-                    ludoNavigation.playground.toProject(project.projectId)
-                  )
-                }
-                className="w-full h-40 hover:cursor-pointer border-ludoLightPurple border p-4 rounded-xl bg-ludoGrayLight"
-              >
-                <h4 className="text-white text-xl underline-offset-3 underline">
-                  {project.projectName}
-                </h4>
-              </div>
-            ))}
-            <div
-              onClick={() => openCreateProject()}
-              className="w-full h-40 hover:cursor-pointer border-ludoLightPurple border p-4 rounded-xl bg-ludoGrayLight"
-            >
-              <h4 className="text-white text-xl underline-offset-3 underline">
-                Add Project
-              </h4>
+          <div className="pb-2 flex flex-col gap-2 text-white">
+            <h1 className="text-2xl">Your Projects</h1>
+            <div className="flex items-center justify-between">
+              <p>Here you will see an overview of your projects</p>
+              <Button onClick={() => openCreateProject()}>Add Project</Button>
             </div>
-          </ProjectsGrid>
+          </div>
+
+          <div className="flex flex-col gap-8 pb-8">
+            {allProjects.map((project: ProjectSnapshot) => (
+              <ProjectCard project={project} />
+            ))}
+          </div>
         </div>
-        <div className="col-span-1 border-l-2 border-l-ludoGrayLight bg-ludoGrayDark lg:col-span-2"></div>
+        <div className="col-span-1 bg-ludoGrayDark lg:col-span-2"></div>
       </div>
       <CreateProjectDialog
         hash={uuid()}

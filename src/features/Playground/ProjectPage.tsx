@@ -37,7 +37,11 @@ export function ProjectPage({}: ProjectPageProps) {
     addFileChoices,
   } = useProject({ project });
 
-  const {isSaved, isSaving, error, lastSavedAt} = useAutoSaveProject({ project, files, debounceMs: 1000 });
+  const { isSaved, isSaving, error, lastSavedAt } = useAutoSaveProject({
+    project,
+    files,
+    debounceMs: 1000,
+  });
 
   const { outputLog, clearOutput, runCode, isRunning } = useRunner({
     project,
@@ -58,7 +62,12 @@ export function ProjectPage({}: ProjectPageProps) {
         </div>
         <div className="col-span-10 text-white flex items-center gap-4 justify-center lg:col-span-6 ">
           <h1>{project.projectName}</h1>
-          <SaveStatusIcon isSaved={isSaved} isSaving={isSaving} error={error} lastSavedAt={lastSavedAt}/>
+          <SaveStatusIcon
+            isSaved={isSaved}
+            isSaving={isSaving}
+            error={error}
+            lastSavedAt={lastSavedAt}
+          />
         </div>
         <div className="col-span-1 text-white lg:col-span-3"></div>
       </CommonHeader>

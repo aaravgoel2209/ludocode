@@ -24,7 +24,6 @@ export function SaveStatusIcon({
   return (
     <div className="flex items-center gap-4">
       <CustomIcon className="h-5" iconName={status} />
-      {lastSavedAt && <p>{lastSavedAt.getUTCHours()}</p>}
       
     </div>
   );
