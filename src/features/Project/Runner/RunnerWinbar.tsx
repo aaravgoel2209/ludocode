@@ -1,5 +1,5 @@
 import { TrashIcon } from "lucide-react";
-import { ProjectWinbar } from "../ProjectWinbar";
+import { ProjectWinbar } from "../ProjectWinbar.tsx";
 
 type RunnerWinbarProps = {clearOutput: () => void};
 

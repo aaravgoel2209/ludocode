@@ -1,10 +1,7 @@
-import { CustomIcon, PythonIcon } from "@/components/Atoms/Icons/CustomIcon";
-import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
-import { FileActionsPopover } from "@/components/Molecules/Popover/FileActionsPopover";
-import { stripFileName } from "@/Hooks/Logic/Playground/playgroundFileUtils";
-import { FileWrapper } from "./FileWrapper";
-import { FileInfoRow } from "@/components/Molecules/FilePreview/FileInfoRow";
-import { FileActionsButton } from "@/components/Molecules/Popover/FileActionsButton";
+import { CustomIcon } from "@/components/Atoms/Icons/CustomIcon.tsx";
+import { FileWrapper } from "../../../components/Molecules/File/FileWrapper.tsx";
+import { FileInfoRow } from "@/components/Molecules/File/FileInfoRow.tsx";
+import { FileActionsButton } from "@/components/Molecules/Popover/FileActionsButton.tsx";
 
 type TreeFileProps = {
   fileName: string;

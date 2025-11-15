@@ -1,5 +1,5 @@
-import type { ProjectFile } from "@/Hooks/Logic/Playground/useProject";
-import { TreeFile } from "./TreeFile";
+import type { ProjectFile } from "@/Hooks/Logic/Playground/useProject.tsx";
+import { TreeFile } from "./TreeFile.tsx";
 
 type ProjectFileTreeProps = {
   projects: ProjectFile[];
@@ -8,6 +8,8 @@ type ProjectFileTreeProps = {
   renameFile: (path: string) => void;
   deleteFile: (path: string) => void;
 };
+
+//TODO make this a container to avoid prop drilling
 
 export function ProjectFileTree({
   projects,

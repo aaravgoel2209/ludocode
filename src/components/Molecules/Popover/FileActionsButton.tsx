@@ -1,4 +1,4 @@
-import { FileWrapper } from "@/features/Playground/FileTree/FileWrapper";
+import { FileWrapper } from "@/components/Molecules/File/FileWrapper.tsx";
 import { FileActionsPopover } from "./FileActionsPopover";
 import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
 

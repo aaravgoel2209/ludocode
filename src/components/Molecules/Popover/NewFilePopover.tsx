@@ -3,12 +3,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { FileWrapper } from "@/features/Playground/FileTree/FileWrapper";
-import { TreeFile } from "@/features/Playground/FileTree/TreeFile";
+import { FileWrapper } from "@/components/Molecules/File/FileWrapper.tsx";
+import { TreeFile } from "@/features/Project/FileTree/TreeFile.tsx";
 import type { ProjectFileChoice } from "@/Hooks/Logic/Playground/useProject";
 import type { LanguageType } from "@/Types/Playground/LanguageType";
 import type { ReactNode } from "react";
-import { FileInfoRow } from "../FilePreview/FileInfoRow";
+import { FileInfoRow } from "../File/FileInfoRow.tsx";
 import { CustomIcon } from "@/components/Atoms/Icons/CustomIcon";
 
 type NewFilePopoverProps = {

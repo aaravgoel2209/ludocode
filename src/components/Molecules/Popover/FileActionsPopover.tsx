@@ -1,12 +1,12 @@
-import { FileWrapper } from "@/features/Playground/FileTree/FileWrapper";
-import { TreeFile } from "@/features/Playground/FileTree/TreeFile";
+import { FileWrapper } from "@/components/Molecules/File/FileWrapper.tsx";
+import { TreeFile } from "@/features/Project/FileTree/TreeFile.tsx";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@radix-ui/react-popover";
 import type { ReactNode } from "react";
-import { FileInfoRow } from "../FilePreview/FileInfoRow";
+import { FileInfoRow } from "../File/FileInfoRow.tsx";
 import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
 import { RenameDialog } from "../Dialog/RenameDialog";
 import { useModal } from "@/Hooks/UI/useModal";

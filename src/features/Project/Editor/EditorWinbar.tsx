@@ -1,6 +1,6 @@
-import type { ProjectFile } from "@/Hooks/Logic/Playground/useProject";
-import { ProjectWinbar } from "../ProjectWinbar";
-import { stripFileName } from "@/Hooks/Logic/Playground/playgroundFileUtils";
+import type { ProjectFile } from "@/Hooks/Logic/Playground/useProject.tsx";
+import { ProjectWinbar } from "../ProjectWinbar.tsx";
+import { stripFileName } from "@/Hooks/Logic/Playground/playgroundFileUtils.ts";
 
 type EditorWinbarProps = { current: number; files: ProjectFile[] };
 

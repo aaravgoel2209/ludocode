@@ -1,18 +1,17 @@
-import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
-import { ProjectsGrid } from "./ProjectsGrid";
-import { playgroundRoute, router } from "@/routes/router";
-import { ludoNavigation } from "@/routes/ludoNavigation";
-import { useModal } from "@/Hooks/UI/useModal";
-import { CreateProjectDialog } from "@/components/Molecules/Dialog/CreateProjectDialog";
+import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot.ts";
+import { playgroundRoute, router } from "@/routes/router.tsx";
+import { ludoNavigation } from "@/routes/ludoNavigation.tsx";
+import { useModal } from "@/Hooks/UI/useModal.tsx";
+import { CreateProjectDialog } from "@/components/Molecules/Dialog/CreateProjectDialog.tsx";
 import { uuid } from "@tanstack/react-form";
 import { useLoaderData } from "@tanstack/react-router";
-import { RP_PLAYGROUND } from "@/constants/routes";
+import { RP_PLAYGROUND } from "@/constants/routes.ts";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/Hooks/Queries/Definitions/queries";
-import { ProjectCard } from "./ProjectCard";
-import { Button } from "@/components/ui/button";
-import { PlaygroundHero } from "../PlaygroundHero";
-import { useModifyProject } from "@/Hooks/Queries/Mutations/useModifyProject";
+import { qo } from "@/Hooks/Queries/Definitions/queries.ts";
+import { ProjectCard } from "./ProjectCard.tsx";
+import { Button } from "@/components/ui/button.tsx";
+import { PlaygroundHero } from "./PlaygroundHero.tsx";
+import { useModifyProject } from "@/Hooks/Queries/Mutations/useModifyProject.tsx";
 
 type PlaygroundPageProps = {};
 

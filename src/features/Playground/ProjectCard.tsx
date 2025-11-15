@@ -1,10 +1,10 @@
-import { PythonIcon } from "@/components/Atoms/Icons/CustomIcon";
-import { FileActionsButton } from "@/components/Molecules/Popover/FileActionsButton";
-import { FileActionsPopover } from "@/components/Molecules/Popover/FileActionsPopover";
-import { useModifyProject } from "@/Hooks/Queries/Mutations/useModifyProject";
-import { ludoNavigation } from "@/routes/ludoNavigation";
-import { router } from "@/routes/router";
-import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot";
+import { PythonIcon } from "@/components/Atoms/Icons/CustomIcon.tsx";
+import { FileActionsButton } from "@/components/Molecules/Popover/FileActionsButton.tsx";
+import { FileActionsPopover } from "@/components/Molecules/Popover/FileActionsPopover.tsx";
+import { useModifyProject } from "@/Hooks/Queries/Mutations/useModifyProject.tsx";
+import { ludoNavigation } from "@/routes/ludoNavigation.tsx";
+import { router } from "@/routes/router.tsx";
+import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot.ts";
 import { EllipsisVertical } from "lucide-react";
 
 type ProjectCardProps = { project: ProjectSnapshot };

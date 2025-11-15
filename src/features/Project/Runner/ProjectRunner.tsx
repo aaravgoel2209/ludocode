@@ -1,4 +1,4 @@
-import type { OutputPacket } from "@/Types/Playground/OutputPacket";
+import type { OutputPacket } from "@/Types/Playground/OutputPacket.ts";
 
 type ProjectRunnerProps = { output: OutputPacket[] };
 

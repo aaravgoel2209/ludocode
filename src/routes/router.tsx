@@ -52,8 +52,8 @@ import {
   type StageKey,
 } from "@/Types/Onboarding/OnboardingSteps.ts";
 import { OnboardingStagePage } from "@/features/Onboarding/OnboardingStagePage.tsx";
-import { ProjectPage } from "@/features/Playground/ProjectPage.tsx";
-import { PlaygroundPage } from "@/features/Playground/Projects/PlaygroundPage.tsx";
+import { ProjectPage } from "@/features/Project/ProjectPage.tsx";
+import { PlaygroundPage } from "@/features/Playground/PlaygroundPage.tsx";
 import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
 
 export const queryClient = new QueryClient();
