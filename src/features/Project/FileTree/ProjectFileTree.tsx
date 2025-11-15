@@ -5,7 +5,7 @@ type ProjectFileTreeProps = {
   projects: ProjectFile[];
   current: number;
   changeFile: (index: number) => void;
-  renameFile: (path: string) => void;
+  renameFile: (oldPath: string, newPath: string) => void;
   deleteFile: (path: string) => void;
 };
 

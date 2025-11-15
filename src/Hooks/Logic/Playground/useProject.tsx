@@ -44,7 +44,37 @@ export function useProject({ project }: Args) {
     });
   }, []);
 
-  const renameFile = useCallback(() => {}, []);
+  const renameFile = useCallback((oldPath: string, newNameRaw: string) => {
+    setFiles((prev) => {
+      const idx = prev.findIndex((f) => f.path === oldPath);
+      if (idx === -1) return prev;
+
+      const file = prev[idx];
+      const ext = extFor(file.language);
+
+      let base = newNameRaw.trim();
+      if (!base) return prev;
+
+      base = base.split("/").pop()!.split("\\").pop()!;
+
+      let finalName = base;
+      if (!finalName.endsWith(ext)) {
+        finalName = `${finalName}${ext}`;
+      }
+
+      const otherFiles = prev.filter((_, i) => i !== idx);
+
+      const bare = finalName.endsWith(ext)
+        ? finalName.slice(0, -ext.length)
+        : finalName;
+
+      const uniqueName = nextName(otherFiles, bare, ext);
+
+      const next = prev.slice();
+      next[idx] = { ...file, path: uniqueName };
+      return next;
+    });
+  }, []);
 
   const updateContent = useCallback(
     (val: string) => {
@@ -83,6 +113,7 @@ export function useProject({ project }: Args) {
     addFileChoices,
     updateContent,
     deleteFile,
+    renameFile,
     addFile,
   };
 }

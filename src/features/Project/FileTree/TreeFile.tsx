@@ -9,7 +9,7 @@ type TreeFileProps = {
   index: number;
   isSelected: boolean;
   deleteFile: (path: string) => void;
-  renameFile: (path: string) => void;
+  renameFile: (oldPath: string, newPath: string) => void;
   onClick: () => void;
 };
 

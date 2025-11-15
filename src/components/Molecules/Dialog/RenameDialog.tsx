@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 
 type RenameDialogProps = {
   itemName: string;
-  onSubmit: (value: string) => void;
+  onSubmit: (oldPath: string, newPath: string) => void;
   open: boolean;
   close: () => void;
 };
@@ -17,6 +17,7 @@ export function RenameDialog({
   itemName,
   onSubmit,
 }: RenameDialogProps) {
+  const oldPath = itemName;
   const [textBuffer, setTextBuffer] = useState<string>(itemName);
 
   return (
@@ -28,7 +29,7 @@ export function RenameDialog({
           onChange={(e) => setTextBuffer(e.target.value)}
         />
         <ActionButton
-          onClick={() => onSubmit(textBuffer)}
+          onClick={() => onSubmit(oldPath, textBuffer)}
           active={true}
           orientation="center"
           text="Save"

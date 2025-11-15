@@ -5,7 +5,7 @@ import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
 type FileActionsButtonProps = {
   fileName: string;
   deleteFile: (path: string) => void;
-  renameFile: (newName: string) => void;
+  renameFile: (oldPath: string, newPath: string) => void;
   variant?: "main" | "secondary"
 };
 

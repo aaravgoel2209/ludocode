@@ -16,7 +16,7 @@ type FileActionsPopoverProps = {
   children: ReactNode;
   targetId: string;
   targetName: string;
-  renameItem: (newName: string) => void;
+  renameItem: (oldPath: string, newPath: string) => void;
   deleteItem: () => void;
 };
 
@@ -27,14 +27,13 @@ export function FileActionsPopover({
   renameItem,
   deleteItem,
 }: FileActionsPopoverProps) {
-
   const {
     modalOpen: renameOpen,
     openModal: openRename,
     closeModal: closeRename,
   } = useModal();
 
-    const {
+  const {
     modalOpen: deleteOpen,
     openModal: openDelete,
     closeModal: closeDelete,
@@ -63,12 +62,14 @@ export function FileActionsPopover({
         </PopoverContent>
       </Popover>
       <DeleteDialog
+        key={targetName}
         targetName={targetName}
         open={deleteOpen}
         close={closeDelete}
         onClick={deleteItem}
       />
       <RenameDialog
+        key={targetName}
         open={renameOpen}
         close={closeRename}
         itemName={targetName}

@@ -1,22 +1,14 @@
 import { ProjectEditor } from "./Editor/ProjectEditor.tsx";
 import { ProjectFileTree } from "./FileTree/ProjectFileTree.tsx";
 import { useProject } from "@/Hooks/Logic/Playground/useProject.tsx";
-import { ProjectWinbar } from "./ProjectWinbar.tsx";
-import { NewFilePopover } from "@/components/Molecules/Popover/NewFilePopover.tsx";
-import { PlusIcon } from "lucide-react";
 import { useRunner } from "@/Hooks/Logic/Playground/useRunner.tsx";
 import { RunnerWinbar } from "./Runner/RunnerWinbar.tsx";
 import { EditorWinbar } from "./Editor/EditorWinbar.tsx";
 import { useLoaderData } from "@tanstack/react-router";
-import { projectRoute, router } from "@/routes/router.tsx";
+import { projectRoute } from "@/routes/router.tsx";
 import { useAutoSaveProject } from "@/Hooks/Logic/Playground/useAutoSaveProject.tsx";
 import { ProjectRunner } from "./Runner/ProjectRunner.tsx";
 import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper.tsx";
-import { CommonHeader } from "@/components/Molecules/Header/CommonHeader.tsx";
-import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon.tsx";
-import { HollowSlot } from "@/components/Atoms/Slot/HollowSlot.tsx";
-import { ludoNavigation } from "@/routes/ludoNavigation.tsx";
-import { SaveStatusIcon } from "./Editor/SaveStatusIcon.tsx";
 import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
 import { RunProjectButton } from "./Editor/RunProjectButton.tsx";
 import { ProjectHeader } from "./ProjectHeader.tsx";
@@ -31,6 +23,7 @@ export function ProjectPage({}: ProjectPageProps) {
     current,
     active,
     deleteFile,
+    renameFile,
     setCurrent,
     updateContent,
     addFile,
@@ -43,19 +36,19 @@ export function ProjectPage({}: ProjectPageProps) {
     debounceMs: 1000,
   });
 
-  const {outputInfo, runCode} = useRunner({
+  const { outputInfo, runCode } = useRunner({
     project,
     files,
   });
 
   return (
     <MainGridWrapper gridRows="SITE">
-      <ProjectHeader projectName={project.fileName} saveStatus={saveStatus}/>
+      <ProjectHeader projectName={project.fileName} saveStatus={saveStatus} />
       <div className="grid col-span-full h-full grid-cols-12">
         <div className="col-span-1 bg-ludoGrayDark border-r-2 border-r-ludoGrayLight lg:col-span-3">
-          <FileTreeWinbar addFile={addFile} addFileChoices={addFileChoices}/>
+          <FileTreeWinbar addFile={addFile} addFileChoices={addFileChoices} />
           <ProjectFileTree
-            renameFile={() => null}
+            renameFile={renameFile}
             projects={files}
             current={current}
             changeFile={setCurrent}
@@ -71,7 +64,7 @@ export function ProjectPage({}: ProjectPageProps) {
             value={active.content}
             onChange={updateContent}
           />
-          <RunProjectButton runCode={runCode}/>
+          <RunProjectButton runCode={runCode} />
         </div>
 
         <div className="col-span-1 border-l-2 border-l-ludoGrayLight bg-ludoGrayDark lg:col-span-3">
