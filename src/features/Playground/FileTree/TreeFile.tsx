@@ -3,7 +3,8 @@ import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
 import { FileActionsPopover } from "@/components/Molecules/Popover/FileActionsPopover";
 import { stripFileName } from "@/Hooks/Logic/Playground/playgroundFileUtils";
 import { FileWrapper } from "./FileWrapper";
-import { FileInfoRow } from "@/components/Molecules/Popover/FileInfoRow";
+import { FileInfoRow } from "@/components/Molecules/FilePreview/FileInfoRow";
+import { FileActionsButton } from "@/components/Molecules/Popover/FileActionsButton";
 
 type TreeFileProps = {
   fileName: string;
@@ -17,23 +18,21 @@ type TreeFileProps = {
 
 export function TreeFile({
   fileName,
-  fileType,
   renameFile,
-  index,
   deleteFile,
   isSelected,
   onClick,
 }: TreeFileProps) {
   return (
     <FileWrapper isSelected={isSelected} onClick={() => onClick()}>
-      <FileInfoRow
-        renameFile={renameFile}
-        deleteFile={deleteFile}
-        includeOptions={true}
-        fileName={fileName}
-      >
+      <FileInfoRow fileName={fileName}>
         <CustomIcon color="white" className="h-4" iconName="Python" />
       </FileInfoRow>
+      <FileActionsButton
+        fileName={fileName}
+        deleteFile={deleteFile}
+        renameFile={renameFile}
+      />
     </FileWrapper>
   );
 }

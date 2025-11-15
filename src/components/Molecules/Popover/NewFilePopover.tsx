@@ -8,7 +8,7 @@ import { TreeFile } from "@/features/Playground/FileTree/TreeFile";
 import type { ProjectFileChoice } from "@/Hooks/Logic/Playground/useProject";
 import type { LanguageType } from "@/Types/Playground/LanguageType";
 import type { ReactNode } from "react";
-import { FileInfoRow } from "./FileInfoRow";
+import { FileInfoRow } from "../FilePreview/FileInfoRow";
 import { CustomIcon } from "@/components/Atoms/Icons/CustomIcon";
 
 type NewFilePopoverProps = {
@@ -31,7 +31,7 @@ export function NewFilePopover({
             isSelected={false}
             onClick={() => addFile(choice.lang, choice.base)}
           >
-            <FileInfoRow deleteFile={() => () => null} fileName={choice.name}>
+            <FileInfoRow fileName={choice.name}>
               <CustomIcon color="white" className="h-4" iconName="Python" />
             </FileInfoRow>
           </FileWrapper>

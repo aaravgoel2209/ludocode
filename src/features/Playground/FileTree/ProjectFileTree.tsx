@@ -1,11 +1,5 @@
-import type {
-  ProjectFile,
-  ProjectFileChoice,
-} from "@/Hooks/Logic/Playground/useProject";
+import type { ProjectFile } from "@/Hooks/Logic/Playground/useProject";
 import { TreeFile } from "./TreeFile";
-import { PlusIcon, XIcon } from "lucide-react";
-import { useModal } from "@/Hooks/UI/useModal";
-import { NewFilePopover } from "@/components/Molecules/Popover/NewFilePopover";
 
 type ProjectFileTreeProps = {
   projects: ProjectFile[];

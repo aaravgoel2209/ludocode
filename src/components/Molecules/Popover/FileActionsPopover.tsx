@@ -6,10 +6,11 @@ import {
   PopoverTrigger,
 } from "@radix-ui/react-popover";
 import type { ReactNode } from "react";
-import { FileInfoRow } from "./FileInfoRow";
+import { FileInfoRow } from "../FilePreview/FileInfoRow";
 import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
 import { RenameDialog } from "../Dialog/RenameDialog";
 import { useModal } from "@/Hooks/UI/useModal";
+import { DeleteDialog } from "../Dialog/DeleteDialog";
 
 type FileActionsPopoverProps = {
   children: ReactNode;
@@ -27,7 +28,17 @@ export function FileActionsPopover({
   deleteItem,
 }: FileActionsPopoverProps) {
 
-  const {modalOpen: renameOpen, openModal: openRename, closeModal: closeRename} = useModal()
+  const {
+    modalOpen: renameOpen,
+    openModal: openRename,
+    closeModal: closeRename,
+  } = useModal();
+
+    const {
+    modalOpen: deleteOpen,
+    openModal: openDelete,
+    closeModal: closeDelete,
+  } = useModal();
 
   return (
     <>
@@ -38,27 +49,31 @@ export function FileActionsPopover({
           align="end"
           className="text-white hover:cursor-default flex flex-col gap-2 p-4 bg-ludoGrayLight"
         >
-          <FileWrapper isSelected={false} onClick={() => deleteItem()}>
-            <FileInfoRow
-              renameFile={renameItem}
-              deleteFile={deleteItem}
-              fileName={"Delete"}
-            >
+          <FileWrapper isSelected={false} onClick={() => openDelete()}>
+            <FileInfoRow fileName={"Delete"}>
               <HeroIcon iconName="TrashIcon" className="h-4 text-white" />
             </FileInfoRow>
           </FileWrapper>
           <FileWrapper onClick={() => openRename()} isSelected={false}>
-            <FileInfoRow
-              renameFile={renameItem}
-              deleteFile={renameItem}
-              fileName={"Rename"}
-            >
+            <FileInfoRow fileName={"Rename"}>
               <HeroIcon iconName="PencilIcon" className="h-4 text-white" />
             </FileInfoRow>
+            <div></div>
           </FileWrapper>
         </PopoverContent>
       </Popover>
-      <RenameDialog open={renameOpen} close={closeRename} itemName={targetName} onSubmit={renameItem}/>
+      <DeleteDialog
+        targetName={targetName}
+        open={deleteOpen}
+        close={closeDelete}
+        onClick={deleteItem}
+      />
+      <RenameDialog
+        open={renameOpen}
+        close={closeRename}
+        itemName={targetName}
+        onSubmit={renameItem}
+      />
     </>
   );
 }
