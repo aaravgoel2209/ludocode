@@ -10,6 +10,7 @@ type FileInfoRowProps = {
   fileName: string;
   children: ReactNode;
   deleteFile: (path: string) => void;
+  renameFile: (newName: string) => void;
   includeOptions?: boolean;
 };
 
@@ -19,7 +20,8 @@ export function FileInfoRow({
   fileName,
   children,
   includeOptions,
-  deleteFile
+  deleteFile,
+  renameFile
 }: FileInfoRowProps) {
   return (
     <>
@@ -27,7 +29,11 @@ export function FileInfoRow({
         {children}
         <p className="text-sm">{fileName}</p>
       </div>
-      {includeOptions ? <FileActionsButton deleteFile={deleteFile} fileName={fileName} /> : <div></div>}
+      {includeOptions ? (
+        <FileActionsButton renameFile={renameFile} deleteFile={deleteFile} fileName={fileName} />
+      ) : (
+        <div></div>
+      )}
     </>
   );
 }

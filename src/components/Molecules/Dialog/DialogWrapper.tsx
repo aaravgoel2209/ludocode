@@ -6,6 +6,7 @@ type DialogWrapperProps = { children: ReactNode };
 export function DialogWrapper({ children }: DialogWrapperProps) {
   return (
     <DialogContent
+      onClick={(e) => e.stopPropagation()}
       showCloseButton={false}
       className="bg-ludoGrayLight text-center"
     >

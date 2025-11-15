@@ -85,6 +85,7 @@ export function ProjectPage({}: ProjectPageProps) {
             </div>
           </ProjectWinbar>
           <ProjectFileTree
+            renameFile={(hello: string) => null}
             projects={files}
             current={current}
             changeFile={setCurrent}

@@ -11,11 +11,13 @@ type ProjectFileTreeProps = {
   projects: ProjectFile[];
   current: number;
   changeFile: (index: number) => void;
+  renameFile: (path: string) => void;
   deleteFile: (path: string) => void;
 };
 
 export function ProjectFileTree({
   projects,
+  renameFile,
   current,
   deleteFile,
   changeFile,
@@ -25,6 +27,7 @@ export function ProjectFileTree({
       <div className="flex px-6 py-6 bg-ludoGrayDark gap-2 text-white flex-col w-full">
         {projects.map((project, index) => (
           <TreeFile
+            renameFile={renameFile}
             key={project.path}
             onClick={() => changeFile(index)}
             fileName={project.path}

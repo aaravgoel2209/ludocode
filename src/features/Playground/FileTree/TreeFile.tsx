@@ -11,12 +11,14 @@ type TreeFileProps = {
   index: number;
   isSelected: boolean;
   deleteFile: (path: string) => void;
+  renameFile: (path: string) => void;
   onClick: () => void;
 };
 
 export function TreeFile({
   fileName,
   fileType,
+  renameFile,
   index,
   deleteFile,
   isSelected,
@@ -24,8 +26,13 @@ export function TreeFile({
 }: TreeFileProps) {
   return (
     <FileWrapper isSelected={isSelected} onClick={() => onClick()}>
-      <FileInfoRow deleteFile={deleteFile} includeOptions={true} fileName={fileName}>
-        <CustomIcon color="white" className="h-4" iconName="Python"/>
+      <FileInfoRow
+        renameFile={renameFile}
+        deleteFile={deleteFile}
+        includeOptions={true}
+        fileName={fileName}
+      >
+        <CustomIcon color="white" className="h-4" iconName="Python" />
       </FileInfoRow>
     </FileWrapper>
   );

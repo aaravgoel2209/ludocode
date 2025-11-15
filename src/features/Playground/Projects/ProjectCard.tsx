@@ -29,9 +29,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
         <h4 className="text-white text-lg font-bold">{project.projectName}</h4>
       </div>
       <FileActionsPopover
+        targetName={project.projectName}
         targetId={project.projectId}
         deleteItem={() => handleDeleteProject()}
-        renameItem={() => () => null}
+        renameItem={handleRenameProject}
       >
         <EllipsisVertical
           onClick={(e) => e.stopPropagation()}
