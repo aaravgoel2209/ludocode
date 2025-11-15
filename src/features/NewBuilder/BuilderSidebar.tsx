@@ -15,7 +15,10 @@ export function BuilderSidebar({ courseSnapshot }: BuilderSidebarProps) {
   const modules = courseSnapshot.modules;
 
   return (
-    <Sidebar collapsible="icon" className="[--sidebar-width:36rem] border-r-ludoLightPurple">
+    <Sidebar
+      collapsible="icon"
+      className="[--sidebar-width:36rem] border-r-ludoLightPurple"
+    >
       <div className="w-full h-14 px-2 bg-ludoLightPurple flex items-center justify-start">
         <SidebarTrigger className=" hover:cursor-pointer text-black" />
       </div>

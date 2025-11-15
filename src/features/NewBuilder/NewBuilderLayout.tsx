@@ -22,10 +22,9 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
     <>
       <SidebarProvider>
         <BuilderSidebar courseSnapshot={courseSnapshot} />
-        <div className="flex w-full bg-ludoGrayLight items-center gap-4 px-4 h-14">
+        <div className="flex w-full justify-center text-white bg-ludoGrayLight items-center gap-4 px-4 h-14">
           <p>Builder</p>
         </div>
-
         <MainGridWrapper gridRows="SITE">
           <div className="grid col-span-full h-full grid-cols-12 bg-ludoGrayDark"></div>
         </MainGridWrapper>
