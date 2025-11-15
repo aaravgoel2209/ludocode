@@ -12,11 +12,18 @@ type Args = {
   debounceMs: number;
 };
 
+export type SaveStatusType = {
+  isSaving: boolean;
+  isSaved: boolean;
+  error: Error | null;
+  lastSavedAt: Date | null;
+}
+
 export function useAutoSaveProject({
   project,
   files,
   debounceMs = 1000,
-}: Args) {
+}: Args) : SaveStatusType {
   const lastPayloadRef = useRef<string | null>(null);
   const lastSavedAtRef = useRef<Date | null>(null);
 

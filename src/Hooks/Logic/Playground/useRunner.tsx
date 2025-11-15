@@ -11,7 +11,18 @@ type Args = {
   files: ProjectFileSnapshot[];
 };
 
-export function useRunner({ project, files }: Args) {
+export type OutputInfo = {
+  outputLog: OutputPacket[];
+  clearOutput: () => void;
+  isRunning: boolean;
+};
+
+export type useRunnerResponse = {
+  outputInfo: OutputInfo;
+  runCode: () => void;
+};
+
+export function useRunner({ project, files }: Args) : useRunnerResponse {
   const [outputLog, setOutputLog] = useState<OutputPacket[]>([]);
   const clearOutput = useCallback(() => setOutputLog([]), []);
 
@@ -67,10 +78,10 @@ export function useRunner({ project, files }: Args) {
     runMutation,
   ]);
 
+  const outputInfo: OutputInfo = {outputLog, clearOutput, isRunning: runMutation.isPending}
+
   return {
-    outputLog, // OutputPacket[]
-    clearOutput,
-    runCode,
-    isRunning: runMutation.isPending,
+    outputInfo,
+    runCode
   };
 }
