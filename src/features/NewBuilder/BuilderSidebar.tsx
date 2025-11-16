@@ -11,6 +11,8 @@ import type { CourseSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { ModuleNode } from "./ModuleNode";
 import { courseFormOpts, withForm } from "@/form/formKit";
 import { ModuleListForm } from "./Sidebar/ModuleListForm";
+import { AddModuleDialog } from "./Dialog/AddModuleDialog";
+import { Button } from "@/components/ui/button";
 type BuilderSidebarProps = { courseSnapshot: CourseSnap };
 
 export const BuilderSidebar = withForm({

@@ -5,7 +5,7 @@ const nonEmpty = z.string().trim().min(1, "Required");
 
 export const ModuleSnapshotSchema = z
   .object({
-    moduleId: z.string().uuid(),
+    moduleId: z.string(),
     title: nonEmpty,
     isExpanded: z.boolean(),
     lessons: z

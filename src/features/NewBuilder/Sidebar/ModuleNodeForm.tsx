@@ -33,6 +33,7 @@ export const ModuleNodeForm = withForm({
             currentModuleId != null && currentModuleId == moduleId;
 
           const selectModule = () => {
+            console.log("MID " + JSON.stringify(moduleId))
             router.navigate(
               ludoNavigation.build.toBuilderModule(courseId, moduleId)
             );

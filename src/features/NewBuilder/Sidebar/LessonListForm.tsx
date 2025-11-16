@@ -15,7 +15,14 @@ export const LessonListForm = withForm({
     moduleIndex: 0 as number,
     currentLessonId: "" as string,
   },
-  render: ({ form, courseId, currentLessonId, moduleId, isExpanded, moduleIndex }) => {
+  render: ({
+    form,
+    courseId,
+    currentLessonId,
+    moduleId,
+    isExpanded,
+    moduleIndex,
+  }) => {
     const selectLesson = (lessonId: string) => {
       router.navigate(
         ludoNavigation.build.toBuilderLesson(courseId, moduleId, lessonId)
@@ -31,7 +38,9 @@ export const LessonListForm = withForm({
               {lessons.map((lesson, index) => (
                 <TreeItem key={index}>
                   <BuilderNode
-                    isSelected={!!currentLessonId && lesson.id == currentLessonId}
+                    isSelected={
+                      !!currentLessonId && lesson.id == currentLessonId
+                    }
                     onSelect={() => selectLesson(lesson.id)}
                     title={lesson.title}
                     status
