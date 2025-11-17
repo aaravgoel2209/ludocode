@@ -11,12 +11,14 @@ import type { ReactNode } from "react";
 
 type DeleteDialogWithTriggerProps = {
   targetName: string;
+  canDelete: boolean;
   onClick: () => void;
   children: ReactNode;
 };
 
 export function DeleteDialogWithTrigger({
   onClick,
+  canDelete,
   targetName,
   children,
 }: DeleteDialogWithTriggerProps) {
@@ -33,7 +35,7 @@ export function DeleteDialogWithTrigger({
         </DialogDescription>
         <ActionButton
           onClick={() => onClick()}
-          active={true}
+          active={canDelete}
           orientation="center"
           text="Delete"
         />

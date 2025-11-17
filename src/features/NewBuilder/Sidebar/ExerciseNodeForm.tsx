@@ -6,6 +6,7 @@ import { ExerciseNodeInfoForm } from "./ExerciseNodeInfoForm";
 import { DeleteDialogWithTrigger } from "@/components/Molecules/Dialog/DeleteDialogWithTrigger";
 import { Button } from "@/components/ui/button";
 import { ExerciseNodesList } from "../Exercises/ExerciseNodesList";
+import type { ExerciseSnap } from "@/Types/Snapshot/SnapshotTypes";
 
 export const ExerciseNodeForm = withForm({
   ...courseFormOpts,
@@ -42,13 +43,31 @@ export const ExerciseNodeForm = withForm({
           {(fieldArray) => {
             const exercises = fieldArray.state.value;
 
+            const canRemoveExercises = exercises.length > 1;
+
             const exerciseIndex = exercises.findIndex(
               (e) => e.id === exerciseId
             );
             const hasValidIndex =
               exerciseIndex >= 0 && exerciseIndex < exercises.length;
 
+            const createExercise = () => {
+              const newExercise: ExerciseSnap = {
+                id: crypto.randomUUID(),
+                correctOptions: [],
+                exerciseType: "CLOZE",
+                distractors: [],
+                title: "Title Here",
+                prompt: "Prompt Here",
+                subtitle: "Subtitle Here",
+                media: null,
+              };
+
+              fieldArray.pushValue(newExercise);
+            };
+
             const removeExercise = () => {
+              if (!canRemoveExercises) return;
               if (!hasValidIndex) return;
 
               const nextId =
@@ -97,8 +116,12 @@ export const ExerciseNodeForm = withForm({
                     onReorder={handleReorder}
                   />
 
-                  <div className="w-full flex items-center py-2 justify-end">
+                  <div className="w-full flex gap-4 items-center py-2 justify-end">
+                    <Button onClick={() => createExercise()}>
+                      Add Exercise
+                    </Button>
                     <DeleteDialogWithTrigger
+                      canDelete={canRemoveExercises}
                       targetName="Exercise"
                       onClick={removeExercise}
                     >
