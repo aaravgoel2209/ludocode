@@ -1,7 +1,7 @@
 type OrderSelectorProps = {
   index: number;
   count: number;
-  onChange: (newIndex: number) => void;
+  onChange: ((oldIndex: number, newIndex: number) => void) | null
   className?: string;
   prefix?: string;
 };
@@ -16,8 +16,8 @@ export function OrderSelector({
   return (
     <select
       className={className}
-      value={String(index)}
-      onChange={(e) => onChange(Number(e.target.value))}
+      value={index}
+      onChange={(e) => onChange?.(index, Number(e.target.value))}
       onClick={(e) => e.stopPropagation()}
       aria-label="Reorder"
     >

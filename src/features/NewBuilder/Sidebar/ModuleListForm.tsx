@@ -25,6 +25,11 @@ export const ModuleListForm = withForm({
               lessons: [],
             });
           };
+
+          const rearrangeModule = (oldIndex: number, newIndex: number) => {
+            fieldArray.moveValue(oldIndex, newIndex)
+          }
+
           return (
             <div className="flex gap-4 flex-col">
               <Button onClick={() => addModule()} className="h-8 w-40">
@@ -33,6 +38,9 @@ export const ModuleListForm = withForm({
               <SidebarMenu>
                 {modules.map((module, index) => (
                   <ModuleNodeForm
+                    key={module.moduleId}
+                    updateOrder={rearrangeModule}
+                    modulesLength={modules.length}
                     currentLessonId={currentLessonId}
                     currentModuleId={currentModuleId}
                     form={form}

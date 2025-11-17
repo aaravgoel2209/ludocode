@@ -6,6 +6,7 @@ import { BuilderNode } from "../BuilderNode";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { Button } from "@/components/ui/button";
+import { EditNodeDialog } from "../Dialog/EditNodeDialog";
 
 export const LessonListForm = withForm({
   ...courseFormOpts,
@@ -35,6 +36,10 @@ export const LessonListForm = withForm({
         {(fieldArray) => {
           const lessons = fieldArray.state.value;
 
+          const rearrangeLesson = (oldIndex: number, newIndex: number) => {
+            fieldArray.moveValue(oldIndex, newIndex);
+          };
+
           const addLesson = () => {
             fieldArray.pushValue({
               id: crypto.randomUUID(),
@@ -47,7 +52,7 @@ export const LessonListForm = withForm({
           return (
             <div className={`ml-6 ${isExpanded ? "flex" : "hidden"} flex-col`}>
               {lessons.map((lesson, index) => (
-                <TreeItem key={index}>
+                <TreeItem key={lesson.id}>
                   <BuilderNode
                     isSelected={
                       !!currentLessonId && lesson.id == currentLessonId
@@ -55,11 +60,24 @@ export const LessonListForm = withForm({
                     onSelect={() => selectLesson(lesson.id)}
                     title={lesson.title}
                     status
-                  />
+                  >
+                    <EditNodeDialog
+                      updateOrder={rearrangeLesson}
+                      arrayLength={lessons.length}
+                      lessonIndex={index}
+                      moduleIndex={moduleIndex}
+                      type="lesson"
+                      form={form}
+                    >
+                      <Button className="h-6">Edit</Button>
+                    </EditNodeDialog>
+                  </BuilderNode>
                 </TreeItem>
               ))}
               <TreeItem>
-                <Button className="h-8 mt-2" onClick={() => addLesson()}>Add Lesson</Button>
+                <Button className="h-8 mt-2" onClick={() => addLesson()}>
+                  Add Lesson
+                </Button>
               </TreeItem>
             </div>
           );

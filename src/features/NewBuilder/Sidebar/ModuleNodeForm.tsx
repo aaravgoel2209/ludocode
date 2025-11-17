@@ -4,25 +4,30 @@ import { ludoNavigation } from "@/routes/ludoNavigation";
 import { BuilderNode } from "../BuilderNode";
 import { ExpandNodeButton } from "../ExpandNodeButton";
 import { LessonListForm } from "./LessonListForm";
+import { Button } from "@/components/ui/button";
+import { EditNodeDialog } from "../Dialog/EditNodeDialog";
 
 export const ModuleNodeForm = withForm({
   ...courseFormOpts,
   props: {
+    updateOrder: null as ((oldIndex: number, newIndex: number) => void) | null,
     courseId: "" as string,
     moduleId: "" as string,
+    modulesLength: 0 as number,
     currentModuleId: "" as string,
     currentLessonId: "" as string,
     index: 0 as number,
   },
   render: ({
     form,
+    updateOrder,
     courseId,
     moduleId,
+    modulesLength,
     index,
     currentModuleId,
     currentLessonId,
   }) => {
-    
     return (
       <form.Field name={`modules[${index}]`}>
         {(field) => {
@@ -34,7 +39,7 @@ export const ModuleNodeForm = withForm({
             currentModuleId != null && currentModuleId == moduleId;
 
           const selectModule = () => {
-            console.log("MID " + JSON.stringify(moduleId))
+            console.log("MID " + JSON.stringify(moduleId));
             router.navigate(
               ludoNavigation.build.toBuilderModule(courseId, moduleId)
             );
@@ -48,7 +53,11 @@ export const ModuleNodeForm = withForm({
                   onSelect={() => selectModule()}
                   title={module.title}
                   status
-                />
+                >
+                  <EditNodeDialog updateOrder={updateOrder} arrayLength={modulesLength} moduleIndex={index} lessonIndex={0} type="module" form={form}>
+                    <Button className="h-6">Edit</Button>
+                  </EditNodeDialog>
+                </BuilderNode>
                 <ExpandNodeButton
                   isExpanded={module.isExpanded}
                   onClick={() =>
