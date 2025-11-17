@@ -5,6 +5,7 @@ import { ExerciseOptionsForm } from "./ExerciseOptionsForm";
 import { ExerciseNodeInfoForm } from "./ExerciseNodeInfoForm";
 import { DeleteDialogWithTrigger } from "@/components/Molecules/Dialog/DeleteDialogWithTrigger";
 import { Button } from "@/components/ui/button";
+import { ExerciseNodesList } from "../Exercises/ExerciseNodesList";
 
 export const ExerciseNodeForm = withForm({
   ...courseFormOpts,
@@ -41,7 +42,6 @@ export const ExerciseNodeForm = withForm({
           {(fieldArray) => {
             const exercises = fieldArray.state.value;
 
-            // Compute the *current* index inside the array field, not outside
             const exerciseIndex = exercises.findIndex(
               (e) => e.id === exerciseId
             );
@@ -55,10 +55,8 @@ export const ExerciseNodeForm = withForm({
                 exercises[exerciseIndex + 1]?.id ??
                 exercises[exerciseIndex - 1]?.id;
 
-              // 1) mutate array
               fieldArray.removeValue(exerciseIndex);
 
-              // 2) then navigate based on the neighbor or fallback
               if (nextId) {
                 router.navigate(
                   ludoNavigation.build.toBuilderExercise(
@@ -73,35 +71,32 @@ export const ExerciseNodeForm = withForm({
               }
             };
 
+            const handleSelect = (id: string) => {
+              router.navigate(
+                ludoNavigation.build.toBuilderExercise(
+                  courseId,
+                  currentModuleId,
+                  currentLessonId,
+                  id
+                )
+              );
+            };
+
+            const handleReorder = (oldIndex: number, newIndex: number) => {
+              if (oldIndex === newIndex) return;
+              fieldArray.moveValue(oldIndex, newIndex);
+            };
+
             return (
               <>
                 <div className="w-full flex flex-col gap-2">
-                  <div className="w-full flex gap-2 items-center p-2 border border-ludoGrayDark rounded-md">
-                    {exercises.map((exercise, index) => {
-                      const isSelected =
-                        hasValidIndex && exerciseIndex === index;
-                      return (
-                        <div
-                          key={exercise.id}
-                          onClick={() =>
-                            router.navigate(
-                              ludoNavigation.build.toBuilderExercise(
-                                courseId,
-                                currentModuleId,
-                                currentLessonId,
-                                exercise.id
-                              )
-                            )
-                          }
-                          className={`h-6 w-6 hover:cursor-pointer rounded-full ${
-                            isSelected
-                              ? "bg-ludoLightPurple"
-                              : "bg-ludoGrayDark"
-                          }`}
-                        />
-                      );
-                    })}
-                  </div>
+                  <ExerciseNodesList
+                    exercises={exercises}
+                    currentExerciseId={exerciseId}
+                    onSelect={handleSelect}
+                    onReorder={handleReorder}
+                  />
+
                   <div className="w-full flex items-center py-2 justify-end">
                     <DeleteDialogWithTrigger
                       targetName="Exercise"
