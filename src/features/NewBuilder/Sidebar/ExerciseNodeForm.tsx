@@ -2,6 +2,7 @@ import { courseFormOpts, withForm } from "@/form/formKit";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { ExerciseOptionsForm } from "./ExerciseOptionsForm";
+import { ExerciseNodeInfoForm } from "./ExerciseNodeInfoForm";
 
 export const ExerciseNodeForm = withForm({
   ...courseFormOpts,
@@ -34,7 +35,7 @@ export const ExerciseNodeForm = withForm({
     const exerciseIndex = exercises.findIndex((e) => e.id === exerciseId);
 
     return (
-      <div className={`w-full rounded-md h-80 bg-ludoGrayLight p-4 space-y-4`}>
+      <div className={`w-full rounded-md bg-ludoGrayLight p-4 space-y-4`}>
         <form.AppField
           name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises`}
           mode="array"
@@ -69,13 +70,18 @@ export const ExerciseNodeForm = withForm({
           }}
         </form.AppField>
         {!(exerciseIndex < 0) && !!exerciseId && !!exerciseIndex && (
-          <ExerciseOptionsForm
-            form={form}
-            moduleIndex={moduleIndex}
-            lessonIndex={lessonIndex}
-            exerciseId={exerciseId}
-            exerciseIndex={exerciseIndex}
-          />
+          <>
+            <div className="w-full flex flex-col">
+              <ExerciseNodeInfoForm key={exerciseId} form={form} moduleIndex={moduleIndex} exerciseIndex={exerciseIndex} lessonIndex={lessonIndex}/>
+            </div>
+            <ExerciseOptionsForm
+              form={form}
+              moduleIndex={moduleIndex}
+              lessonIndex={lessonIndex}
+              exerciseId={exerciseId}
+              exerciseIndex={exerciseIndex}
+            />
+          </>
         )}
       </div>
     );

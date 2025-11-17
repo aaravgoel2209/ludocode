@@ -9,7 +9,7 @@ export default function FormTitleField() {
   return (
     <div className="flex flex-col w-full">
       <Textarea
-        className={`pl-2 text-black min-h-6 py-2 rounded-lg border-2 ${
+        className={`pl-2 text-white min-h-6 py-2 rounded-lg border-2 ${
           error ? "border-red-500" : "border-ludoLightPurple"
         }`}
         value={value}

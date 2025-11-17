@@ -59,7 +59,6 @@ export function useOptionsDragAndDrop({
     [correct, distractors, removeValue, addValue]
   );
 
-  // Memoized dragging item — prevents unnecessary re-renders in DragOverlay
   const draggingItem = useMemo(() => {
     if (!activeId) return null;
     return (
@@ -69,7 +68,6 @@ export function useOptionsDragAndDrop({
     );
   }, [activeId, correct, distractors]);
 
-  // Reset on cancel (e.g. ESC key)
   const handleDragCancel = useCallback(() => {
     setActiveId(null);
   }, []);
