@@ -69,12 +69,18 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
           currentModuleId={currentModuleId}
           form={form}
         />
-        <div className="flex w-full justify-center text-white bg-ludoGrayLight items-center gap-4 px-4 h-14">
-          <p>Builder</p>
-        </div>
-        <MainGridWrapper gridRows="SITE">
-          <div className="grid col-span-full h-full grid-cols-12 bg-ludoGrayDark"></div>
-        </MainGridWrapper>
+        <SidebarInset>
+          <MainGridWrapper gridRows="SITE">
+            <div className="flex w-full justify-center text-white bg-ludoGrayLight items-center gap-4 px-4 h-14">
+              <p>Builder</p>
+            </div>
+            <div className="grid col-span-full h-full grid-cols-12 bg-ludoGrayDark">
+              <div className="col-start-3 col-end-11">
+                <p>Hello</p>
+              </div>
+            </div>
+          </MainGridWrapper>
+        </SidebarInset>
       </SidebarProvider>
     </form.AppForm>
   );
