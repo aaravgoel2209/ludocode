@@ -7,11 +7,11 @@ import { useDroppable } from "@dnd-kit/core";
 import { SortableOption } from "./SortableOption";
 import type { ColumnType } from "@/Hooks/Logic/DnD/useOptionsDragAndDrop";
 type OptionsColumnProps = {
-  items: OptionSnap[];
+  items?: OptionSnap[];
   columnType: ColumnType;
 };
 
-export function OptionsColumn({ items, columnType }: OptionsColumnProps) {
+export function OptionsColumn({ items = [], columnType }: OptionsColumnProps) {
   const { setNodeRef, isOver } = useDroppable({
     id: columnType,
     data: { column: columnType },
