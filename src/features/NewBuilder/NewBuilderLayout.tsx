@@ -1,27 +1,21 @@
-import { CommonHeader } from "@/components/Molecules/Header/CommonHeader";
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { qo } from "@/Hooks/Queries/Definitions/queries";
 import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper";
-import { buildRoute } from "@/routes/router";
+import { buildRoute, router } from "@/routes/router";
 import { useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 import { BuilderSidebar } from "./BuilderSidebar";
 
-import type {
-  CourseSnap,
-  ModuleSnap,
-  OptionSnap,
-} from "@/Types/Snapshot/SnapshotTypes";
-import { useEffect, useState } from "react";
+import type { CourseSnap, ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { courseFormOpts, useAppForm } from "@/form/formKit";
 import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/pathConstants";
 import { ludoPost } from "@/Hooks/Queries/Fetcher/ludoPost";
 import { qk } from "@/constants/qk";
 import { ExerciseNodeForm } from "./Sidebar/ExerciseNodeForm";
 import { Button } from "@/components/ui/button";
+import { DeleteDialogWithTrigger } from "@/components/Molecules/Dialog/DeleteDialogWithTrigger";
+import { ludoNavigation } from "@/routes/ludoNavigation";
+import { ExitDialog } from "@/components/Molecules/Dialog/ExitDialog";
+import { LeaveUnsavedDialogWithTrigger } from "@/components/Molecules/Dialog/LeaveUnsavedDialogWithTrigger";
 
 type NewBuilderLayoutProps = {};
 
@@ -71,6 +65,13 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
         <SidebarInset>
           <MainGridWrapper gridRows="SITE">
             <div className="flex w-full justify-center text-white bg-ludoGrayLight items-center gap-4 px-4 h-14">
+              <LeaveUnsavedDialogWithTrigger
+                onClick={() =>
+                  router.navigate(ludoNavigation.build.toSelectCourse())
+                }
+              >
+                <Button> Quit </Button>
+              </LeaveUnsavedDialogWithTrigger>
               <p>Builder</p>
               <Button
                 onClick={async () => {

@@ -68,7 +68,7 @@ export const EditNodeDialog = withForm({
               <div className="grid grid-cols-[1fr_2fr] gap-4">
                 <h2>{type} Title</h2>
                 <form.AppField name={name}>
-                  {(f) => <f.FormTitleField className="text-black"/>}
+                  {(f) => <f.FormTitleField className="text-black" />}
                 </form.AppField>
                 <h2>Order Index</h2>
                 <OrderSelector
