@@ -39,7 +39,7 @@ export const ExerciseNodeForm = withForm({
     if (lessonIndex < 0) return null;
 
     return (
-      <div className="w-full rounded-md bg-ludoGrayLight p-4 space-y-4">
+      <div className="w-full rounded-md flex flex-col space-y-4">
         <form.AppField
           key={`${currentModuleId}-${currentLessonId}-${exerciseId}`}
           name={`modules[${moduleIndex}].lessons[${lessonIndex}].exercises`}
@@ -113,7 +113,7 @@ export const ExerciseNodeForm = withForm({
 
             return (
               <>
-                <div className="w-full flex flex-col gap-2">
+                <div className="w-full flex rounded-md bg-ludoGrayLight p-4 flex-col gap-2">
                   <div className="w-full gap-4 flex items-center font-bold text-white py-2">
                     <h2>Exercise Type: {headerDisplay}</h2>
                     <DevInfoDialog content={exTypeInfoContent}>
@@ -144,7 +144,7 @@ export const ExerciseNodeForm = withForm({
                 </div>
 
                 {hasValidIndex && exerciseId && (
-                  <>
+                  <div className="bg-ludoGrayLight p-4 rounded-md">
                     <div className="w-full flex flex-col">
                       <ExerciseNodeInfoForm
                         key={exerciseId}
@@ -163,7 +163,7 @@ export const ExerciseNodeForm = withForm({
                         exerciseIndex={exerciseIndex}
                       />
                     )}
-                  </>
+                  </div>
                 )}
               </>
             );

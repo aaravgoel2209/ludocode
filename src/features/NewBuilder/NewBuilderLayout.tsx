@@ -81,11 +81,11 @@ export function NewBuilderLayout({}: NewBuilderLayoutProps) {
                   form.handleSubmit();
                 }}
               >
-                Submit Snapshot{" "}
+                Submit Snapshot
               </Button>
             </div>
             <div className="grid col-span-full h-full grid-cols-12 bg-ludoGrayDark">
-              <div className="col-start-2 py-8 h-full flex items-center justify-center col-end-12">
+              <div className="col-start-2 py-8 h-full flex items-start justify-center col-end-12">
                 <ExerciseNodeForm
                   courseId={courseId}
                   currentModuleId={currentModuleId}
