@@ -8,6 +8,7 @@ import { DialogWrapper } from "./DialogWrapper";
 import { Input } from "@/components/ui/input";
 import { ActionButton } from "@/components/Atoms/Button/ActionButton";
 import type { ReactNode } from "react";
+import { WarningDialogWithTrigger } from "./WarningDialogWithTrigger";
 
 type DeleteDialogWithTriggerProps = {
   targetName: string;
@@ -22,24 +23,12 @@ export function DeleteDialogWithTrigger({
   targetName,
   children,
 }: DeleteDialogWithTriggerProps) {
+
+  const title = `Are you sure you want to delete ${targetName}?`
+
   return (
-    <Dialog>
-      <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogWrapper>
-        <DialogTitle className="text-white">
-          Are you sure you want to delete{" "}
-          <span className="font-bold">{targetName}</span> ?
-        </DialogTitle>
-        <DialogDescription className="text-white code font-bold">
-          This Action is irreversible
-        </DialogDescription>
-        <ActionButton
-          onClick={() => onClick()}
-          active={canDelete}
-          orientation="center"
-          text="Delete"
-        />
-      </DialogWrapper>
-    </Dialog>
+    <WarningDialogWithTrigger onClick={onClick} canClick={canDelete} title={title} subtitle="This action is irreversible" buttonText="Delete">
+      {children}
+    </WarningDialogWithTrigger>
   );
 }
