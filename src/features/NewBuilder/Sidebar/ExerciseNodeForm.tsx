@@ -9,6 +9,9 @@ import { ExerciseNodesList } from "../Exercises/ExerciseNodesList";
 import type { ExerciseSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { AddExerciseDialog } from "../Dialog/AddExerciseDialog";
 import type { ExerciseType } from "@/Types/Exercise/ExerciseType";
+import { DevInfoDialog } from "../Dialog/DevInfoDialog";
+import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
+import { exTypeInfoContent } from "@/lib/infoContent";
 
 export const ExerciseNodeForm = withForm({
   ...courseFormOpts,
@@ -54,7 +57,9 @@ export const ExerciseNodeForm = withForm({
             const hasValidIndex =
               exerciseIndex >= 0 && exerciseIndex < exercises.length;
 
-            const exerciseType = hasValidIndex ? exercises[exerciseIndex].exerciseType : null
+            const exerciseType = hasValidIndex
+              ? exercises[exerciseIndex].exerciseType
+              : null;
 
             const createExercise = (newExercise: ExerciseSnap) => {
               fieldArray.pushValue(newExercise);
@@ -100,9 +105,17 @@ export const ExerciseNodeForm = withForm({
               fieldArray.moveValue(oldIndex, newIndex);
             };
 
+            const headerDisplay = exerciseType ?? "None Selected"
+
             return (
               <>
                 <div className="w-full flex flex-col gap-2">
+                  <div className="w-full gap-4 flex items-center font-bold text-white py-2">
+                    <h2>Exercise Type: {headerDisplay}</h2>
+                    <DevInfoDialog content={exTypeInfoContent}>
+                      <QuestionMarkCircleIcon className="h-4 hover:cursor-pointer hover:text-ludoLightPurple w-4"/>
+                    </DevInfoDialog>
+                  </div>
                   <ExerciseNodesList
                     exercises={exercises}
                     currentExerciseId={exerciseId}
