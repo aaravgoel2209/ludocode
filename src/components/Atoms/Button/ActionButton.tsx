@@ -39,7 +39,9 @@ export function ActionButton({
   return (
     <div
       onClick={() => onClick?.()}
-      className={`hover:cursor-pointer py-2 ${shadowStyle} px-4 rounded-xl active:shadow-none active:translate-y-[6px] ${style}`}
+      className={` ${
+        active ? "hover:cursor-pointer" : "hover:cursor-not-allowed"
+      } py-2 ${shadowStyle} px-4 rounded-xl active:shadow-none active:translate-y-[6px] ${style}`}
     >
       <p className={`text-2xl ${orientationStyle[orientation]}`}>{text}</p>
     </div>

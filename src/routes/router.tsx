@@ -47,7 +47,6 @@ import { SyncingPage } from "../features/Common/LoadingPages/SyncingPage.tsx";
 import { LessonCompletionPage } from "../features/Completion/LessonCompletionPage.tsx";
 import { StreakIncreasePage } from "../features/Completion/StreakIncreasePage.tsx";
 import type { LessonSubmission } from "../Types/Exercise/LessonSubmissionTypes.ts";
-import { BuilderLayout } from "../features/Builder/BuilderLayout.tsx";
 import { ensureTreeData } from "./routerEnsures.ts";
 import { OnboardingLayout } from "@/features/Onboarding/OnboardingLayout.tsx";
 import {
@@ -59,6 +58,7 @@ import { ProjectPage } from "@/features/Project/ProjectPage.tsx";
 import { PlaygroundPage } from "@/features/Playground/PlaygroundPage.tsx";
 import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
 import { BuilderRedirectPage } from "@/features/Builder/RedirectPage/BuilderRedirectPage.tsx";
+import { NewBuilderLayout } from "@/features/NewBuilder/NewBuilderLayout.tsx";
 
 export const queryClient = new QueryClient();
 
@@ -198,13 +198,15 @@ export const modulesRedirectRoute = createRoute({
 });
 
 export const buildRoute = createRoute({
-  getParentRoute: () => siteRoute,
+  getParentRoute: () => authedRoute,
   path: RP_BUILD,
   validateSearch: (s: Record<string, unknown>) => ({
+    moduleId: typeof s.moduleId === "string" ? s.moduleId : undefined,
     lessonId: typeof s.lessonId === "string" ? s.lessonId : undefined,
+    exerciseId: typeof s.exerciseId === "string" ? s.exerciseId : undefined,
   }),
   loader: async ({ params }) => builderPageLoader(params, queryClient),
-  component: BuilderLayout,
+  component: NewBuilderLayout,
 });
 
 export const buildSelectionRoute = createRoute({
@@ -212,12 +214,6 @@ export const buildSelectionRoute = createRoute({
   path: RP_BUILD_SELECTION,
   loader: async ({ location }) => buildSectionLoader(location, queryClient),
   component: BuilderRedirectPage,
-});
-
-export const buildRedirectRoute = createRoute({
-  getParentRoute: () => siteRoute,
-  path: RP_BUILD_REDIRECT,
-  loader: async ({ params }) => buildRedirectLoader(params, queryClient),
 });
 
 export const moduleRoute = createRoute({
@@ -289,7 +285,6 @@ const routeTree = rootRoute.addChildren([
       ]),
       moduleSectionRoute.addChildren([modulesRedirectRoute, moduleRoute]),
       buildSelectionRoute,
-      buildRedirectRoute,
       buildRoute,
     ]),
     projectRoute,

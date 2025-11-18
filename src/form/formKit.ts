@@ -9,6 +9,8 @@ import { AddExerciseFieldButton } from "../features/Builder/Fields/AddExerciseFi
 import { CourseSnapSchema } from "@/Types/Zod/SnapshotSchema/CourseSnapSchema";
 import type { ModuleSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { OnboardingSnapSchema } from "@/Types/Zod/OnboardingSchema/OnboardingSnapSchema";
+import FormTitleField from "@/features/NewBuilder/TanstackForm/FormTitleField";
+import { StatusButtonField } from "@/features/NewBuilder/TanstackForm/StatusButtonField";
 
 export const { fieldContext, formContext, useFormContext, useFieldContext } =
   createFormHookContexts();
@@ -16,10 +18,13 @@ export const { useAppForm, withForm } = createFormHook({
   fieldContext,
   formContext,
   fieldComponents: {
+    FormTitleField,
+    StatusButtonField,
     TitleField,
     AddExerciseFieldButton,
   },
-  formComponents: {},
+  formComponents: {
+  },
 });
 
 export const courseFormOpts = {

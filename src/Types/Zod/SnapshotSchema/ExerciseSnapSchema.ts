@@ -1,13 +1,13 @@
 import { z } from "zod";
 
-const OptionSnap = z.object({
+export const OptionSnap = z.object({
   content: z.string().min(1),
   answerOrder: z.number().int().positive().nullable().optional(),
   exerciseOptionId: z.string()
 });
 
 const Base = z.object({
-  id: z.string().uuid().optional(),
+  id: z.string().uuid(),
   title: z.string().optional().nullable(),
   subtitle: z.string().optional().nullable(),
   media: z.string().optional().nullable(),
@@ -21,7 +21,7 @@ function countGaps(s?: string | null) {
   return (s.match(/___/g) ?? []).length;
 }
 
-const Cloze = Base.extend({
+export const Cloze = Base.extend({
   exerciseType: z.literal("CLOZE"),
 }).superRefine((v, ctx) => {
   const gaps = countGaps(v.prompt);
@@ -47,7 +47,7 @@ const Cloze = Base.extend({
 });
 
 //PER EXERCISE OPTION
-const Analyze = Base.extend({
+export const Analyze = Base.extend({
   exerciseType: z.literal("ANALYZE"),
 }).superRefine((v, ctx) => {
   if (!v.title)
@@ -76,14 +76,14 @@ const Analyze = Base.extend({
     });
 });
 
-const Trivia = Base.extend({
+export const Trivia = Base.extend({
   exerciseType: z.literal("TRIVIA"),
 }).superRefine((v, ctx) => {
-  if (!v.prompt)
+  if (!v.title)
     ctx.addIssue({
       code: "custom",
-      path: ["prompt"],
-      message: "Prompt required",
+      path: ["title"],
+      message: "Title Required",
     });
   if (v.correctOptions.length !== 1)
     ctx.addIssue({
@@ -99,7 +99,7 @@ const Trivia = Base.extend({
     });
 });
 
-const Info = Base.extend({
+export const Info = Base.extend({
   exerciseType: z.literal("INFO"),
 }).superRefine((v, ctx) => {
   if (!v.title)
