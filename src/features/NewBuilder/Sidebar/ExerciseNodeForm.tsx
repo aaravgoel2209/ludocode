@@ -50,8 +50,11 @@ export const ExerciseNodeForm = withForm({
             const exerciseIndex = exercises.findIndex(
               (e) => e.id === exerciseId
             );
+
             const hasValidIndex =
               exerciseIndex >= 0 && exerciseIndex < exercises.length;
+
+            const exerciseType = hasValidIndex ? exercises[exerciseIndex].exerciseType : null
 
             const createExercise = (newExercise: ExerciseSnap) => {
               fieldArray.pushValue(newExercise);
@@ -133,14 +136,15 @@ export const ExerciseNodeForm = withForm({
                         exerciseIndex={exerciseIndex}
                       />
                     </div>
-
-                    <ExerciseOptionsForm
-                      form={form}
-                      moduleIndex={moduleIndex}
-                      lessonIndex={lessonIndex}
-                      exerciseId={exerciseId}
-                      exerciseIndex={exerciseIndex}
-                    />
+                    {!!exerciseType && exerciseType !== "INFO" && (
+                      <ExerciseOptionsForm
+                        form={form}
+                        moduleIndex={moduleIndex}
+                        lessonIndex={lessonIndex}
+                        exerciseId={exerciseId}
+                        exerciseIndex={exerciseIndex}
+                      />
+                    )}
                   </>
                 )}
               </>

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { uuidv4 } from "zod";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
+import { newModule } from "../Util/NewExerciseTemplates";
 
 export const ModuleListForm = withForm({
   ...courseFormOpts,
@@ -20,12 +21,7 @@ export const ModuleListForm = withForm({
           const modules = fieldArray.state.value;
           const addModule = () => {
             const modulesLength = modules.length;
-            fieldArray.pushValue({
-              moduleId: crypto.randomUUID(),
-              title: `Module ${modulesLength}`,
-              isExpanded: false,
-              lessons: [],
-            });
+            fieldArray.pushValue(newModule(modulesLength));
           };
 
           const rearrangeModule = (oldIndex: number, newIndex: number) => {

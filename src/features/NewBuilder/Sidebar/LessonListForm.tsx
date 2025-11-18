@@ -7,6 +7,7 @@ import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { Button } from "@/components/ui/button";
 import { EditNodeDialog } from "../Dialog/EditNodeDialog";
+import { newLesson } from "../Util/NewExerciseTemplates";
 
 export const LessonListForm = withForm({
   ...courseFormOpts,
@@ -41,12 +42,8 @@ export const LessonListForm = withForm({
           };
 
           const addLesson = () => {
-            fieldArray.pushValue({
-              id: crypto.randomUUID(),
-              title: `Lesson ${lessons.length}`,
-              exercises: [],
-              orderIndex: lessons.length,
-            });
+            const orderIndex = lessons.length
+            fieldArray.pushValue(newLesson(orderIndex))
           };
 
           const removeLesson = (thisId: string, index: number) => {
