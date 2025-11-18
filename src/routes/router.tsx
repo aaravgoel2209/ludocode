@@ -57,8 +57,8 @@ import { OnboardingStagePage } from "@/features/Onboarding/OnboardingStagePage.t
 import { ProjectPage } from "@/features/Project/ProjectPage.tsx";
 import { PlaygroundPage } from "@/features/Playground/PlaygroundPage.tsx";
 import { playgroundLoader, projectLoader } from "./Loaders/playgroundLoader.ts";
-import { BuilderRedirectPage } from "@/features/Builder/RedirectPage/BuilderRedirectPage.tsx";
-import { NewBuilderLayout } from "@/features/NewBuilder/NewBuilderLayout.tsx";
+import { BuilderRedirectPage } from "@/features/Builder/BuilderRedirectPage.tsx";
+import { NewBuilderLayout } from "@/features/Builder/NewBuilderLayout.tsx";
 
 export const queryClient = new QueryClient();
 

@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { RouterBar } from "../../Atoms/Progress/RouterBar";
+import { RouterBar } from "../../Atoms/Status/RouterBar";
 import { useRouterBar } from "../../../Hooks/UI/useRouterBar";
 
 type CommonHeaderProps = {
