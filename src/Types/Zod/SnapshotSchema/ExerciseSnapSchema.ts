@@ -21,7 +21,7 @@ function countGaps(s?: string | null) {
   return (s.match(/___/g) ?? []).length;
 }
 
-const Cloze = Base.extend({
+export const Cloze = Base.extend({
   exerciseType: z.literal("CLOZE"),
 }).superRefine((v, ctx) => {
   const gaps = countGaps(v.prompt);
@@ -47,7 +47,7 @@ const Cloze = Base.extend({
 });
 
 //PER EXERCISE OPTION
-const Analyze = Base.extend({
+export const Analyze = Base.extend({
   exerciseType: z.literal("ANALYZE"),
 }).superRefine((v, ctx) => {
   if (!v.title)
@@ -76,7 +76,7 @@ const Analyze = Base.extend({
     });
 });
 
-const Trivia = Base.extend({
+export const Trivia = Base.extend({
   exerciseType: z.literal("TRIVIA"),
 }).superRefine((v, ctx) => {
   if (!v.prompt)
@@ -99,7 +99,7 @@ const Trivia = Base.extend({
     });
 });
 
-const Info = Base.extend({
+export const Info = Base.extend({
   exerciseType: z.literal("INFO"),
 }).superRefine((v, ctx) => {
   if (!v.title)

@@ -1,13 +1,14 @@
 import { Textarea } from "@/components/ui/textarea";
 import { useFieldContext } from "@/form/formKit";
 
-export default function FormTitleField() {
+export default function FormTitleField({name}: {name?: string}) {
   const field = useFieldContext<string>();
   const value = field.state.value ?? "";
   const error = field.state.meta.errors?.[0]?.message;
 
   return (
     <div className="flex flex-col w-full">
+      {name && <p className="text-sm text-ludoAltText pb-0.5">{name}</p>}
       <Textarea
         className={`pl-2 text-white min-h-6 py-2 rounded-lg border-2 ${
           error ? "border-red-500" : "border-ludoLightPurple"

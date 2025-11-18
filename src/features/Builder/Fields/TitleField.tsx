@@ -4,11 +4,13 @@ import { useFieldContext } from "../../../form/formKit";
 export default function TitleField({
   deletable,
   placeHolder = "Enter Title",
+  name,
   arrayLength,
   onDelete,
 }: {
   arrayLength: number;
   deletable?: boolean;
+  name?: string;
   placeHolder?: string;
   onDelete?: () => void;
 }) {
@@ -20,6 +22,12 @@ export default function TitleField({
 
   return (
     <div className="flex flex-col w-full">
+      {name && (
+        <div>
+          <p>{name}</p>
+        </div>
+      )}
+
       <Textarea
         className={`pl-2 text-white min-h-6 py-2 rounded-lg border-2 ${
           error ? "border-red-500" : "border-ludoLightPurple"

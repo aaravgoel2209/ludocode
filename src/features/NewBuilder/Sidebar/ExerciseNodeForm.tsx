@@ -7,6 +7,8 @@ import { DeleteDialogWithTrigger } from "@/components/Molecules/Dialog/DeleteDia
 import { Button } from "@/components/ui/button";
 import { ExerciseNodesList } from "../Exercises/ExerciseNodesList";
 import type { ExerciseSnap } from "@/Types/Snapshot/SnapshotTypes";
+import { AddExerciseDialog } from "../Dialog/AddExerciseDialog";
+import type { ExerciseType } from "@/Types/Exercise/ExerciseType";
 
 export const ExerciseNodeForm = withForm({
   ...courseFormOpts,
@@ -51,18 +53,7 @@ export const ExerciseNodeForm = withForm({
             const hasValidIndex =
               exerciseIndex >= 0 && exerciseIndex < exercises.length;
 
-            const createExercise = () => {
-              const newExercise: ExerciseSnap = {
-                id: crypto.randomUUID(),
-                correctOptions: [],
-                exerciseType: "CLOZE",
-                distractors: [],
-                title: "Title Here",
-                prompt: "Prompt Here",
-                subtitle: "Subtitle Here",
-                media: null,
-              };
-
+            const createExercise = (newExercise: ExerciseSnap) => {
               fieldArray.pushValue(newExercise);
             };
 
@@ -117,9 +108,10 @@ export const ExerciseNodeForm = withForm({
                   />
 
                   <div className="w-full flex gap-4 items-center py-2 justify-end">
-                    <Button onClick={() => createExercise()}>
-                      Add Exercise
-                    </Button>
+                    <AddExerciseDialog onClick={createExercise}>
+                      <Button>Add Exercise</Button>
+                    </AddExerciseDialog>
+
                     <DeleteDialogWithTrigger
                       canDelete={canRemoveExercises}
                       targetName="Exercise"
