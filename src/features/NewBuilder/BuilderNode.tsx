@@ -25,7 +25,6 @@ export function BuilderNode({
         <p className="text-lg">{title}</p>
         <div className="flex items-center gap-4">
           {children}
-          <StatusButton status="default" />
         </div>
       </BuilderNodeContainer>
     </div>

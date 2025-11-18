@@ -8,6 +8,8 @@ import { ludoNavigation } from "@/routes/ludoNavigation";
 import { Button } from "@/components/ui/button";
 import { EditNodeDialog } from "../Dialog/EditNodeDialog";
 import { newLesson } from "../Util/NewExerciseTemplates";
+import { StatusButton } from "@/components/Atoms/Button/StatusButton";
+import { StatusButtonField } from "../TanstackForm/StatusButtonField";
 
 export const LessonListForm = withForm({
   ...courseFormOpts,
@@ -42,8 +44,8 @@ export const LessonListForm = withForm({
           };
 
           const addLesson = () => {
-            const orderIndex = lessons.length
-            fieldArray.pushValue(newLesson(orderIndex))
+            const orderIndex = lessons.length;
+            fieldArray.pushValue(newLesson(orderIndex));
           };
 
           const removeLesson = (thisId: string, index: number) => {
@@ -86,6 +88,16 @@ export const LessonListForm = withForm({
                     >
                       <Button className="h-6">Edit</Button>
                     </EditNodeDialog>
+
+                    <form.AppField
+                      name={`modules[${moduleIndex}].lessons[${index}]`}
+                    >
+                      {(lessonField) => {
+                        const hasError =
+                          lessonField.state.meta.errors?.[0]?.message;
+                        return <StatusButtonField hasError={!!hasError} />;
+                      }}
+                    </form.AppField>
                   </BuilderNode>
                 </TreeItem>
               ))}

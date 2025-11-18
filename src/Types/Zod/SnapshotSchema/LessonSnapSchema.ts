@@ -11,7 +11,10 @@ export const LessonSnapSchema = z
     orderIndex: z.number().int().positive(),
   })
   .superRefine((v, ctx) => {
+    let hasError = false;
+
     if (!v.title) {
+      hasError = true;
       ctx.addIssue({
         code: "custom",
         path: ["title"],
@@ -19,12 +22,23 @@ export const LessonSnapSchema = z
       });
     }
 
-    const badIdx = v.exercises.findIndex((ex) => !ExerciseSnapSchema.safeParse(ex).success);
-    if (badIdx !== -1) {
+    const badExercise = v.exercises.findIndex(
+      (ex) => !ExerciseSnapSchema.safeParse(ex).success
+    );
+    if (badExercise !== -1) {
+      hasError = true;
       ctx.addIssue({
         code: "custom",
         path: ["exercises"],
-        message: `Contains an invalid exercise (e.g. item #${badIdx + 1})`,
+        message: `Contains an invalid exercise (e.g. item #${badExercise + 1})`,
+      });
+    }
+
+    if (hasError) {
+      ctx.addIssue({
+        code: "custom",
+        path: [],
+        message: "Module has validation errors.",
       });
     }
   });

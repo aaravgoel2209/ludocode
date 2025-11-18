@@ -6,6 +6,8 @@ import { ExpandNodeButton } from "../ExpandNodeButton";
 import { LessonListForm } from "./LessonListForm";
 import { Button } from "@/components/ui/button";
 import { EditNodeDialog } from "../Dialog/EditNodeDialog";
+import { StatusButton } from "@/components/Atoms/Button/StatusButton";
+import { StatusButtonField } from "../TanstackForm/StatusButtonField";
 
 export const ModuleNodeForm = withForm({
   ...courseFormOpts,
@@ -67,6 +69,13 @@ export const ModuleNodeForm = withForm({
                   >
                     <Button className="h-6">Edit</Button>
                   </EditNodeDialog>
+                  <form.AppField name={`modules[${index}]`}>
+                    {(moduleField) => {
+                      const hasError =
+                        moduleField.state.meta.errors?.[0]?.message;
+                      return <StatusButtonField hasError={!!hasError} />;
+                    }}
+                  </form.AppField>
                 </BuilderNode>
                 <ExpandNodeButton
                   isExpanded={module.isExpanded}

@@ -36,7 +36,7 @@ export const ExerciseNodesList = ({
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 4,
+        distance: 4, // so a tiny click doesn’t start a drag
       },
     })
   );
@@ -57,7 +57,7 @@ export const ExerciseNodesList = ({
   return (
     <div className="w-full flex flex-col gap-2">
       <div className="flex justify-between items-center pb-1">
-        <span className="text-xs text-ludoAltText">
+        <span className="text-xs text-ludoGrayDark">
           {isLocked ? "Click to select" : "Drag to reorder"}
         </span>
         <Button
@@ -72,6 +72,7 @@ export const ExerciseNodesList = ({
 
       <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
         <SortableContext
+          // use ids as the sortable keys
           items={exercises.map((e) => e.id)}
           strategy={horizontalListSortingStrategy}
         >
