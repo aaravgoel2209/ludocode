@@ -6,6 +6,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { BuilderRedirectHero } from "./BuilderRedirectHero";
 import { CreateCourseDialog } from "@/components/Molecules/Dialog/CreateCourseDialog";
 import { useModal } from "@/Hooks/UI/useModal";
+import { uuid } from "@tanstack/react-form";
 
 type BuilderRedirectPageProps = {};
 
@@ -42,7 +43,7 @@ export function BuilderRedirectPage({}: BuilderRedirectPageProps) {
         </div>
         <div className="col-span-1 bg-ludoGrayDark lg:col-span-2"></div>
       </div>
-      <CreateCourseDialog open={createCourseOpen} close={closeCreateCourse} />
+      <CreateCourseDialog hash={uuid()} open={createCourseOpen} close={closeCreateCourse} />
     </>
   );
 }

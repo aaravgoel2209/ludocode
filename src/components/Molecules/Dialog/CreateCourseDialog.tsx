@@ -4,19 +4,35 @@ import { DialogWrapper } from "./DialogWrapper";
 import { DialogHeader } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useCreateCourse } from "@/Hooks/Queries/Mutations/useCreateCourse";
 
-type CreateCourseDialogProps = { open: boolean, close: () => void };
+type CreateCourseDialogProps = {
+  open: boolean;
+  close: () => void;
+  hash: string;
+};
 
-export function CreateCourseDialog({ open, close }: CreateCourseDialogProps) {
+export function CreateCourseDialog({
+  open,
+  close,
+  hash,
+}: CreateCourseDialogProps) {
   const closeModal = () => {
     close();
     setCourseName("Untitled Course");
   };
 
+  const createCourseMutation = useCreateCourse(() => close());
+
   const [courseName, setCourseName] = useState<string>("Untitled Course");
 
   const submitProject = () => {
     if (courseName == null || courseName.length <= 0) return;
+
+    createCourseMutation.mutate({
+      courseTitle: courseName,
+      requestHash: hash,
+    });
   };
 
   return (
