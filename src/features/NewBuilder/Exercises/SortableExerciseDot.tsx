@@ -5,12 +5,14 @@ type SortableExerciseDotProps = {
   id: string;
   isSelected: boolean;
   isLocked: boolean;
+  hasError: boolean;
   onSelect: (id: string) => void;
 };
 
 export const SortableExerciseDot = ({
   id,
   isSelected,
+  hasError,
   isLocked,
   onSelect,
 }: SortableExerciseDotProps) => {
@@ -45,7 +47,7 @@ export const SortableExerciseDot = ({
       {...attributes}
       className={`h-6 w-6 rounded-full ${
         isSelected ? "bg-ludoLightPurple" : "bg-ludoGrayDark"
-      }`}
+      } ${hasError ? "border border-red-400" : "border-ludoGrayDark"}`}
     />
   );
 };

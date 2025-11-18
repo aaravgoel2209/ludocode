@@ -23,10 +23,12 @@ type ExerciseNodesListProps = {
   currentExerciseId: string;
   onSelect: (id: string) => void;
   onReorder: (oldIndex: number, newIndex: number) => void;
+  errorMap: Record<string, boolean>;
 };
 
 export const ExerciseNodesList = ({
   exercises,
+  errorMap,
   currentExerciseId,
   onSelect,
   onReorder,
@@ -36,10 +38,12 @@ export const ExerciseNodesList = ({
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 4, // so a tiny click doesn’t start a drag
+        distance: 4,
       },
     })
   );
+
+  console.log("eror map: " + JSON.stringify(errorMap));
 
   const handleDragEnd = (event: DragEndEvent) => {
     if (isLocked) return;
@@ -72,7 +76,6 @@ export const ExerciseNodesList = ({
 
       <DndContext sensors={sensors} onDragEnd={handleDragEnd}>
         <SortableContext
-          // use ids as the sortable keys
           items={exercises.map((e) => e.id)}
           strategy={horizontalListSortingStrategy}
         >
@@ -80,6 +83,7 @@ export const ExerciseNodesList = ({
             {exercises.map((exercise) => (
               <SortableExerciseDot
                 key={exercise.id}
+                hasError={!!errorMap[exercise.id]}
                 id={exercise.id}
                 isSelected={exercise.id === currentExerciseId}
                 isLocked={isLocked}

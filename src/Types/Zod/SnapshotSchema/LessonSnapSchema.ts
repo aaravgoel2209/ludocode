@@ -22,15 +22,21 @@ export const LessonSnapSchema = z
       });
     }
 
-    const badExercise = v.exercises.findIndex(
-      (ex) => !ExerciseSnapSchema.safeParse(ex).success
-    );
-    if (badExercise !== -1) {
+    const invalidIndexes: number[] = [];
+
+    v.exercises.forEach((ex, idx) => {
+      const parsed = ExerciseSnapSchema.safeParse(ex);
+      if (!parsed.success) {
+        invalidIndexes.push(idx);
+      }
+    });
+
+    if (invalidIndexes.length > 0) {
       hasError = true;
       ctx.addIssue({
         code: "custom",
         path: ["exercises"],
-        message: `Contains an invalid exercise (e.g. item #${badExercise + 1})`,
+        message: `Invalid exercise indexes: [${invalidIndexes.join(", ")}]`,
       });
     }
 

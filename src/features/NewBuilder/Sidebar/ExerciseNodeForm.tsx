@@ -8,10 +8,10 @@ import { Button } from "@/components/ui/button";
 import { ExerciseNodesList } from "../Exercises/ExerciseNodesList";
 import type { ExerciseSnap } from "@/Types/Snapshot/SnapshotTypes";
 import { AddExerciseDialog } from "../Dialog/AddExerciseDialog";
-import type { ExerciseType } from "@/Types/Exercise/ExerciseType";
 import { DevInfoDialog } from "../Dialog/DevInfoDialog";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 import { exTypeInfoContent } from "@/lib/infoContent";
+import { parseExerciseError } from "../Util/ParseErrors";
 
 export const ExerciseNodeForm = withForm({
   ...courseFormOpts,
@@ -53,6 +53,10 @@ export const ExerciseNodeForm = withForm({
             const exerciseIndex = exercises.findIndex(
               (e) => e.id === exerciseId
             );
+
+            const errorEntries = fieldArray.state.meta.errors ?? [];
+
+            const errorMap = parseExerciseError(errorEntries, exercises);
 
             const hasValidIndex =
               exerciseIndex >= 0 && exerciseIndex < exercises.length;
@@ -105,7 +109,7 @@ export const ExerciseNodeForm = withForm({
               fieldArray.moveValue(oldIndex, newIndex);
             };
 
-            const headerDisplay = exerciseType ?? "None Selected"
+            const headerDisplay = exerciseType ?? "None Selected";
 
             return (
               <>
@@ -113,13 +117,14 @@ export const ExerciseNodeForm = withForm({
                   <div className="w-full gap-4 flex items-center font-bold text-white py-2">
                     <h2>Exercise Type: {headerDisplay}</h2>
                     <DevInfoDialog content={exTypeInfoContent}>
-                      <QuestionMarkCircleIcon className="h-4 hover:cursor-pointer hover:text-ludoLightPurple w-4"/>
+                      <QuestionMarkCircleIcon className="h-4 hover:cursor-pointer hover:text-ludoLightPurple w-4" />
                     </DevInfoDialog>
                   </div>
                   <ExerciseNodesList
                     exercises={exercises}
                     currentExerciseId={exerciseId}
                     onSelect={handleSelect}
+                    errorMap={errorMap}
                     onReorder={handleReorder}
                   />
 
