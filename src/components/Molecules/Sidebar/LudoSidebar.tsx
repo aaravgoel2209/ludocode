@@ -6,7 +6,6 @@ import {
   SidebarGroupLabel,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { courseFormOpts, withForm } from "@/form/formKit";
 import type { ReactNode } from "react";
 
 type LudoSidebarProps = { title: string; children: ReactNode };

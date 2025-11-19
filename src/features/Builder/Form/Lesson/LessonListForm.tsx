@@ -9,6 +9,7 @@ import { newLesson } from "../../Util/NewExerciseTemplates";
 import { StatusButtonField } from "../../../../components/Atoms/Status/StatusButtonField";
 import { AddLessonRow } from "../../UI/Button/AddLessonRow";
 import { SelectLessonButton } from "../../UI/Button/SelectLessonButton";
+import { BuilderNodeWrapper } from "@/components/Molecules/Sidebar/BuilderNodeWrapper";
 
 export const LessonListForm = withForm({
   ...courseFormOpts,
@@ -68,17 +69,25 @@ export const LessonListForm = withForm({
             <div className={`ml-6 ${isExpanded ? "flex" : "hidden"} flex-col`}>
               {lessons.map((lesson, index) => (
                 <TreeItem key={lesson.id}>
-                  <BuilderNode
-                    isSelected={
-                      !!currentLessonId && lesson.id == currentLessonId
-                    }
-                    title={lesson.title}
-                    status
-                  >
-                    <SelectLessonButton
-                      selectLesson={selectLesson}
-                      lessonId={lesson.id}
-                    />
+                  <BuilderNodeWrapper>
+                    <BuilderNode
+                      onSelect={() => selectLesson(lesson.id)}
+                      isSelected={
+                        !!currentLessonId && lesson.id == currentLessonId
+                      }
+                      title={lesson.title}
+                      status
+                    >
+                      <form.AppField
+                        name={`modules[${moduleIndex}].lessons[${index}]`}
+                      >
+                        {(lessonField) => {
+                          const hasError =
+                            lessonField.state.meta.errors?.[0]?.message;
+                          return <StatusButtonField hasError={!!hasError} />;
+                        }}
+                      </form.AppField>
+                    </BuilderNode>
                     <EditNodeDialog
                       removeItem={() => removeLesson?.(lesson.id, index)}
                       updateOrder={rearrangeLesson}
@@ -90,17 +99,7 @@ export const LessonListForm = withForm({
                     >
                       <Button className="h-6">Edit</Button>
                     </EditNodeDialog>
-
-                    <form.AppField
-                      name={`modules[${moduleIndex}].lessons[${index}]`}
-                    >
-                      {(lessonField) => {
-                        const hasError =
-                          lessonField.state.meta.errors?.[0]?.message;
-                        return <StatusButtonField hasError={!!hasError} />;
-                      }}
-                    </form.AppField>
-                  </BuilderNode>
+                  </BuilderNodeWrapper>
                 </TreeItem>
               ))}
               <AddLessonRow addLesson={() => addLesson()} />
