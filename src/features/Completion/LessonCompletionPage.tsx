@@ -29,7 +29,7 @@ export function LessonCompletionPage() {
     <MainGridWrapper gridRows="SITE_INVERSE">
       <MainContentWrapper>
         <div className="col-span-full grid grid-cols-12 h-full">
-          <div className="text-white col-start-5 col-end-9 flex flex-col items-stretch gap-4 justify-center min-w-0">
+          <div className="text-white col-span-full px-4 lg:px-0 lg:col-start-5 lg:col-end-9 flex flex-col items-stretch gap-4 justify-center min-w-0">
             <Lottie
               animationData={altAnimation}
               loop={false}
