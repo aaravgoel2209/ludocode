@@ -11,6 +11,7 @@ import Lottie from "lottie-react";
 import { useLottie } from "../../Hooks/Animation/useLottie";
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { completeRoute, router } from "../../routes/router";
+import { LessonCompletionFooter } from "./LessonCompletionFooter";
 
 export function LessonCompletionPage() {
   const currentUser = useSuspenseQuery(qo.currentUser());
@@ -41,17 +42,7 @@ export function LessonCompletionPage() {
           </div>
         </div>
       </MainContentWrapper>
-      <DefaultFooter phase="DEFAULT">
-        <div
-          className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-3 lg:col-end-11`}
-        >
-          <ActionButton
-            onClick={() => handleContinue()}
-            text="Continue"
-            active={true}
-          />
-        </div>
-      </DefaultFooter>
+      <LessonCompletionFooter handleContinue={handleContinue} />
     </MainGridWrapper>
   );
 }

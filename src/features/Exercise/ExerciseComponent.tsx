@@ -1,10 +1,10 @@
 import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance";
 import type { LudoExercise } from "../../Types/Exercise/LudoExercise";
-import { AnalyzeExercise } from "./AnalyzeExercise";
-import { ClozeExercise } from "./ClozeExercise";
+import { AnalyzeExercise } from "./Templates/AnalyzeExercise";
 import { ExercisePrompt } from "./ExercisePrompt";
-import { InfoExercise } from "./InfoExercise";
-import { TriviaExercise } from "./TriviaExercise";
+import { InfoExercise } from "./Templates/InfoExercise";
+import { ClozeExercise } from "./Templates/ClozeExercise";
+import { TriviaExercise } from "./Templates/TriviaExercise";
 
 type ExerciseComponentProps = {
   exercise: LudoExercise;
