@@ -23,7 +23,7 @@ import {
   GET_ENROLLED_IDS,
   GET_EXERCISES_FROM_LESSON,
   GET_USER_PREFERENCES,
-  GET_USER_PROJECTS,
+  GET_MY_PROJECTS,
   GET_USER_STREAK,
 } from "../../../constants/pathConstants.ts";
 import type { LudoUser } from "../../../Types/User/LudoUser";
@@ -110,7 +110,7 @@ export const qo = {
   allProjects: () =>
     queryOptions({
       queryKey: qk.projects(),
-      queryFn: () => ludoGet<ProjectListResponse>(GET_USER_PROJECTS, true),
+      queryFn: () => ludoGet<ProjectListResponse>(GET_MY_PROJECTS, true),
       staleTime: 60_000,
     }),
 

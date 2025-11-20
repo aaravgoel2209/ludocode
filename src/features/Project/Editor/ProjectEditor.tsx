@@ -1,5 +1,5 @@
 import { useMonacoTheme } from "@/Hooks/UI/useMonacoTheme";
-import Editor, { type BeforeMount, type OnMount } from "@monaco-editor/react";
+import Editor from "@monaco-editor/react";
 type ProjectEditorProps = {
   path: string;
   language: string;
