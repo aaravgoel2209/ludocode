@@ -14,14 +14,14 @@ type ProjectHeaderProps = {
 export function ProjectHeader({ projectName, saveStatus }: ProjectHeaderProps) {
   const { isSaved, isSaving, error, lastSavedAt } = saveStatus;
 
+  const goToPlayground = () => {
+    router.navigate(ludoNavigation.playground.toPlayground());
+  };
+
   return (
     <CommonHeader device="Desktop">
       <div className="col-span-1 text-white pl-6 lg:col-span-3 flex items-center">
-        <HollowSlotButton
-          onClick={() =>
-            router.navigate(ludoNavigation.playground.toPlayground())
-          }
-        >
+        <HollowSlotButton className="h-8" onClick={() => goToPlayground()}>
           <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
         </HollowSlotButton>
       </div>

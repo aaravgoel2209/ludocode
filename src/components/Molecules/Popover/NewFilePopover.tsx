@@ -24,7 +24,9 @@ export function NewFilePopover({
 }: NewFilePopoverProps) {
   return (
     <Popover>
-      <PopoverTrigger asChild>{children}</PopoverTrigger>
+      <PopoverTrigger asChild>
+        <div>{children}</div>
+      </PopoverTrigger>
       <PopoverContent className="text-white bg-ludoGrayLight">
         {content.map((choice, index) => (
           <FileWrapper
