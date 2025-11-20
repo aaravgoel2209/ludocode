@@ -3,32 +3,37 @@ import { ListContainer } from "../../components/Molecules/List/ListContainer";
 import { ludoNavigation } from "../../routes/ludoNavigation";
 import { moduleRoute, router } from "../../routes/router";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
+import { boolean } from "zod";
 
 type ModulesListProps = { modules: LudoModule[] };
 
 export function ModulesList({ modules }: ModulesListProps) {
+  const { courseId, moduleId } = moduleRoute.useParams();
 
-  const {courseId, moduleId} = moduleRoute.useParams()
-
-  const selectModule = (selectedModuleId: string) => {
-    if (moduleId == selectedModuleId) return;
+  const selectModule = (selectedModuleId: string, isSelected: boolean) => {
+    if (isSelected) return;
     router.navigate(ludoNavigation.module.toModule(courseId, selectedModuleId));
   };
 
   return (
     <ListContainer title="Python" rounded="MD">
-      {modules.map((module) => (
-        <ListRow
-          hover
-          active={moduleId == module.id}
-          key={module.id}
-          onClick={() => selectModule(module.id)}
-        >
-          <p>
-            {module.orderIndex}.{module.title}
-          </p>
-        </ListRow>
-      ))}
+      {modules.map((module, index) => {
+        const isSelected = moduleId == module.id;
+        const isLast = index >= modules.length - 1;
+        return (
+          <ListRow
+            className={isLast ? "rounded-b-xl border-b-0" : ""}
+            hover
+            active={isSelected}
+            key={module.id}
+            onClick={() => selectModule(module.id, isSelected)}
+          >
+            <p>
+              {module.orderIndex}.{module.title}
+            </p>
+          </ListRow>
+        );
+      })}
     </ListContainer>
   );
 }

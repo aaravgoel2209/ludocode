@@ -31,13 +31,13 @@ export function ListRow({
     <div
       onClick={onClick}
       className={cn(
-        "flex w-full text-white rounded-b-xl hover:cursor-pointer text-lg border-b items-stretch px-2 py-4",
+        "flex w-full text-white hover:cursor-pointer text-lg border-b items-stretch px-2 py-4",
         alignmentClass,
         fill
           ? "bg-ludoGrayLight border-b-ludoGrayDark"
           : "border-b-ludoGrayLight",
         hover && "hover:bg-ludoGrayLight/20 hover:cursor-pointer",
-        active && "bg-ludoGrayLight/10",
+        active && "bg-ludoGrayLight/70 hover:bg-ludoGrayLight/40",
         className
       )}
     >
