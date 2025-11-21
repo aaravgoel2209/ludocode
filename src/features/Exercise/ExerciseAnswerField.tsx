@@ -1,8 +1,8 @@
 import { Fragment, useCallback, useEffect, useMemo } from "react";
 import { splitPromptGaps } from "./util";
-import { OptionInputField } from "./SelectionOptionButton";
+import { OptionInputSlot } from "../../components/Atoms/CodeOption/OptionInputSlot.tsx";
 import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
-import { InlineCode } from "../../components/Atoms/Text/InlineCode.tsx";
+import { InlineCode } from "../../components/Atoms/Code/InlineCode.tsx";
 import { useInputAssistance } from "../../Hooks/Logic/Input/useInputAssistance";
 import type { AnswerToken } from "@/Hooks/Logic/Exercises/useExerciseFlow.tsx";
 
@@ -19,7 +19,6 @@ export function ExerciseAnswerField({
   userResponses,
   setAnswerAt,
 }: ExerciseAnswerFieldProps) {
-
   const { refs, focusPrev, focusNextEmptyAfter, jumpOnValidWord } =
     useInputAssistance({ options, userResponses });
 
@@ -29,7 +28,6 @@ export function ExerciseAnswerField({
   );
   const gaps = parts.length - 1;
 
-  // pad per-render to avoid first-render crashes
   const responses = useMemo(
     () =>
       Array.from(
@@ -50,17 +48,13 @@ export function ExerciseAnswerField({
     [options, setAnswerAt, jumpOnValidWord]
   );
 
-  useEffect(() => {
-    console.log("User responses" + JSON.stringify(userResponses));
-  }, [userResponses]);
-
   return (
     <p className="text-white text-xl text-left leading-loose font-light">
       {parts.map((part, index) => (
         <Fragment key={index}>
-          <InlineCode code={part} />
+          <InlineCode lineHeight="20px" code={part} />
           {index < parts.length - 1 && (
-            <OptionInputField
+            <OptionInputSlot
               value={responses[index].value}
               onChange={(value) => handleChange(index, value)}
               ref={(el: HTMLInputElement) => (refs.current[index] = el)}

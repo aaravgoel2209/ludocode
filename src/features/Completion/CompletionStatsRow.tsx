@@ -1,6 +1,6 @@
-import { HollowSlot } from "../../components/Atoms/Slot/HollowSlot";
+import { HollowSlotButton } from "@/components/Atoms/Button/HollowSlotButton";
 import type { LessonStats } from "../../Types/Exercise/LessonStats";
-import type { UserCoins } from "../../Types/User/UserCoins";
+import { HollowSlotButtonGroup } from "@/components/Molecules/Group/HollowSlotButtonGroup";
 
 type CompletionStatsRowProps = { userStats: LessonStats };
 
@@ -8,13 +8,13 @@ export function CompletionStatsRow({ userStats }: CompletionStatsRowProps) {
   const { coins, accuracy } = userStats;
 
   return (
-    <div className="flex bg-ludoGrayLight py-4 rounded-2xl gap-8 items-center justify-center">
-      <HollowSlot>
+    <HollowSlotButtonGroup className="bg-ludoGrayLight p-4 rounded-2xl gap-4 justify-center">
+      <HollowSlotButton>
         <p className="px-4">Coins: {coins}</p>
-      </HollowSlot>
-      <HollowSlot>
+      </HollowSlotButton>
+      <HollowSlotButton>
         <p className="px-4">Accuracy: {accuracy}</p>
-      </HollowSlot>
-    </div>
+      </HollowSlotButton>
+    </HollowSlotButtonGroup>
   );
 }

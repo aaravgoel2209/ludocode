@@ -1,7 +1,7 @@
+import { OptionListWrapper } from "@/components/Molecules/Wrapper/OptionListWrapper";
 import type { AnswerToken } from "@/Hooks/Logic/Input/useInputAssistance.tsx";
-import type { LudoExerciseOption } from "../../Types/Exercise/LudoExerciseOption";
-import { OptionListWrapper } from "../../components/Molecules/Wrapper/OptionListWrapper.tsx";
-import { WideClickableOption } from "./WideClickableOption";
+import { WideClickableOption } from "../../../components/Atoms/CodeOption/WideClickableOption";
+import type { LudoExerciseOption } from "@/Types/Exercise/LudoExerciseOption";
 
 type TriviaExerciseProps = {
   answerField: string;

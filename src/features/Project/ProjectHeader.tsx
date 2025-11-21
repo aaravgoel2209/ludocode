@@ -1,5 +1,5 @@
 import { HeroIcon } from "@/components/Atoms/Icons/HeroIcon";
-import { HollowSlot } from "@/components/Atoms/Slot/HollowSlot";
+import { HollowSlotButton } from "@/components/Atoms/Button/HollowSlotButton";
 import { CommonHeader } from "@/components/Molecules/Header/CommonHeader";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { router } from "@/routes/router";
@@ -8,26 +8,22 @@ import type { SaveStatusType } from "@/Hooks/Logic/Playground/useAutoSaveProject
 
 type ProjectHeaderProps = {
   projectName: string;
-  saveStatus: SaveStatusType  
+  saveStatus: SaveStatusType;
 };
 
-export function ProjectHeader({
-  projectName,
-  saveStatus
-}: ProjectHeaderProps) {
+export function ProjectHeader({ projectName, saveStatus }: ProjectHeaderProps) {
+  const { isSaved, isSaving, error, lastSavedAt } = saveStatus;
 
-  const {isSaved, isSaving, error, lastSavedAt} = saveStatus
+  const goToPlayground = () => {
+    router.navigate(ludoNavigation.playground.toPlayground());
+  };
 
   return (
     <CommonHeader device="Desktop">
       <div className="col-span-1 text-white pl-6 lg:col-span-3 flex items-center">
-        <HollowSlot
-          onClick={() =>
-            router.navigate(ludoNavigation.playground.toPlayground())
-          }
-        >
+        <HollowSlotButton className="h-8" onClick={() => goToPlayground()}>
           <HeroIcon className="h-4" iconName="ArrowLeftIcon" />
-        </HollowSlot>
+        </HollowSlotButton>
       </div>
       <div className="col-span-10 text-white flex items-center gap-4 justify-center lg:col-span-6 ">
         <h1>{projectName}</h1>
