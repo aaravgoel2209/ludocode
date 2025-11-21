@@ -7,7 +7,7 @@ export const OptionSnap = z.object({
 });
 
 const Base = z.object({
-  id: z.string().uuid(),
+  id: z.string(),
   title: z.string().optional().nullable(),
   subtitle: z.string().optional().nullable(),
   media: z.string().optional().nullable(),
@@ -46,7 +46,6 @@ export const Cloze = Base.extend({
   }
 });
 
-//PER EXERCISE OPTION
 export const Analyze = Base.extend({
   exerciseType: z.literal("ANALYZE"),
 }).superRefine((v, ctx) => {

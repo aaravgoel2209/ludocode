@@ -1,5 +1,4 @@
 import { DefaultHero } from "@/components/Molecules/Hero/DefaultHero";
-import { Button } from "@/components/ui/button";
 
 type PlaygroundHeroProps = { openCreateProject: () => void };
 

@@ -1,5 +1,5 @@
-import { useMemo, useRef } from "react";
-import type { BeforeMount, OnMount } from "@monaco-editor/react";
+import { useMemo } from "react";
+import type { BeforeMount } from "@monaco-editor/react";
 import type * as monacoTypes from "monaco-editor";
 
 export function useMonacoTheme() {

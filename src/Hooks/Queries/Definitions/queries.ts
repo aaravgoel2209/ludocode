@@ -30,7 +30,6 @@ import type { LudoUser } from "../../../Types/User/LudoUser";
 import type { FlatCourseTree } from "../../../Types/Catalog/FlatCourseTree";
 import type { CourseSnap } from "../../../Types/Snapshot/SnapshotTypes.ts";
 import type { UserPreferences } from "@/Types/User/UserPreferences.ts";
-import type { ProjectSnapshot } from "@/Types/Playground/ProjectSnapshot.ts";
 import type { ProjectListResponse } from "@/Types/Playground/ProjectListResponse.ts";
 import { type UserStreak } from "@/Types/Progress/UserStreak.ts";
 
