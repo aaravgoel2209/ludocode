@@ -12,6 +12,7 @@ import { MainGridWrapper } from "@/Layouts/LayoutWrappers/MainGridWrapper.tsx";
 import { FileTreeWinbar } from "./FileTree/FileTreeWinbar.tsx";
 import { RunProjectButton } from "./Editor/RunProjectButton.tsx";
 import { ProjectHeader } from "./ProjectHeader.tsx";
+import ChatBotWindow from "../Chatbot/ChatbotWindow.tsx";
 
 type ProjectPageProps = {};
 
@@ -30,6 +31,8 @@ export function ProjectPage({}: ProjectPageProps) {
     addFileChoices,
   } = useProject({ project });
 
+  const currentFileId: string | null = files[current].id ?? null;
+
   const saveStatus = useAutoSaveProject({
     project,
     files,
@@ -42,10 +45,10 @@ export function ProjectPage({}: ProjectPageProps) {
   });
 
   return (
-    <MainGridWrapper gridRows="SITE">
+    <MainGridWrapper className="max-h-dvh min-h-0" gridRows="SITE">
       <ProjectHeader projectName={project.fileName} saveStatus={saveStatus} />
-      <div className="grid col-span-full h-full grid-cols-12">
-        <div className="col-span-1 bg-ludoGrayDark border-r-2 border-r-ludoGrayLight lg:col-span-3">
+      <div className="grid col-span-full min-h-0 grid-cols-12">
+        <div className="col-span-1 min-h-0 bg-ludoGrayDark border-r-2 grid grid-rows-[auto_auto_1fr] border-r-ludoGrayLight lg:col-span-3">
           <FileTreeWinbar addFile={addFile} addFileChoices={addFileChoices} />
           <ProjectFileTree
             renameFile={renameFile}
@@ -54,6 +57,7 @@ export function ProjectPage({}: ProjectPageProps) {
             changeFile={setCurrent}
             deleteFile={deleteFile}
           />
+          <ChatBotWindow currentFile={currentFileId} />
         </div>
 
         <div className="col-span-10 relative lg:col-span-6 flex flex-col gap-8 items-stretch justify-start min-w-0">
