@@ -17,6 +17,7 @@ import type { LudoExercise } from "../../../Types/Exercise/LudoExercise";
 import type { LudoLesson } from "../../../Types/Catalog/LudoLesson";
 import { useCommitAttempt } from "./useCommitAttempt";
 import { playSound } from "@/Sounds/soundManager";
+import type { ExercisePhase } from "@/components/Molecules/Footer/LessonFooter";
 
 type Args = {
   exercises: LudoExercise[];
@@ -24,7 +25,7 @@ type Args = {
   position: number;
 };
 
-export type AnswerToken = {id?: string; value: string}
+export type AnswerToken = { id?: string; value: string };
 
 export function useExerciseFlow({
   exercises,
@@ -89,6 +90,14 @@ export function useExerciseFlow({
     version,
   });
 
+  const hasStaged = submissionBuffer != null;
+
+  const phase: ExercisePhase = !hasStaged
+    ? "DEFAULT"
+    : submissionBuffer.isCorrect
+    ? "CORRECT"
+    : "INCORRECT";
+
   return {
     currentExercise,
     bufferState,
@@ -96,6 +105,7 @@ export function useExerciseFlow({
     submitAttemptBuffer,
     commitAttempt,
     canSubmit: allSlotsValid,
+    phase: phase,
   };
 }
 
@@ -106,4 +116,5 @@ export type ExerciseFlowResponse = {
   submitAttemptBuffer: () => void;
   commitAttempt: (info?: boolean) => void;
   canSubmit: boolean;
+  phase: ExercisePhase;
 };

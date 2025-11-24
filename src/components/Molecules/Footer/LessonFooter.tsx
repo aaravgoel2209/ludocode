@@ -1,36 +1,26 @@
-import type { ExerciseAttempt } from "../../../Types/Exercise/LessonSubmissionTypes.ts";
+import { useLessonContext } from "@/features/Lesson/useLessonContext.tsx";
 import { LessonSubmitButton } from "../../../features/Exercise/LessonSubmitButton.tsx";
 import { AppFooter } from "./AppFooter.tsx";
 
-type LessonFooterProps = {
-  canSubmit: boolean;
-  commit: (info?: boolean) => void;
-  stage: () => void;
-  staged: ExerciseAttempt | null;
-  isInfo: boolean;
-};
-
 export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
 
-export function LessonFooter({
-  staged,
-  canSubmit,
-  stage,
-  commit,
-  isInfo,
-}: LessonFooterProps) {
+export function LessonFooter() {
+  const {
+    submissionBuffer: staged,
+    currentExercise,
+    canSubmit,
+    submitAttemptBuffer: stage,
+    phase,
+    commitAttempt: commit,
+  } = useLessonContext();
+
   const hasStaged = staged != null;
+  const isInfo = currentExercise.exerciseType == "INFO";
 
   const handleSubmit = () => {
     if (!canSubmit) return;
     isInfo ? commit(true) : hasStaged ? commit() : stage();
   };
-
-  const phase: ExercisePhase = !hasStaged
-    ? "DEFAULT"
-    : staged.isCorrect
-    ? "CORRECT"
-    : "INCORRECT";
 
   const feedbackStyle =
     phase == "DEFAULT"

@@ -22,14 +22,6 @@ export function LessonSectionLayout() {
     closeModal: closeExit,
   } = useModal();
 
-  const {
-    currentExercise,
-    canSubmit,
-    submitAttemptBuffer,
-    commitAttempt,
-    submissionBuffer,
-  } = state;
-
   return (
     <LessonContext.Provider value={state}>
       <MainGridWrapper className="max-h-dvh" gridRows="FULL">
@@ -41,13 +33,7 @@ export function LessonSectionLayout() {
         <MainContentWrapper>
           <Outlet />
         </MainContentWrapper>
-        <LessonFooter
-          staged={submissionBuffer}
-          stage={submitAttemptBuffer}
-          commit={commitAttempt}
-          canSubmit={canSubmit}
-          isInfo={currentExercise.exerciseType == "INFO"}
-        />
+        <LessonFooter />
       </MainGridWrapper>
 
       <ExitDialog close={() => closeExit()} open={exitOpen} />
