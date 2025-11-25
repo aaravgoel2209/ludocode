@@ -6,6 +6,7 @@ import { PathButton } from "./PathButton";
 import { PathRow } from "../../components/Atoms/Row/PathRow";
 import type { LudoModule } from "../../Types/Catalog/LudoModule";
 import { useTreeData } from "../../Hooks/Logic/Catalog/useTreeData";
+import { ModuleSelectionBar } from "./ModuleSelectionBar";
 
 export function ModulePage() {
   const { courseId, moduleId } = moduleRoute.useParams();
@@ -19,19 +20,25 @@ export function ModulePage() {
   });
 
   return (
-    <div className="grid grid-cols-12 bg-ludoGrayDark">
-      <ModuleAsideLeft />
-      <div className="col-start-5 col-end-9 overflow-auto lg:col-start-6 lg:col-end-8 flex flex-col gap-10 lg:gap-8 items-center py-6 min-w-0">
-        {lessons.map((lesson: LudoLesson, i: number) => (
-          <PathRow key={lesson.id} index={i}>
-            <PathButton
-              isCurrent={lesson.id == courseProgress.currentLessonId}
-              lesson={lesson}
-            />
-          </PathRow>
-        ))}
-      </div>
-      <ModuleAsideRight modules={modules as LudoModule[]} courseId={courseId} />
+    <div className="grid grid-cols-12 lg:grid-rows-1 grid-rows-[auto_1fr] bg-ludoGrayDark">
+      <ModuleSelectionBar className="lg:hidden col-span-full" />
+      <>
+        <ModuleAsideLeft />
+        <div className="col-start-5 col-end-9 overflow-auto lg:col-start-6 lg:col-end-8 flex flex-col gap-10 lg:gap-8 items-center py-6 min-w-0">
+          {lessons.map((lesson: LudoLesson, i: number) => (
+            <PathRow key={lesson.id} index={i}>
+              <PathButton
+                isCurrent={lesson.id == courseProgress.currentLessonId}
+                lesson={lesson}
+              />
+            </PathRow>
+          ))}
+        </div>
+        <ModuleAsideRight
+          modules={modules as LudoModule[]}
+          courseId={courseId}
+        />
+      </>
     </div>
   );
 }
