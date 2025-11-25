@@ -1,44 +1,26 @@
 import type { ReactNode } from "react";
-import { ListHeader } from "./ListHeader";
+import { ListHeader, type ListHeaderProps } from "./ListHeader";
+import { cn } from "@/lib/utils";
 
 type ListContainerProps = {
   children: ReactNode;
-  title?: string;
-  rounded?: "SM" | "MD" | "LG"| "XL";
+  header?: ListHeaderProps;
+  className?: string;
 };
 
 export function ListContainer({
   children,
-  title,
-  rounded = "LG",
+  header,
+  className,
 }: ListContainerProps) {
-  
-  const containerStyle = {
-    SM: {
-      headerRounding: "rounded-t-md",
-      rounding: "rounded-md",
-    },
-    MD: {
-      headerRounding: "rounded-t-xl",
-      rounding: "rounded-xl",
-    },
-    LG: {
-      headerRounding: "rounded-t-xl",
-      rounding: "rounded-xl",
-    },
-    XL: {
-      headerRounding: "rounded-t-2xl",
-      rounding: "rounded-2xl",
-    },
-  };
-
   return (
-    <div className="border w-full rounded-xl border-ludoGrayLight flex flex-col items-center">
-      <ListHeader
-        show={!!title}
-        rounding={containerStyle[rounded].headerRounding}
-        title={title}
-      />
+    <div
+      className={cn(
+        "border w-full rounded-xl border-ludoGrayLight flex flex-col items-center",
+        className
+      )}
+    >
+      {!!header && <ListHeader {...header} />}
       {children}
     </div>
   );
