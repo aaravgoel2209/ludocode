@@ -2,13 +2,14 @@ import { HeaderWithBar } from "./HeaderWithBar.tsx";
 import { NavigationIconGroup } from "@/components/Organisms/NavigationIconGroup.tsx";
 import { StatsGroup } from "@/components/Organisms/StatsGroup.tsx";
 
-type DesktopHeaderProps = {};
+type AppHeaderProps = { title: string };
 
-export function DesktopHeader({}: DesktopHeaderProps) {
+export function AppHeader({ title }: AppHeaderProps) {
   return (
-    <HeaderWithBar device="Desktop">
+    <HeaderWithBar device="Both">
       <div className="col-start-2 col-end-12 flex items-center justify-between">
-        <NavigationIconGroup />
+        <h1 className="lg:hidden text-lg font-bold text-white">{title}</h1>
+        <NavigationIconGroup groupClassName="hidden lg:flex" />
         <StatsGroup />
       </div>
     </HeaderWithBar>

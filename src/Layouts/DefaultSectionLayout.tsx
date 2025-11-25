@@ -11,7 +11,6 @@ export function DefaultSectionLayout() {
 
   return (
     <SubGridWrapper>
-      <StaticHeader title={title} />
       <MainContentWrapper>
         <Outlet />
       </MainContentWrapper>

@@ -1,7 +1,7 @@
 import { Outlet } from "@tanstack/react-router";
 import { NavigationFooter } from "../../components/Molecules/Footer/NavigationFooter";
 import { MainGridWrapper } from "../Grids/MainGridWrapper";
-import { DesktopHeader } from "../../components/Molecules/Header/DesktopHeader";
+import { AppHeader } from "../../components/Molecules/Header/AppHeader";
 import { StatsContext } from "../../features/Common/StatsContext";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/Hooks/Queries/Definitions/queries";
@@ -17,7 +17,7 @@ export function SiteLayout() {
   return (
     <StatsContext.Provider value={{ coins: coins, streak: current }}>
       <MainGridWrapper gridRows={"SITE"}>
-        <DesktopHeader />
+        <AppHeader title="Title" />
         <Outlet />
         <NavigationFooter />
       </MainGridWrapper>
