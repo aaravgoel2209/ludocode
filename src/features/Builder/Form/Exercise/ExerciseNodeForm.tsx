@@ -1,4 +1,4 @@
-import { courseFormOpts, withForm } from "@/form/formKit";
+import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import type { ExerciseSnap } from "@/Types/Snapshot/SnapshotTypes";
@@ -86,7 +86,7 @@ export const ExerciseNodeForm = withForm({
 
               if (nextId) {
                 router.navigate(
-                  ludoNavigation.build.toBuilderExercise(
+                  ludoNavigation.builder.toBuilderExercise(
                     courseId,
                     currentModuleId,
                     currentLessonId,
@@ -94,13 +94,13 @@ export const ExerciseNodeForm = withForm({
                   )
                 );
               } else {
-                router.navigate(ludoNavigation.build.toSelectCourse());
+                router.navigate(ludoNavigation.hub.builder.toBuilderHub());
               }
             };
 
             const handleSelect = (id: string) => {
               router.navigate(
-                ludoNavigation.build.toBuilderExercise(
+                ludoNavigation.builder.toBuilderExercise(
                   courseId,
                   currentModuleId,
                   currentLessonId,

@@ -1,4 +1,4 @@
-import { LeaveUnsavedDialog } from "@/components/Molecules/Dialog/Warning/LeaveUnsavedDialog";
+import { LeaveUnsavedDialog } from "@/components/LudoComponents/Blocks/Dialog/Warning/LeaveUnsavedDialog";
 import { Button } from "@/components/ui/button";
 import { ludoNavigation } from "@/routes/ludoNavigation";
 import { router } from "@/routes/router";
@@ -20,7 +20,7 @@ export function LeaveUnsavedButton({
     <LeaveUnsavedDialog
       title={leaveUnsavedText}
       subtitle={leaveUnsavedSubtitle}
-      onClick={() => router.navigate(ludoNavigation.build.toSelectCourse())}
+      onClick={() => router.navigate(ludoNavigation.hub.builder.toBuilderHub())}
     >
       <Button variant={variant}> Quit </Button>
     </LeaveUnsavedDialog>

@@ -1,5 +1,5 @@
 import { SidebarMenu } from "@/components/ui/sidebar";
-import { courseFormOpts, withForm } from "@/form/formKit";
+import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import { Button } from "@/components/ui/button";
 import { router } from "@/routes/router";
 import { ludoNavigation } from "@/routes/ludoNavigation";
@@ -37,8 +37,8 @@ export const ModuleListForm = withForm({
             if (isCurrent) {
               router.navigate(
                 nextId
-                  ? ludoNavigation.build.toBuilderModule(courseId, nextId)
-                  : ludoNavigation.build.toSelectCourse()
+                  ? ludoNavigation.builder.toBuilderModule(courseId, nextId)
+                  : ludoNavigation.hub.builder.toBuilderHub()
               );
             }
 
