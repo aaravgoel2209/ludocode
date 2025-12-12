@@ -1,5 +1,4 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit";
-import { getRouter } from "@/router";
 import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import type { ExerciseSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 import { parseExerciseError } from "@/features/Builder/Util/ParseErrors";
@@ -9,6 +8,7 @@ import { ExerciseOptionsForm } from "./ExerciseOptionsForm";
 import { SingleExerciseNodeWrapper } from "../../UI/Wrapper/SingleExerciseNodeWrapper";
 import { ExerciseControllerHeader } from "../../UI/Wrapper/ExerciseControllerHeader";
 import { ModifyExerciseRow } from "../../UI/Button/ModifyExerciseRow";
+import { router } from "@/main";
 
 export const ExerciseNodeForm = withForm({
   ...courseFormOpts,
@@ -17,7 +17,6 @@ export const ExerciseNodeForm = withForm({
     currentModuleId: "" as string,
     currentLessonId: "" as string,
     exerciseId: "" as string,
-    router: null as unknown as ReturnType<typeof getRouter>,
   },
   render: ({
     form,
@@ -25,7 +24,6 @@ export const ExerciseNodeForm = withForm({
     currentModuleId,
     currentLessonId,
     exerciseId,
-    router,
   }) => {
     const modules = form.state.values.modules;
     if (!modules) return null;

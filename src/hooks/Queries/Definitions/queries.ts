@@ -7,7 +7,6 @@ import {
   userBatcher,
   userCoinsBatcher,
 } from "../Batcher/batchers";
-import Cookies from "js-cookie";
 import type { LudoModule } from "@/types/Catalog/LudoModule";
 import type { LudoLesson } from "@/types/Catalog/LudoLesson";
 import type { CourseProgress } from "@/types/User/CourseProgress.ts";

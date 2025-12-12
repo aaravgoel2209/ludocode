@@ -4,7 +4,7 @@ import { Button } from "@/components/external/ui/button";
 import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { newModule } from "@/features/Builder/Util/NewExerciseTemplates";
 import { ModuleNodeForm } from "./ModuleNodeForm";
-import type { getRouter } from "@/router";
+import { router } from "@/main";
 
 export const ModuleListForm = withForm({
   ...courseFormOpts,
@@ -12,9 +12,8 @@ export const ModuleListForm = withForm({
     courseId: "" as string,
     currentModuleId: "" as string | undefined,
     currentLessonId: "" as string | undefined,
-    router: null as unknown as ReturnType<typeof getRouter>,
   },
-  render: ({ form, courseId, currentLessonId, currentModuleId, router }) => {
+  render: ({ form, courseId, currentLessonId, currentModuleId }) => {
     return (
       <form.AppField name="modules" mode="array">
         {(fieldArray) => {
@@ -55,7 +54,6 @@ export const ModuleListForm = withForm({
                 {currentModuleId &&
                   modules.map((module, index) => (
                     <ModuleNodeForm
-                      router={router}
                       key={module.moduleId}
                       updateOrder={rearrangeModule}
                       removeModule={removeModule}

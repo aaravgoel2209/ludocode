@@ -17,10 +17,9 @@ import { BuilderHeader } from "@/features/Builder/UI/Header/BuilderHeader";
 import { ExerciseNodeForm } from "@/features/Builder/Form/Exercise/ExerciseNodeForm";
 import { LudoSidebar } from "@/components/design-system/composites/sidebar/ludo-sidebar.tsx";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
-import { getRouteApi, useRouter } from "@tanstack/react-router";
+import { getRouteApi } from "@tanstack/react-router";
 
 export function BuilderLayout() {
-  const router = useRouter();
   const routeApi = getRouteApi("/_app/_desktopguard/build/$courseId");
   const { courseId } = routeApi.useParams();
   const { data: courseSnapshot } = useSuspenseQuery(
@@ -69,7 +68,6 @@ export function BuilderLayout() {
       <SidebarProvider>
         <LudoSidebar title="Python">
           <ModuleListForm
-            router={router}
             courseId={courseId}
             currentLessonId={currentLessonId}
             currentModuleId={currentModuleId}
@@ -83,7 +81,6 @@ export function BuilderLayout() {
               <div className="col-start-2 py-8 h-full flex items-start justify-center col-end-12">
                 {currentModuleId && currentLessonId && currentExerciseId && (
                   <ExerciseNodeForm
-                    router={router}
                     courseId={courseId}
                     currentModuleId={currentModuleId}
                     currentLessonId={currentLessonId}

@@ -1,6 +1,6 @@
 import { ludoNavigation } from "@/old-routes/navigator/ludoNavigation.tsx";
 import { routes } from "../router/routes";
-import type { getRouter } from "@/router";
+import { router } from "@/main";
 
 export type NavIcon = {
   name: string;
@@ -12,8 +12,7 @@ export type NavIcon = {
 export const getNavIcons = (
   userId: string,
   courseId: string,
-  moduleId: string,
-  router: ReturnType<typeof getRouter>
+  moduleId: string
 ): NavIcon[] => [
   {
     name: "Courses",

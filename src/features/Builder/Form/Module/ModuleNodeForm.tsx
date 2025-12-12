@@ -7,7 +7,7 @@ import { BuilderNode } from "@/components/design-system/atoms/tree/builder-node.
 import { StatusButtonField } from "@/components/design-system/atoms/status/status-button-field.tsx";
 import { EditNodeDialog } from "@/features/Builder/UI/Dialog/EditNodeDialog.tsx";
 import { CollapsibleButton } from "@/components/design-system/atoms/button/collapsible-button.tsx";
-import type { getRouter } from "@/router";
+import { router } from "@/main";
 
 export const ModuleNodeForm = withForm({
   ...courseFormOpts,
@@ -20,7 +20,6 @@ export const ModuleNodeForm = withForm({
     currentModuleId: "" as string,
     currentLessonId: "" as string | undefined,
     index: 0 as number,
-    router: null as unknown as ReturnType<typeof getRouter>,
   },
   render: ({
     form,
@@ -31,7 +30,6 @@ export const ModuleNodeForm = withForm({
     modulesLength,
     index,
     currentModuleId,
-    router,
     currentLessonId,
   }) => {
     return (
@@ -111,7 +109,6 @@ export const ModuleNodeForm = withForm({
 
               {currentLessonId && (
                 <LessonListForm
-                  router={router}
                   form={form}
                   currentLessonId={currentLessonId}
                   courseId={courseId}
