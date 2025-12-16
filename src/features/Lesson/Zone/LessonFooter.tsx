@@ -1,7 +1,8 @@
 import { useLessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
 import { AppFooter } from "@/components/design-system/blocks/footer/app-footer.tsx";
 import { useHotkeys } from "@/hooks/UI/useHotkeys.tsx";
-import { SubmitLessonButton } from "@/features/Lesson/UI/Button/SubmitLessonButton.tsx";
+import { cn } from "@/components/cn-utils";
+import { LudoButton } from "@/components/design/LudoButton";
 
 export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
 
@@ -12,24 +13,35 @@ export function LessonFooter() {
     EXECUTE_ACTION: handleExerciseButtonClick,
   });
 
-  const feedbackStyle =
+  const trySubmit = () => {
+    if (!canSubmit) return;
+    handleExerciseButtonClick();
+  };
+
+  const text =
     phase == "DEFAULT"
-      ? "border-t-2 border-t-ludoGrayLight"
+      ? "CHECK"
       : phase == "CORRECT"
-      ? " border-t-2 border-t-green-300"
-      : "border-t-2 border-t-red-600";
+        ? "CONTINUE"
+        : "TRY AGAIN";
 
   return (
-    <AppFooter className={feedbackStyle}>
+    <AppFooter
+      className={cn("bg-transparent border-t-ludoGrayLight lg:border-t z-20")}
+    >
       <div
-        className={`flex w-full justify-between py-2 px-4 lg:px-0 items-center col-start-1 col-end-13 lg:col-end-12`}
+        className={`flex w-full justify-center lg:justify-end py-4 px-8 lg:px-0 items-center col-start-1 lg:col-start-4 col-end-13 lg:col-end-10`}
       >
-        <div></div>
-        <SubmitLessonButton
-          phase={phase}
-          submitAnswer={handleExerciseButtonClick}
-          canSubmit={canSubmit}
-        />
+        <LudoButton
+          variant="alt"
+          disabled={!canSubmit}
+          withRing={false}
+          ringClass="lg:w-1/3"
+          className="w-full text-lg font-bold h-full lg:h-2/3"
+          onClick={() => trySubmit()}
+        >
+          <p>{text}</p>
+        </LudoButton>
       </div>
     </AppFooter>
   );

@@ -2,6 +2,7 @@ import { HeroIcon } from "@/components/design-system/atoms/hero-icon/hero-icon";
 
 type CodeUtilsGroupProps = {
   enabled: boolean;
+  visible?: boolean;
   clearExerciseInputs: () => void;
   popLast: () => void;
   isEmpty: boolean;
@@ -9,12 +10,13 @@ type CodeUtilsGroupProps = {
 
 export function CodeUtilsGroup({
   enabled,
+  visible,
   clearExerciseInputs,
   popLast,
   isEmpty,
 }: CodeUtilsGroupProps) {
-  return (
-    <div className="w-full flex mt-6 items-end gap-6">
+  if (visible) return (
+    <div className="w-full flex items-end gap-6">
       <div
         onClick={() => {
           if (!enabled) return;

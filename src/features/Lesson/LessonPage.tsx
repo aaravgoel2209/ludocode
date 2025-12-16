@@ -1,64 +1,81 @@
-import { AnalyzeExercise } from "./Templates/AnalyzeExercise";
-import { ExercisePrompt } from "./UI/Prompt/ExercisePrompt";
-import { InfoExercise } from "./Templates/InfoExercise";
-import { ClozeExercise } from "./Templates/ClozeExercise";
-import { TriviaExercise } from "./Templates/TriviaExercise";
 import { ExerciseMedia } from "./UI/Media/ExerciseMedia";
 import { useLessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
 import { FloatingChatbotWindow } from "@/components/design-system/blocks/chatbot/floating-chatbot-window.tsx";
+import { ExerciseLabel } from "@/components/design/execise/ExerciseLabel";
+import { ExerciseInstruction } from "@/components/design/execise/ExerciseInstruction";
+import type { ExerciseType } from "@/types/Exercise/ExerciseType";
+import { ExerciseInteraction } from "./Templates/ExerciseInteraction";
+import { useExerciseBodyData } from "./Hooks/useExerciseBodyData";
+
+export type OptionLayout = "ROW" | "COLUMN";
+export type SelectionMode = "APPEND" | "REPLACE";
+
+export type ExerciseInteractionConfig = {
+  showAnswerField: boolean;
+  optionLayout: OptionLayout;
+  selectionMode: SelectionMode;
+  withGaps: boolean;
+};
+
+export const configByType: Record<ExerciseType, ExerciseInteractionConfig> = {
+  CLOZE: {
+    showAnswerField: true,
+    optionLayout: "ROW",
+    selectionMode: "APPEND",
+    withGaps: true,
+  },
+  TRIVIA: {
+    showAnswerField: false,
+    optionLayout: "COLUMN",
+    selectionMode: "REPLACE",
+    withGaps: false,
+  },
+  ANALYZE: {
+    showAnswerField: true,
+    optionLayout: "COLUMN",
+    selectionMode: "REPLACE",
+    withGaps: false,
+  },
+  INFO: {
+    showAnswerField: false,
+    optionLayout: "COLUMN",
+    selectionMode: "REPLACE",
+    withGaps: false,
+  },
+};
 
 export function LessonPage() {
-  const exerciseBodyMap: any = {
-    CLOZE: ClozeExercise,
-    INFO: InfoExercise,
-    ANALYZE: AnalyzeExercise,
-    TRIVIA: TriviaExercise,
-  };
-
   const { inputState, currentExercise } = useLessonContext();
-  const {
-    currentExerciseInputs,
-    setAnswerAt: addClickedAnswer,
-    replaceAnswerAt: addKeyboardAnswer,
-  } = inputState;
 
-  const ExerciseBody = exerciseBodyMap[currentExercise.exerciseType];
+  const body = useExerciseBodyData(currentExercise, inputState);
 
   return (
     <>
-      <div className="col-span-0 hidden lg:block lg:col-span-4 h-full min-h-0">
+      <div className="col-span-0 hidden lg:block lg:col-span-3 h-full min-h-0">
         <FloatingChatbotWindow
           chatType="LESSON"
           targetId={currentExercise.id ?? null}
-          outerClassName="pl-6 pr-30"
+          outerClassName="pl-6 pr-10"
         />
       </div>
 
       {currentExercise && (
-        <div className="col-span-full px-8 lg:px-0 lg:col-span-4 flex flex-col gap-8 py-8 items-stretch justify-center h-full min-w-0">
-          <ExercisePrompt prompt={currentExercise.title} />
-          {currentExercise.subtitle && (
-            <ExercisePrompt prompt={currentExercise.subtitle} />
-          )}
+        <div className="col-span-full lg:px-0 lg:col-span-6 flex flex-col gap-6 py-8 items-stretch justify-start h-full min-w-0">
+          <div className="flex flex-col gap-3 lg:px-0 px-8">
+            <ExerciseLabel exerciseType={currentExercise.exerciseType} />
+            <ExerciseInstruction currentExercise={currentExercise} />
 
-          {currentExercise.exerciseMedia && (
-            <ExerciseMedia media={currentExercise.exerciseMedia} />
-          )}
+            {currentExercise.exerciseMedia && (
+              <ExerciseMedia media={currentExercise.exerciseMedia} />
+            )}
+          </div>
 
-          <ExerciseBody
-            options={[
-              ...currentExercise.correctOptions,
-              ...currentExercise.distractors,
-            ]}
-            answerField={currentExercise.prompt}
-            userResponses={currentExerciseInputs}
-            setAnswerAt={addKeyboardAnswer}
-            addSelection={addClickedAnswer}
+          <ExerciseInteraction
+            config={configByType[currentExercise.exerciseType]}
+            body={body}
           />
         </div>
       )}
-
-      <div className="col-span-0 lg:col-span-4" />
     </>
   );
 }
