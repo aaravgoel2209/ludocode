@@ -1,4 +1,4 @@
-import { SyncingPage } from "@/features/Completion/SyncingPage";
+import { SyncingPage } from "@/features/Completion/Pages/SyncingPage.tsx";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";

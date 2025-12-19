@@ -1,14 +1,15 @@
 import type { ReactNode } from "react";
-import { FileInfoRow } from "@/components/design-system/blocks/file/file-info-row.tsx";
-import { RenameDialog } from "@/components/design/popover/rename-dialog.tsx";
-import { DeleteDialog } from "@/components/design/popover/delete-dialog.tsx";
+
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/external/ui/popover.tsx";
-import { FileWrapper } from "@/components/design-system/blocks/file/file-wrapper.tsx";
-import { HeroIcon } from "@/components/design-system/atoms/hero-icon/hero-icon.tsx";
+import { DeleteDialog } from "../../misc/popover/delete-dialog";
+import { FileWrapper } from "@/features/Builder/Components/File/file-wrapper";
+import { FileInfoRow } from "@/features/Builder/Components/File/file-info-row";
+import { HeroIcon } from "../../primitives/hero-icon";
+import { RenameDialog } from "../../misc/popover/rename-dialog";
 
 type FileActionsPopoverProps = {
   children: ReactNode;

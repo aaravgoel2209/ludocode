@@ -3,7 +3,7 @@ import type * as monacoTypes from "monaco-editor";
 import Editor from "@monaco-editor/react";
 import { useCodeRunnerContext } from "@/features/Project/Context/CodeRunnerContext.tsx";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
-import { LudoSpinner } from "@/components/design-system/blocks/progress/ludo-spinner.tsx";
+import { LudoSpinner } from "@/components/design-system/primitives/ludo-spinner.tsx";
 
 export function ProjectEditor() {
   const { active, updateContent } = useProjectContext();

@@ -4,11 +4,11 @@ import { LessonContext } from "@/features/Lesson/Context/useLessonContext.tsx";
 import { useExercise } from "@/features/Lesson/Hooks/useExercise.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
-import { HeaderWithProgress } from "@/components/design-system/blocks/header/header-with-progress.tsx";
+import { LessonHeader } from "@/features/Lesson/Components/Zone/LessonHeader.tsx";
 import { MainContentWrapper } from "@/components/design-system/layouts/grid/main-content-wrapper.tsx";
-import { LessonFooter } from "@/features/Lesson/Zone/LessonFooter.tsx";
+import { LessonFooter } from "@/features/Lesson/Components/Zone/LessonFooter.tsx";
 import { Suspense } from "react";
-import { LessonFeedbackDrawer } from "@/features/Lesson/Zone/LessonDrawer";
+import { LessonFeedbackDrawer } from "@/features/Lesson/Components/Zone/LessonDrawer.tsx";
 
 export function LessonLayout() {
   const router = useRouter();
@@ -27,7 +27,7 @@ export function LessonLayout() {
   return (
     <LessonContext.Provider value={state}>
       <MainGridWrapper className="max-h-dvh" gridRows="FULL">
-        <HeaderWithProgress
+        <LessonHeader
           onExit={() =>
             router.navigate(
               ludoNavigation.hub.module.toModule(courseId, moduleId)

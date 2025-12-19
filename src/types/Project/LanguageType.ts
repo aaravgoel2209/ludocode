@@ -1,4 +1,4 @@
-import type { IconName } from "@/components/design-system/atoms/hero-icon/custom-icon";
+import type { IconName } from "@/components/design-system/primitives/custom-icon.tsx";
 import type { ProjectFileChoice } from "@/features/Project/Hooks/useProject.tsx";
 
 export type LanguageType = "python" | "javascript" | "lua";

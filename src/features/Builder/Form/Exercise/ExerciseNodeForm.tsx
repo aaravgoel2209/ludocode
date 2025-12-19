@@ -5,9 +5,9 @@ import { parseExerciseError } from "@/features/Builder/Util/ParseErrors";
 import { ExerciseNodeInfoForm } from "./ExerciseNodeInfoForm";
 import { ExerciseNodesList } from "@/features/Builder/Form/Exercise/ExerciseNodesList";
 import { ExerciseOptionsForm } from "./ExerciseOptionsForm";
-import { SingleExerciseNodeWrapper } from "../../UI/Wrapper/SingleExerciseNodeWrapper";
-import { ExerciseControllerHeader } from "../../UI/Wrapper/ExerciseControllerHeader";
-import { ModifyExerciseRow } from "../../UI/Button/ModifyExerciseRow";
+import { SingleExerciseNodeWrapper } from "@/features/Builder/Components/Wrapper/SingleExerciseNodeWrapper";
+import { ExerciseControllerHeader } from "@/features/Builder/Components/Wrapper/ExerciseControllerHeader";
+import { ModifyExerciseRow } from "@/features/Builder/Components/Button/ModifyExerciseRow";
 import { router } from "@/main";
 
 export const ExerciseNodeForm = withForm({

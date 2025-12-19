@@ -1,7 +1,7 @@
-import type { LessonCompletion } from "@/features/Hub/ModuleHub/Path/ModulePathButton.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import type { LudoLesson } from "@/types/Catalog/LudoLesson.ts";
 import { useRouter } from "@tanstack/react-router";
+import type { LessonStatus } from "../Components/Path/Path";
 
 type Args = {
   lesson: LudoLesson;
@@ -20,7 +20,7 @@ export function useLessonButton({
   const isCompleted = lesson.isCompleted;
   const isLocked = !lesson.isCompleted && !isCurrent;
 
-  const lessonType: LessonCompletion = isCurrent
+  const lessonType: LessonStatus = isCurrent
     ? "COMPLETE"
     : isCompleted
       ? "MASTERED"

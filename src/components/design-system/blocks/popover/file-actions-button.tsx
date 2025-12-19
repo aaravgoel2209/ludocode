@@ -1,5 +1,5 @@
-import { HeroIcon } from "@/components/design-system/atoms/hero-icon/hero-icon.tsx";
-import { FileActionsPopover } from "./file-actions-popover.tsx";
+import { HeroIcon } from "../../primitives/hero-icon";
+import { FileActionsPopover } from "./file-actions-popover";
 
 type FileActionsButtonProps = {
   fileName: string;

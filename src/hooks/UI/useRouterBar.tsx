@@ -1,4 +1,4 @@
-import type { BarState } from "@/components/design-system/blocks/header/header-with-bar";
+import type { BarState } from "@/components/design-system/zones/header-with-bar.tsx";
 import { useRouterState } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 

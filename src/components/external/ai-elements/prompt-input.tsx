@@ -425,7 +425,7 @@ export type PromptInputProps = Omit<
   multiple?: boolean;
   // When true, accepts drops anywhere on document. Default false (opt-in).
   globalDrop?: boolean;
-  // Render a hidden input with given name and keep it in sync for native Form posts. Default false.
+  // Render a hidden Input with given name and keep it in sync for native Form posts. Default false.
   syncHiddenInput?: boolean;
   // Minimal constraints
   maxFiles?: number;
@@ -574,13 +574,13 @@ export const PromptInput = ({
     ? () => controller.attachments.openFileDialog()
     : openFileDialogLocal;
 
-  // Let provider know about our hidden file input so external menus can call openFileDialog()
+  // Let provider know about our hidden file Input so external menus can call openFileDialog()
   useEffect(() => {
     if (!usingProvider) return;
     controller.__registerFileInput(inputRef, () => inputRef.current?.click());
   }, [usingProvider, controller]);
 
-  // Note: file input cannot be programmatically set for security reasons
+  // Note: file Input cannot be programmatically set for security reasons
   // The syncHiddenInput prop is no longer functional
   useEffect(() => {
     if (syncHiddenInput && inputRef.current && files.length === 0) {
@@ -690,7 +690,7 @@ export const PromptInput = ({
         })();
 
     // Reset Form immediately after capturing text to avoid race condition
-    // where user input during async blob conversion would be lost
+    // where user Input during async blob conversion would be lost
     if (!usingProvider) {
       form.reset();
     }
@@ -981,7 +981,7 @@ export const PromptInputActionMenuItem = ({
 );
 
 // Note: Actions that perform side-effects (like opening a file dialog)
-// are provided in opt-in modules (e.g., prompt-input-attachments).
+// are provided in opt-in modules (e.g., prompt-Input-attachments).
 
 export type PromptInputSubmitProps = ComponentProps<typeof InputGroupButton> & {
   status?: ChatStatus;

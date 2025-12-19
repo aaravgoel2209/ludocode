@@ -7,10 +7,10 @@ import {
   LANGUAGE_MAP,
 } from "@/types/Project/LanguageType";
 import type { ReactNode } from "react";
-import { FileInfoRow } from "@/components/design-system/blocks/file/file-info-row.tsx";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
-import { FileWrapper } from "@/components/design-system/blocks/file/file-wrapper.tsx";
-import { CustomIcon } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
+import { FileWrapper } from "@/features/Builder/Components/File/file-wrapper";
+import { FileInfoRow } from "@/features/Builder/Components/File/file-info-row";
+import { CustomIcon } from "../../primitives/custom-icon";
 
 type NewFilePopoverProps = {
   children: ReactNode;

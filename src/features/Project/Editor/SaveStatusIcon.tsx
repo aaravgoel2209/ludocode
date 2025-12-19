@@ -1,4 +1,4 @@
-import { CustomIcon, type IconName } from "@/components/design-system/atoms/hero-icon/custom-icon.tsx";
+import { CustomIcon, type IconName } from "@/components/design-system/primitives/custom-icon.tsx";
 
 type SaveStatusIconProps = {
   isSaving: boolean;

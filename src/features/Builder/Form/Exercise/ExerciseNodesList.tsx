@@ -11,7 +11,7 @@ import {
 } from "@dnd-kit/sortable";
 import { Button } from "@/components/external/ui/button";
 import { useState } from "react";
-import { SortableExerciseDot } from "../../UI/DragAndDrop/SortableExerciseDot";
+import { SortableExerciseDot } from "@/features/Builder/Components/Drag/SortableExerciseDot";
 
 type ExerciseNode = { id: string };
 

@@ -39,7 +39,7 @@ export const FEATURE_META: Record<keyof ActiveFeaturesResponse, FeatureMeta> = {
   },
   isAdminEnabled: {
     env: "SPRING_PROFILES_ACTIVE=admin",
-    title: "Enable Admin to use builder.",
+    title: "Enable Admin to use misc.",
     description: ""
   }
 };

@@ -7,7 +7,7 @@ import type { ExerciseAttempt } from "@/types/Exercise/LessonSubmissions.ts";
 import { useStagedAttempt } from "./useStagedAttempt.tsx";
 import { useExerciseInput, type useExerciseInputResponse } from "./useExerciseInput.tsx";
 import { useCommittedSubmissions } from "./useCommittedSubmissions.tsx";
-import type { ExercisePhase } from "@/features/Lesson/Zone/LessonFooter.tsx";
+import type { ExercisePhase } from "@/features/Lesson/Components/Zone/LessonFooter.tsx";
 
 export type AnswerToken = { id?: string; value: string };
 

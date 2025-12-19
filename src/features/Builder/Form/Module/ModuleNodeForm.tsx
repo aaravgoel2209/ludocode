@@ -2,11 +2,11 @@ import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { Button } from "@/components/external/ui/button";
 import { LessonListForm } from "../Lesson/LessonListForm";
-import { BuilderNodeWrapper } from "@/components/design-system/blocks/wrapper/builder-node-wrapper.tsx";
-import { BuilderNode } from "@/components/design-system/atoms/tree/builder-node.tsx";
-import { StatusButtonField } from "@/components/design-system/atoms/status/status-button-field.tsx";
-import { EditNodeDialog } from "@/features/Builder/UI/Dialog/EditNodeDialog.tsx";
-import { CollapsibleButton } from "@/components/design-system/atoms/button/collapsible-button.tsx";
+import { BuilderNodeWrapper } from "@/components/design-system/misc/wrapper/builder-node-wrapper.tsx";
+import { BuilderNode } from "@/components/design-system/misc/tree/builder-node.tsx";
+import { StatusButtonField } from "@/components/design-system/misc/status-button-field.tsx";
+import { EditNodeDialog } from "@/features/Builder/Components/Dialog/EditNodeDialog.tsx";
+import { CollapsibleButton } from "@/components/design-system/misc/button/collapsible-button.tsx";
 import { router } from "@/main";
 
 export const ModuleNodeForm = withForm({

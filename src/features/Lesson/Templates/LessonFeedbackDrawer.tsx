@@ -2,7 +2,7 @@
 
 import { Drawer } from "vaul";
 import { useLessonContext } from "../Context/useLessonContext";
-import { LessonFooter } from "../Zone/LessonFooter";
+import { LessonFooter } from "../Components/Zone/LessonFooter.tsx";
 
 export function LessonFeedbackDrawer() {
   const { phase } = useLessonContext();

@@ -9,8 +9,8 @@ import { ChatBotProvider } from "@/features/AI/Context/ChatBotContext.tsx";
 import { RunCodeButton } from "./Editor/RunCodeButton.tsx";
 import { CodeRunnerProvider } from "@/features/Project/Context/CodeRunnerContext.tsx";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
-import { ChatBotAccordion } from "@/components/design-system/blocks/chatbot/chatbot-accordion.tsx";
-import ChatBotWindow from "@/components/design-system/composites/chatbot/chatbot-window.tsx";
+import { ChatBotAccordion } from "@/components/design-system/widgets/chatbot/ChatbotAccordion.tsx";
+import ChatBotWindow from "@/components/design-system/widgets/chatbot/ChatbotWindow.tsx";
 
 export function ProjectPage() {
   const { project, files, currentFileId } = useProjectContext();

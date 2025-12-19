@@ -1,4 +1,4 @@
-import type { HeroContentProps } from "@/components/design-system/blocks/hero/default-hero";
+import type { HeroContentProps } from "@/components/design-system/zones/hero";
 
 export const projectHeroContent: HeroContentProps = {
   title: "My Projects",

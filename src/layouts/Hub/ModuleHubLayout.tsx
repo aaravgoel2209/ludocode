@@ -1,12 +1,12 @@
 import { useTreeData } from "@/features/Hub/ModuleHub/Hooks/useTreeData.tsx";
 import {
-  ModuleSelectionBar,
+  ModuleSelectionTabs,
   type MobileModuleTabs,
-} from "../../features/Hub/ModuleHub/Selection/ModuleSelectionBar";
+} from "@/features/Hub/ModuleHub/Components/Selection/ModuleSelectionTabs.tsx";
 import { useEffect } from "react";
-import { ModulePage } from "@/features/Hub/ModuleHub/ModulePage";
+import { ModulePage } from "@/features/Hub/ModuleHub/Pages/ModulePage.tsx";
 import { useTab } from "@/hooks/UI/useTab";
-import { ModuleSelectionPage } from "@/features/Hub/ModuleHub/ModuleSelectionPage";
+import { ModuleSelectionPage } from "@/features/Hub/ModuleHub/Pages/ModuleSelectionPage.tsx";
 import type { LudoCourse } from "@/types/Catalog/LudoCourse";
 import { getRouteApi } from "@tanstack/react-router";
 
@@ -33,7 +33,7 @@ export function ModuleHubLayout() {
 
   return (
     <div className="layout-grid lg:grid-rows-1 grid-rows-[auto_1fr] bg-ludoGrayDark">
-      <ModuleSelectionBar
+      <ModuleSelectionTabs
         activeTab={activeTab}
         changeTab={setTab}
         className="lg:hidden col-span-full"

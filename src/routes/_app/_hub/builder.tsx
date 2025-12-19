@@ -1,4 +1,4 @@
-import { BuilderHubPage } from "@/features/Hub/BuilderHub/BuilderHubPage";
+import { BuilderHubPage } from "@/features/Hub/BuilderHub/Pages/BuilderHubPage.tsx";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute, redirect } from "@tanstack/react-router";

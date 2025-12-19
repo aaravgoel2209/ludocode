@@ -1,9 +1,9 @@
-import { CompletionFooter } from "@/features/Completion/UI/Zone/CompletionFooter";
+import { CompletionFooter } from "@/features/Completion/Components/Zone/CompletionFooter";
 import {
   LessonCompletionPage,
   CourseCompletePage,
   StreakIncreasePage,
-} from "@/features/Completion/CompletionPage";
+} from "@/features/Completion/Pages/CompletionPage.tsx";
 import type {
   CompletionSearch,
   CompletionState,

@@ -1,14 +1,14 @@
-import { OptionListWrapper } from "@/components/design-system/blocks/wrapper/option-list-wrapper";
-import { InteractiveCodeBlock } from "../UI/AnswerField/InteractiveCodeBlock";
+import { InteractiveCodeBlock } from "@/features/Lesson/Components/Code/InteractiveCodeBlock";
 import { useSelectOption } from "../Hooks/useSelectOption";
-import { ClickableOption } from "@/components/design-system/atoms/option/clickable-option";
-import { WideClickableOption } from "@/components/design-system/atoms/option/wide-clickable-option";
-import type { ExerciseInteractionConfig } from "../LessonPage";
+
+import type { ExerciseInteractionConfig } from "../Pages/LessonPage.tsx";
 import type { AnswerToken } from "../Hooks/useExercise";
 import type { useExerciseBodyData } from "../Hooks/useExerciseBodyData";
 import { cn } from "@/components/cn-utils";
-import { CodeUtilsGroup } from "../UI/Group/CodeUtilsGroup";
+import { CodeUtilsGroup } from "@/features/Lesson/Components/Code/CodeUtilsGroup.tsx";
 import { useLessonContext } from "../Context/useLessonContext";
+import { OptionListWrapper } from "@/components/design-system/misc/wrapper/option-list-wrapper.tsx";
+import { ClickableOption, WideClickableOption } from "@/components/design-system/primitives/clickable-option.tsx";
 
 export function ExerciseInteraction({
   config,
