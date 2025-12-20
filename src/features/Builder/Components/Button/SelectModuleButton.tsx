@@ -1,4 +1,4 @@
-import { ThinNodeButton } from "@/components/design-system/misc/button/thin-node-button.tsx";
+import { ThinNodeButton } from "@/features/Builder/Components/Button/thin-node-button";
 
 type SelectModuleButtonProps = { selectModule: () => void };
 

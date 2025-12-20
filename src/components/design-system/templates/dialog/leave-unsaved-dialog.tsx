@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { WarningDialog } from "@/components/design-system/misc/popover/WarningDialog.tsx";
+import { WarningDialog } from "@/components/design-system/templates/dialog/WarningDialog";
 type LeaveUnsavedBuilder = {
   onClick: () => void;
   children: ReactNode;

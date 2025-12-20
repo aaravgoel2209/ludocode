@@ -1,4 +1,3 @@
-
 import {
   LANGUAGE_MAP,
   type LanguageType,
@@ -7,7 +6,7 @@ import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx
 import { FileWrapper } from "@/features/Builder/Components/File/file-wrapper.tsx";
 import { FileInfoRow } from "@/features/Builder/Components/File/file-info-row.tsx";
 import { CustomIcon } from "@/components/design-system/primitives/custom-icon.tsx";
-import { FileActionsButton } from "@/components/design-system/blocks/popover/file-actions-button";
+import { FileActionsButton } from "@/features/Project/FileTree/file-actions-button";
 
 type TreeFileProps = {
   fileName: string;

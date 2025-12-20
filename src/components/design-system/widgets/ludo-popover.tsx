@@ -1,7 +1,6 @@
 import { Popover, PopoverContent } from "@/components/external/ui/popover.tsx";
 import type { ReactElement, ReactNode } from "react";
 import { PopoverArrow, PopoverTrigger } from "@radix-ui/react-popover";
-import { useIsMobile } from "@/hooks/Guard/useIsMobile.tsx";
 
 export type BasePopoverProps = {
   trigger: ReactElement;
@@ -9,15 +8,13 @@ export type BasePopoverProps = {
 };
 
 export function LudoPopover({ children, trigger }: BasePopoverProps) {
-  const isMobile = useIsMobile();
-
   return (
     <Popover>
       <PopoverTrigger asChild>{trigger}</PopoverTrigger>
       <PopoverContent
-        align={isMobile ? "end" : "center"}
+        align={"center"}
         side="bottom"
-        className="rounded-xl relative mx-10 flex justify-between pt-3 min-w-90 flex-row mt-2 bg-ludoGrayLight border-ludoLightPurple"
+        className="rounded-xl relative mx-10 flex justify-between pt-3 min-w-80 flex-row mt-2 bg-ludoGrayLight border-ludoLightPurple"
       >
         <PopoverArrow
           className="fill-ludoGrayLight stroke-ludoLightPurple"

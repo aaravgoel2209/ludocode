@@ -1,11 +1,13 @@
 import { forwardRef } from "react";
 import { cn } from "../../cn-utils.ts";
+import { Spinner } from "@/components/external/ui/spinner.tsx";
 
 type Variant = "default" | "alt";
 
 type LudoButtonProps = React.ComponentPropsWithoutRef<"button"> & {
   selected?: boolean;
   shadow?: boolean;
+  isLoading?: boolean;
   variant?: Variant;
   disabled?: boolean;
   childClass?: string;
@@ -17,6 +19,7 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
       children,
       className,
       shadow = true,
+      isLoading = false,
       selected = false,
       variant = "default",
       childClass,
@@ -50,16 +53,16 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
         ref={ref}
         type="button"
         className={cn(
-          "h-20 w-20 rounded-lg hover:cursor-pointer",
+          "h-10 w-full rounded-lg flex justify-center items-center gap-3 hover:cursor-pointer",
           shadow
-            ? `${disabled ? disabledShadowStyles[variant] : shadowMap[variant]} active:translate-y-1 active:shadow-none`
+            ? `${disabled || isLoading ? disabledShadowStyles[variant] : shadowMap[variant]} active:translate-y-1 active:shadow-none`
             : "",
-          `${disabled ? disabledVariantStyles[variant] : variantStyles[variant]}`,
+          `${disabled || isLoading ? disabledVariantStyles[variant] : variantStyles[variant]}`,
           className
         )}
         {...props}
       >
-        {children}
+        {!isLoading ? children : <Spinner className="text-ludoLightPurple" />}
       </button>
     );
   }

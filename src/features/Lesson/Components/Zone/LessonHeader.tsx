@@ -1,7 +1,7 @@
 import { Progress } from "@/components/external/ui/progress.tsx";
-import { ExitButton } from "@/components/design-system/misc/button/exit-button.tsx";
 import { HeaderWithBar } from "../../../../components/design-system/zones/header-with-bar.tsx";
-import { LeaveUnsavedDialog } from "@/components/design-system/misc/popover/leave-unsaved-dialog.tsx";
+import { LeaveUnsavedDialog } from "@/components/design-system/templates/dialog/leave-unsaved-dialog.tsx";
+import { IconButton } from "@/components/design-system/primitives/icon-button.tsx";
 
 type LessonHeaderProps = {
   total: number;
@@ -9,11 +9,7 @@ type LessonHeaderProps = {
   onExit?: () => void;
 };
 
-export function LessonHeader({
-  total,
-  onExit,
-  position,
-}: LessonHeaderProps) {
+export function LessonHeader({ total, onExit, position }: LessonHeaderProps) {
   const completed = position + 1;
 
   return (
@@ -26,7 +22,7 @@ export function LessonHeader({
             buttonText="Quit"
             onClick={() => onExit()}
           >
-            <ExitButton />
+            <IconButton variant="large" iconName="XMarkIcon" />
           </LeaveUnsavedDialog>
         )}
       </div>

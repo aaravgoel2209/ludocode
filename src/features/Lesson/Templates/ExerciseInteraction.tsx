@@ -7,7 +7,7 @@ import type { useExerciseBodyData } from "../Hooks/useExerciseBodyData";
 import { cn } from "@/components/cn-utils";
 import { CodeUtilsGroup } from "@/features/Lesson/Components/Code/CodeUtilsGroup.tsx";
 import { useLessonContext } from "../Context/useLessonContext";
-import { OptionListWrapper } from "@/components/design-system/misc/wrapper/option-list-wrapper.tsx";
+import { OptionListWrapper } from "@/features/Lesson/Components/Code/option-list-wrapper.tsx";
 import { ClickableOption, WideClickableOption } from "@/components/design-system/primitives/clickable-option.tsx";
 
 export function ExerciseInteraction({

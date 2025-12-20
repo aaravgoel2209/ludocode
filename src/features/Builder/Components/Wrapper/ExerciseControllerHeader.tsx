@@ -1,7 +1,10 @@
-import { DevInfoDialog } from "@/components/design-system/misc/popover/info-dialog.tsx";
+import { DevInfoDialog } from "@/components/design-system/templates/dialog/info-dialog";
 import { exTypeInfoContent } from "@/constants/content/infoContent";
 import type { ExerciseType } from "@/types/Exercise/ExerciseType";
-import type { LessonSnap, ModuleSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
+import type {
+  LessonSnap,
+  ModuleSnap,
+} from "@/types/Builder/BuilderSnapshotTypes.ts";
 import { QuestionMarkCircleIcon } from "@heroicons/react/24/solid";
 
 type ExerciseControllerHeaderProps = {

@@ -1,6 +1,6 @@
 import type { AnswerToken } from "@/features/Lesson/Hooks/useExercise.tsx";
 import type { LudoExerciseOption } from "@/types/Exercise/LudoExerciseOption.ts";
-import { WideButton } from "@/components/design-system/misc/button/wide-button.tsx";
+import { WideButton } from "@/components/design-system/primitives/wide-button";
 
 type ClickableOptionProps = {
   content: string;

@@ -36,7 +36,7 @@ export function CustomIcon({ iconName, className, color }: CustomIconProps) {
   return <Icon className={className ?? "h-6 w-6"} color={color} />;
 }
 
-export function QuestionIcon({ className, color }: IconProps): JSX.Element {
+export function QuestionIcon({ color }: IconProps): JSX.Element {
   return (
     <svg
       width="16"
@@ -90,7 +90,7 @@ export function CommitIcon({ className, color }: IconProps): JSX.Element {
   );
 }
 
-export function AnalyzeIcon({ className, color }: IconProps): JSX.Element {
+export function AnalyzeIcon({ color }: IconProps): JSX.Element {
   return (
     <svg
       width="16"
@@ -117,7 +117,7 @@ export function AnalyzeIcon({ className, color }: IconProps): JSX.Element {
   );
 }
 
-export function TriviaIcon({ className, color }: IconProps): JSX.Element {
+export function TriviaIcon({ color }: IconProps): JSX.Element {
   return (
     <svg
       width="16"
@@ -151,7 +151,7 @@ export function TriviaIcon({ className, color }: IconProps): JSX.Element {
   );
 }
 
-export function ClozeIcon({ className, color }: IconProps): JSX.Element {
+export function ClozeIcon({ color }: IconProps): JSX.Element {
   return (
     <svg
       width="16"

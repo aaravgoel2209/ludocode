@@ -5,11 +5,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/external/ui/popover.tsx";
-import { DeleteDialog } from "../../misc/popover/delete-dialog";
+import { DeleteDialog } from "../../../components/design-system/templates/dialog/delete-dialog";
 import { FileWrapper } from "@/features/Builder/Components/File/file-wrapper";
 import { FileInfoRow } from "@/features/Builder/Components/File/file-info-row";
-import { HeroIcon } from "../../primitives/hero-icon";
-import { RenameDialog } from "../../misc/popover/rename-dialog";
+import { HeroIcon } from "../../../components/design-system/primitives/hero-icon";
+import { RenameDialog } from "../../../components/design-system/templates/dialog/rename-dialog";
 
 type FileActionsPopoverProps = {
   children: ReactNode;

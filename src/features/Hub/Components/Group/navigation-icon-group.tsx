@@ -1,7 +1,7 @@
 import { getNavIcons } from "@/constants/content/navIcons.ts";
 import { useLocation } from "@tanstack/react-router";
-import { HollowSlotButtonGroup } from "./hollow-slot-button-group.tsx";
-import { HollowSlotButton } from "@/components/design-system/misc/button/hollow-slot-button.tsx";
+import { IconLabel } from "../../../../components/design-system/primitives/IconLabel.tsx";
+import { HollowSlotButton } from "@/components/design-system/primitives/hollow-slot.tsx";
 import { useFeatureEnabledCheck } from "@/hooks/Guard/useFeatureEnabledCheck.tsx";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { qo } from "@/hooks/Queries/Definitions/queries.ts";
@@ -35,7 +35,7 @@ export function NavigationIconGroup({
   };
 
   return (
-    <HollowSlotButtonGroup className={groupClassName}>
+    <IconLabel className={groupClassName}>
       {iconsToRender.map((icon) => (
         <HollowSlotButton
           className={buttonClassName}
@@ -46,6 +46,6 @@ export function NavigationIconGroup({
           <p>{icon.name}</p>
         </HollowSlotButton>
       ))}
-    </HollowSlotButtonGroup>
+    </IconLabel>
   );
 }

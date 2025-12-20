@@ -1,6 +1,5 @@
 import { useHotkeys } from "@/hooks/UI/useHotkeys";
 import { useCodeRunnerContext } from "@/features/Project/Context/CodeRunnerContext.tsx";
-import { Spinner } from "@/components/external/ui/spinner";
 import { LudoButton } from "@/components/design-system/primitives/ludo-button";
 
 export function RunCodeButton() {
@@ -17,12 +16,12 @@ export function RunCodeButton() {
         if (isRunning) return;
         runCode();
       }}
+      isLoading={isRunning}
       variant={"alt"}
       disabled={isRunning}
-      className="absolute gap-2 text-lg font-bold z-10 w-48 h-10 max-w-48 min-w-48 py-0.5 px-8  bottom-10 right-10 flex items-center justify-center"
+      className="absolute text-lg font-bold z-10 w-48 h-10 max-w-48 min-w-48 py-0.5 px-8 bottom-10 right-10"
     >
       Run ⌘+⏎
-      {isRunning && <Spinner className="text-ludoLightPurple" />}
     </LudoButton>
   );
 }

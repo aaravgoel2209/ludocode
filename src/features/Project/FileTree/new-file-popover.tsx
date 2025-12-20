@@ -3,14 +3,12 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/external/ui/popover";
-import {
-  LANGUAGE_MAP,
-} from "@/types/Project/LanguageType";
+import { LANGUAGE_MAP } from "@/types/Project/LanguageType";
 import type { ReactNode } from "react";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 import { FileWrapper } from "@/features/Builder/Components/File/file-wrapper";
 import { FileInfoRow } from "@/features/Builder/Components/File/file-info-row";
-import { CustomIcon } from "../../primitives/custom-icon";
+import { CustomIcon } from "../../../components/design-system/primitives/custom-icon";
 
 type NewFilePopoverProps = {
   children: ReactNode;

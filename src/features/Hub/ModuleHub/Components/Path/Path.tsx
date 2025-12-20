@@ -93,7 +93,7 @@ export const PathButton = React.forwardRef<HTMLButtonElement, PathButtonProps>(
       <LudoButton
         ref={ref}
         selected={isCurrent}
-        className={cn("relative overflow-hidden", className)}
+        className={cn("relative w-20 h-20 overflow-hidden", className)}
         {...props}
       >
         <CompletionRibbon lessonState={lessonState} />

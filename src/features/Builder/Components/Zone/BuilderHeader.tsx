@@ -1,9 +1,9 @@
 import { Button } from "@/components/external/ui/button.tsx";
 import { useState } from "react";
-import { LeaveUnsavedDialog } from "@/components/design-system/misc/popover/leave-unsaved-dialog.tsx";
-import { ExitButton } from "@/components/design-system/misc/button/exit-button.tsx";
+import { LeaveUnsavedDialog } from "@/components/design-system/templates/dialog/leave-unsaved-dialog";
 import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useRouter } from "@tanstack/react-router";
+import { IconButton } from "@/components/design-system/primitives/icon-button";
 
 type BuilderHeaderProps = { handleFormSubmission: () => Promise<void> };
 
@@ -23,7 +23,7 @@ export function BuilderHeader({ handleFormSubmission }: BuilderHeaderProps) {
             router.navigate(ludoNavigation.hub.builder.toBuilderHub())
           }
         >
-          <ExitButton />
+          <IconButton variant="large" iconName="XMarkIcon" />
         </LeaveUnsavedDialog>
         <Button
           variant={variant}

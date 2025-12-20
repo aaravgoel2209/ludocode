@@ -1,6 +1,5 @@
 import { cn } from "@/components/cn-utils.ts";
 import { useLessonContext } from "../../Context/useLessonContext.tsx";
-import type { ExerciseType } from "@/types/Exercise/ExerciseType.ts";
 import type { ExercisePhase } from "./LessonFooter.tsx";
 
 type ResultStyle = {
@@ -26,13 +25,13 @@ export function LessonFeedbackDrawer() {
       className={cn(
         "pointer-events-none fixed bottom-0 left-0 right-0 z-10",
         isVisible
-          ? "translate-y-0 transition-transform duration-100 ease-out"
+          ? "translate-y-0 transition-transform duration-200 ease-out"
           : "translate-y-full"
       )}
     >
       <div
         className={cn(
-          "mx-auto lg:h-26 h-40 max-w-screen bg-codeGray border-t-4 border-green-400/8",
+          "mx-auto lg:h-26 h-34 max-w-screen bg-codeGray border-t-4 border-green-400/8",
           border
         )}
       >

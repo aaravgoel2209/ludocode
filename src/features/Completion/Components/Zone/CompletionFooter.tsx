@@ -61,9 +61,9 @@ export function CompletionFooter() {
   };
 
   return (
-    <FooterShell>
+    <FooterShell className="bg-transparent border-t-ludoGrayLight lg:border-t z-20">
       <div
-        className={`flex w-full justify-end py-2 items-center col-start-2 col-end-12 lg:col-start-4 lg:col-end-10`}
+        className={`flex w-full justify-end py-4 px-8 lg:px-0 items-center col-start-2 col-end-12 lg:col-start-4 lg:col-end-10`}
       >
         <LudoButton variant="alt" className="w-full lg:w-1/3 text-lg font-bold h-full lg:h-2/3" onClick={() => handleCompletionContinue()}>
           <p>Continue</p>

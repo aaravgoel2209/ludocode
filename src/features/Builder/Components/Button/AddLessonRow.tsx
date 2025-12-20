@@ -1,9 +1,9 @@
-import { TreeItem } from "@/components/design-system/misc/tree/tree-item.tsx";
+import { TreeItem } from "@/features/Builder/Components/Tree/tree-item";
 import { Button } from "@/components/external/ui/button";
 
-type AddLessonButtonProps = {addLesson: () => void};
+type AddLessonButtonProps = { addLesson: () => void };
 
-export function AddLessonRow({addLesson}: AddLessonButtonProps) {
+export function AddLessonRow({ addLesson }: AddLessonButtonProps) {
   return (
     <TreeItem>
       <Button className="h-8 mt-2" onClick={() => addLesson()}>

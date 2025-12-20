@@ -1,6 +1,6 @@
 
 import { InlineCode } from "@/components/design-system/primitives/inline-code.tsx";
-import { CodeBoxWrapper } from "@/components/design-system/misc/wrapper/code-box-wrapper.tsx";
+import { CodeBoxWrapper } from "@/features/Builder/Components/Wrapper/code-box-wrapper";
 import type { OptionSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
 import { Fragment } from "react/jsx-runtime";
 

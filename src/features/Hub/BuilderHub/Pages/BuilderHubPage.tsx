@@ -3,8 +3,10 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useModal } from "@/hooks/UI/useModal.tsx";
 import { uuid } from "@tanstack/react-form";
 import { BuilderHubCourseCard } from "@/features/Hub/BuilderHub/Components/Card/BuilderHubCourseCard.tsx";
-import { BuilderHubHero } from "@/features/Hub/BuilderHub/Components/Hero/BuilderHubHero.tsx";
 import { CreateCourseDialog } from "@/features/Hub/BuilderHub/Components/Dialog/CreateCourseDialog.tsx";
+import { Hero } from "@/components/design-system/zones/hero";
+import { builderHeroContent } from "../content";
+import { LudoButton } from "@/components/design-system/primitives/ludo-button";
 
 type BuilderHubPageProps = {};
 
@@ -19,10 +21,18 @@ export function BuilderHubPage({}: BuilderHubPageProps) {
 
   return (
     <>
-      <div className="grid col-span-full min-h-0 overflow-y-auto p-8 h-full grid-cols-12">
+      <div className="layout-grid col-span-full scrollable py-6 px-8 lg:px-0">
         <div className="col-span-1 lg:bg-ludoGrayDark lg:col-span-2"></div>
         <div className="col-span-10 relative lg:col-span-8 flex flex-col gap-8 items-stretch justify-start min-w-0">
-          <BuilderHubHero openCreateCourse={() => openCreateCourse()} />
+          <Hero {...builderHeroContent}>
+            <LudoButton
+              className="w-full lg:w-1/3 lg:h-10 h-full px-4 "
+              variant="alt"
+              onClick={() => openCreateCourse()}
+            >
+              Create
+            </LudoButton>
+          </Hero>
           {courses.map((course) => (
             <BuilderHubCourseCard
               key={course.id}

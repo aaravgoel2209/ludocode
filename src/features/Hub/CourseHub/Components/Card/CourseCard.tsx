@@ -1,5 +1,5 @@
 ;
-import type { IconName } from "@/components/design-system/primitives/custom-icon";
+// import type { IconName } from "@/components/design-system/primitives/custom-icon";
 import { LudoButton } from "@/components/design-system/primitives/ludo-button";
 import type { LudoCourse } from "@/types/Catalog/LudoCourse.ts";
 
@@ -11,13 +11,13 @@ type CourseCardProps = {
 export function CourseCard({ course, onClick }: CourseCardProps) {
   const { title } = course;
 
-  const courseIcons: Record<string, IconName> = {
-    Python: "Python",
-    Swift: "Swift",
-    CSharp: "CSharp",
-    Golang: "Golang",
-    Lua: "Lua",
-  };
+  // const courseIcons: Record<string, IconName> = {
+  //   Python: "Python",
+  //   Swift: "Swift",
+  //   CSharp: "CSharp",
+  //   Golang: "Golang",
+  //   Lua: "Lua",
+  // };
 
   return (
     <LudoButton onClick={() => onClick()} className="w-full h-20">

@@ -31,6 +31,7 @@ export const popoverStyle = {
   },
 };
 
+//TODO add exit functionality for the popover button
 export function PathPopover({
   trigger,
   lesson,
@@ -49,7 +50,7 @@ export function PathPopover({
         <XSquareIcon className="text-ludoLightPurple hover:cursor-pointer h-4 w-4" />
         <LudoButton
           onClick={() => goToLesson()}
-          className="h-7 w-26 rounded-sm"
+          className="h-7 w-20 lg:w-26 rounded-sm"
           variant="alt"
         >
           <p className="text-sm">{popoverStyle[lessonType].text}</p>

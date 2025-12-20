@@ -1,4 +1,4 @@
-import { HeroIcon } from "../../primitives/hero-icon";
+import { HeroIcon } from "../../../components/design-system/primitives/hero-icon";
 import { FileActionsPopover } from "./file-actions-popover";
 
 type FileActionsButtonProps = {
@@ -35,7 +35,11 @@ export function FileActionsButton({
       targetId={targetId}
       targetName={fileName}
     >
-      <div role="button" onClick={(e) => e.stopPropagation()} className={style[variant]}>
+      <div
+        role="button"
+        onClick={(e) => e.stopPropagation()}
+        className={style[variant]}
+      >
         <HeroIcon className={sizeStyle} iconName="EllipsisVerticalIcon" />
       </div>
     </FileActionsPopover>

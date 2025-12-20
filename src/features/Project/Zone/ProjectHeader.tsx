@@ -2,7 +2,7 @@ import { ludoNavigation } from "@/constants/ludoNavigation.tsx";
 import { useAutoSaveProject } from "@/features/Project/Hooks/useAutoSaveProject.tsx";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 import { HeaderWithBar } from "@/components/design-system/zones/header-with-bar.tsx";
-import { HollowSlotButton } from "@/components/design-system/misc/button/hollow-slot-button.tsx";
+import { HollowSlotButton } from "@/components/design-system/primitives/hollow-slot.tsx";
 import { HeroIcon } from "@/components/design-system/primitives/hero-icon.tsx";
 import { SaveStatusIcon } from "../Editor/SaveStatusIcon.tsx";
 import { useRouter } from "@tanstack/react-router";

@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle } from "@/components/external/ui/dialog.tsx";
+import { DialogTitle } from "@/components/external/ui/dialog.tsx";
 import { Input } from "@/components/external/ui/input.tsx";
 import { Button } from "@/components/external/ui/button.tsx";
 import type { LanguageType } from "@/types/Project/LanguageType.ts";

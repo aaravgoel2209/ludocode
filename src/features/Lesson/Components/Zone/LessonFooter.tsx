@@ -3,20 +3,35 @@ import { FooterShell } from "@/components/design-system/zones/footer-shell.tsx";
 import { useHotkeys } from "@/hooks/UI/useHotkeys.tsx";
 import { cn } from "@/components/cn-utils.ts";
 import { LudoButton } from "@/components/design-system/primitives/ludo-button.tsx";
+import { useState } from "react";
 
 export type ExercisePhase = "DEFAULT" | "CORRECT" | "INCORRECT";
 
 export function LessonFooter() {
-  const { handleExerciseButtonClick, canSubmit, phase } = useLessonContext();
+  const { handleExerciseButtonClick, canSubmit, phase, currentExercise } =
+    useLessonContext();
+
+  const { exerciseType } = currentExercise;
+  const [isLoading, setIsLoading] = useState(false);
 
   useHotkeys({
     EXECUTE_ACTION: handleExerciseButtonClick,
   });
 
-  const trySubmit = () => {
-    if (!canSubmit) return;
-    handleExerciseButtonClick();
-  };
+  function trySubmit() {
+    if (!canSubmit || isLoading) return;
+
+    if (phase !== "DEFAULT" || exerciseType == "INFO") {
+      handleExerciseButtonClick();
+    } else {
+      setIsLoading(true);
+
+      setTimeout(() => {
+        handleExerciseButtonClick();
+        setIsLoading(false);
+      }, 200);
+    }
+  }
 
   const text =
     phase == "DEFAULT"
@@ -35,6 +50,7 @@ export function LessonFooter() {
         <LudoButton
           variant="alt"
           disabled={!canSubmit}
+          isLoading={isLoading}
           className="w-full lg:w-1/3 text-lg font-bold h-full lg:h-2/3"
           onClick={() => trySubmit()}
         >

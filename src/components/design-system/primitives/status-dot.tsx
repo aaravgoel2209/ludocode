@@ -1,8 +1,7 @@
-import type { ValidationButtonStatus } from "@/components/design-system/misc/button/status-button.tsx";
+export type ValidationButtonStatus = "default" | "ok" | "error";
+type StatusDotProps = { hasError: boolean };
 
-type StatusButtonProps = { hasError: boolean };
-
-export function StatusButtonField({ hasError }: StatusButtonProps) {
+export function StatusDot({ hasError }: StatusDotProps) {
   const status: ValidationButtonStatus = hasError ? "error" : "default";
 
   const statusColor = {

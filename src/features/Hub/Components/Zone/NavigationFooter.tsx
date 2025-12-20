@@ -1,4 +1,4 @@
-import { NavigationIconGroup } from "@/components/design-system/misc/navigation-icon-group.tsx";
+import { NavigationIconGroup } from "@/features/Hub/Components/Group/navigation-icon-group.tsx";
 import { FooterShell } from "../../../../components/design-system/zones/footer-shell.tsx";
 
 export function NavigationFooter() {

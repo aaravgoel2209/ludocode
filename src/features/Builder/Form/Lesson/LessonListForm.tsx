@@ -3,10 +3,10 @@ import { ludoNavigation } from "@/constants/ludoNavigation";
 import { Button } from "@/components/external/ui/button";
 import { newLesson } from "../../Util/NewExerciseTemplates";
 import { AddLessonRow } from "@/features/Builder/Components/Button/AddLessonRow";
-import { TreeItem } from "@/components/design-system/misc/tree/tree-item.tsx";
-import { BuilderNodeWrapper } from "@/components/design-system/misc/wrapper/builder-node-wrapper.tsx";
-import { BuilderNode } from "@/components/design-system/misc/tree/builder-node.tsx";
-import { StatusButtonField } from "@/components/design-system/misc/status-button-field.tsx";
+import { TreeItem } from "@/features/Builder/Components/Tree/tree-item";
+import { BuilderNodeWrapper } from "@/features/Builder/Components/Wrapper/builder-node-wrapper";
+import { BuilderNode } from "@/features/Builder/Components/Tree/builder-node";
+import { StatusDot } from "@/components/design-system/primitives/status-dot";
 import { EditNodeDialog } from "@/features/Builder/Components/Dialog/EditNodeDialog.tsx";
 import { router } from "@/main";
 
@@ -82,7 +82,7 @@ export const LessonListForm = withForm({
                         {(lessonField) => {
                           const hasError =
                             lessonField.state.meta.errors?.[0]?.message;
-                          return <StatusButtonField hasError={!!hasError} />;
+                          return <StatusDot hasError={!!hasError} />;
                         }}
                       </form.AppField>
                     </BuilderNode>

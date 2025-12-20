@@ -1,7 +1,6 @@
-
 import { Winbar } from "@/components/design-system/zones/winbar.tsx";
 import { useCodeRunnerContext } from "@/features/Project/Context/CodeRunnerContext.tsx";
-import { CircleButton } from "@/components/design-system/misc/button/circle-button.tsx";
+import { IconButton } from "@/components/design-system/primitives/icon-button";
 
 export function RunnerWinbar() {
   const { outputInfo } = useCodeRunnerContext();
@@ -11,7 +10,7 @@ export function RunnerWinbar() {
     <Winbar>
       <div className="flex h-full text-white justify-between items-center">
         <p className="">Output</p>
-        <CircleButton iconName="TrashIcon" onClick={clearOutput} />
+        <IconButton iconName="TrashIcon" onClick={clearOutput} />
       </div>
     </Winbar>
   );

@@ -1,4 +1,4 @@
-import { FileActionsButton } from "@/components/design-system/blocks/popover/file-actions-button.tsx";
+import { FileActionsButton } from "@/features/Project/FileTree/file-actions-button";
 import { useModifyProject } from "@/hooks/Queries/Mutations/useModifyProject.tsx";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { LANGUAGE_MAP } from "@/types/Project/LanguageType.ts";

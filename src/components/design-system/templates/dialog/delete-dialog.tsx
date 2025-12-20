@@ -1,4 +1,4 @@
-import { WarningDialog } from "@/components/design-system/misc/popover/WarningDialog.tsx";
+import { WarningDialog } from "@/components/design-system/templates/dialog/WarningDialog";
 import type { ReactNode } from "react";
 
 type DeleteDialogProps = {
