@@ -28,8 +28,21 @@ export const LessonListForm = withForm({
     moduleIndex,
   }) => {
     const selectLesson = (lessonId: string) => {
+      const modules = form.state.values.modules;
+      const lessons = modules[moduleIndex].lessons;
+      const newLessonIndex = lessons.findIndex(
+        (lesson) => lesson.id == lessonId
+      );
+      if (newLessonIndex < 0) return;
+      const firstExerciseOfNewLesson = lessons[newLessonIndex].exercises[0];
+      if (!firstExerciseOfNewLesson) return;
       router.navigate(
-        ludoNavigation.builder.toBuilderLesson(courseId, moduleId, lessonId)
+        ludoNavigation.builder.toBuilderExercise(
+          courseId,
+          moduleId,
+          lessonId,
+          firstExerciseOfNewLesson.id
+        )
       );
     };
 

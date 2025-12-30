@@ -17,7 +17,7 @@ export const ModuleNodeForm = withForm({
     courseId: "" as string,
     moduleId: "" as string,
     modulesLength: 0 as number,
-    currentModuleId: "" as string,
+    currentModuleId: "" as string | undefined,
     currentLessonId: "" as string | undefined,
     index: 0 as number,
   },
