@@ -4,7 +4,7 @@ import type { ProjectFileSnapshot } from "@/types/Project/ProjectFileSnapshot.ts
 import type { ProjectSnapshot } from "@/types/Project/ProjectSnapshot.ts";
 import type { RunnerResult } from "@/types/Project/Runner/RunnerResult.ts";
 import { useMutation } from "@tanstack/react-query";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 
 type Args = {
   project: ProjectSnapshot;
@@ -22,8 +22,13 @@ export type useRunnerResponse = {
   runCode: () => void;
 };
 
-export function useRunner({ project, files }: Args) : useRunnerResponse {
+export function useRunner({ project, files }: Args): useRunnerResponse {
   const [outputLog, setOutputLog] = useState<OutputPacket[]>([]);
+  const filesRef = useRef<ProjectFileSnapshot[]>(files);
+
+  useEffect(() => {
+    filesRef.current = files;
+  }, [files]);
   const clearOutput = useCallback(() => setOutputLog([]), []);
 
   const runMutation = useMutation<RunnerResult, Error, ProjectSnapshot>({
@@ -60,13 +65,13 @@ export function useRunner({ project, files }: Args) : useRunnerResponse {
 
   const runCode = useCallback(() => {
     if (!project.projectId) return;
-    if (!files || files.length === 0) return;
+    if (!filesRef.current || filesRef.current.length === 0) return;
 
     const fresh: ProjectSnapshot = {
       projectId: project.projectId,
       projectLanguage: project.projectLanguage,
       projectName: project.projectName,
-      files,
+      files: filesRef.current,
     };
 
     runMutation.mutate(fresh);
@@ -74,14 +79,17 @@ export function useRunner({ project, files }: Args) : useRunnerResponse {
     project.projectId,
     project.projectLanguage,
     project.projectName,
-    files,
     runMutation,
   ]);
 
-  const outputInfo: OutputInfo = {outputLog, clearOutput, isRunning: runMutation.isPending}
+  const outputInfo: OutputInfo = {
+    outputLog,
+    clearOutput,
+    isRunning: runMutation.isPending,
+  };
 
   return {
     outputInfo,
-    runCode
+    runCode,
   };
 }
