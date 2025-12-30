@@ -1,6 +1,6 @@
 import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import type { OptionSnap } from "@/types/Builder/BuilderSnapshotTypes.ts";
-import { LivePromptPreview } from "../../UI/Wrapper/LivePromptPreview";
+import { LivePromptPreview } from "@/features/Builder/Components/Wrapper/LivePromptPreview";
 
 export const ExerciseNodeInfoForm = withForm({
   ...courseFormOpts,

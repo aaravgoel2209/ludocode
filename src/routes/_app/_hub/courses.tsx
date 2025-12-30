@@ -1,4 +1,4 @@
-import { CoursePage } from "@/features/Hub/CourseHub/CoursePage";
+import { CoursePage } from "@/features/Hub/CourseHub/Pages/CoursePage.tsx";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import type { LudoUser } from "@/types/User/LudoUser";
 import type { QueryClient } from "@tanstack/react-query";

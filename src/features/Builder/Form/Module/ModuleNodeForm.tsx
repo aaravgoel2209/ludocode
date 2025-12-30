@@ -2,11 +2,11 @@ import { courseFormOpts, withForm } from "@/constants/form/formKit";
 import { ludoNavigation } from "@/constants/ludoNavigation";
 import { Button } from "@/components/external/ui/button";
 import { LessonListForm } from "../Lesson/LessonListForm";
-import { BuilderNodeWrapper } from "@/components/design-system/blocks/wrapper/builder-node-wrapper.tsx";
-import { BuilderNode } from "@/components/design-system/atoms/tree/builder-node.tsx";
-import { StatusButtonField } from "@/components/design-system/atoms/status/status-button-field.tsx";
-import { EditNodeDialog } from "@/features/Builder/UI/Dialog/EditNodeDialog.tsx";
-import { CollapsibleButton } from "@/components/design-system/atoms/button/collapsible-button.tsx";
+import { BuilderNodeWrapper } from "@/features/Builder/Components/Wrapper/builder-node-wrapper";
+import { BuilderNode } from "@/features/Builder/Components/Tree/builder-node";
+import { StatusDot } from "@/components/design-system/primitives/status-dot";
+import { EditNodeDialog } from "@/features/Builder/Components/Dialog/EditNodeDialog.tsx";
+import { ChevronRightIcon } from "lucide-react";
 import { router } from "@/main";
 
 export const ModuleNodeForm = withForm({
@@ -17,7 +17,7 @@ export const ModuleNodeForm = withForm({
     courseId: "" as string,
     moduleId: "" as string,
     modulesLength: 0 as number,
-    currentModuleId: "" as string,
+    currentModuleId: "" as string | undefined,
     currentLessonId: "" as string | undefined,
     index: 0 as number,
   },
@@ -76,7 +76,7 @@ export const ModuleNodeForm = withForm({
                             const lessonsHaveError =
                               lessonsField.state.meta.errors?.[0]?.message;
                             return (
-                              <StatusButtonField
+                              <StatusDot
                                 hasError={!!hasError || !!lessonsHaveError}
                               />
                             );
@@ -124,3 +124,33 @@ export const ModuleNodeForm = withForm({
     );
   },
 });
+
+type CollapsibleButtonProps = {
+  onClick?: () => void;
+  isExpanded: boolean;
+};
+
+export function CollapsibleButton({
+  onClick,
+  isExpanded,
+}: CollapsibleButtonProps) {
+  return (
+    <button
+      type="button"
+      onMouseDown={(e) => {
+        e.stopPropagation();
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick?.();
+      }}
+      className="flex h-6 w-6 items-center hover:cursor-pointer justify-center rounded hover:bg-ludoGrayLight/60"
+    >
+      <ChevronRightIcon
+        className={`h-4 w-4 text-white hover:cursor-pointer transition-transform ${
+          isExpanded ? "rotate-90" : "rotate-0"
+        }`}
+      />
+    </button>
+  );
+}

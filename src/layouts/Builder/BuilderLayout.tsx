@@ -13,9 +13,9 @@ import { SUBMIT_COURSE_SNAPSHOT } from "@/constants/api/pathConstants";
 import { ludoPost } from "@/hooks/Queries/Fetcher/ludoPost";
 import { qk } from "@/hooks/Queries/Definitions/qk.ts";
 import { ModuleListForm } from "@/features/Builder/Form/Module/ModuleListForm";
-import { BuilderHeader } from "@/features/Builder/UI/Header/BuilderHeader";
+import { BuilderHeader } from "@/features/Builder/Components/Zone/BuilderHeader.tsx";
 import { ExerciseNodeForm } from "@/features/Builder/Form/Exercise/ExerciseNodeForm";
-import { LudoSidebar } from "@/components/design-system/composites/sidebar/ludo-sidebar.tsx";
+import { LudoSidebar } from "@/components/design-system/widgets/ludo-sidebar.tsx";
 import { MainGridWrapper } from "@/components/design-system/layouts/grid/main-grid-wrapper.tsx";
 import { getRouteApi } from "@tanstack/react-router";
 

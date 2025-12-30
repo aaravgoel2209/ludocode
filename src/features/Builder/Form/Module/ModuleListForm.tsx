@@ -51,21 +51,20 @@ export const ModuleListForm = withForm({
                 Add Module
               </Button>
               <SidebarMenu>
-                {currentModuleId &&
-                  modules.map((module, index) => (
-                    <ModuleNodeForm
-                      key={module.moduleId}
-                      updateOrder={rearrangeModule}
-                      removeModule={removeModule}
-                      modulesLength={modules.length}
-                      currentLessonId={currentLessonId}
-                      currentModuleId={currentModuleId}
-                      form={form}
-                      moduleId={module.moduleId}
-                      index={index}
-                      courseId={courseId}
-                    />
-                  ))}
+                {modules.map((module, index) => (
+                  <ModuleNodeForm
+                    key={module.moduleId}
+                    updateOrder={rearrangeModule}
+                    removeModule={removeModule}
+                    modulesLength={modules.length}
+                    currentLessonId={currentLessonId}
+                    currentModuleId={currentModuleId}
+                    form={form}
+                    moduleId={module.moduleId}
+                    index={index}
+                    courseId={courseId}
+                  />
+                ))}
               </SidebarMenu>
             </div>
           );

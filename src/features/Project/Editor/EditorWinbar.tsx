@@ -1,9 +1,9 @@
 
-import { Winbar } from "@/components/design-system/blocks/winbar/winbar.tsx";
+import { Winbar } from "@/components/design-system/zones/winbar.tsx";
 import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx";
 import { stripFileName } from "../Util/filenameUtil.ts";
-import { EditorTabGroup } from "@/components/design-system/composites/editor/editor-tab-group.tsx";
-import { EditorTab } from "@/components/design-system/atoms/tab/editor-tab.tsx";
+import { EditorTabGroup } from "@/features/Project/Editor/EditorTabGroup.tsx";
+import { EditorTab } from "@/components/design-system/primitives/tab.tsx";
 
 export function EditorWinbar() {
   const { current, files } = useProjectContext();

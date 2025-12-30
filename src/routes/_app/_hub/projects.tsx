@@ -1,4 +1,4 @@
-import { ProjectHubPage } from "@/features/Hub/ProjectHub/ProjectHubPage";
+import { ProjectHubPage } from "@/features/Hub/ProjectHub/Pages/ProjectHubPage.tsx";
 import { qo } from "@/hooks/Queries/Definitions/queries";
 import type { QueryClient } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";

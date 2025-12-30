@@ -69,7 +69,7 @@ export function useCommittedSubmissions({
         handleCorrectAttempt();
       }
 
-      //Clear UI
+      //Clear Components
       clearExerciseInputs();
       clearStaged();
 

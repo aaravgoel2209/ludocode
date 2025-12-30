@@ -1,4 +1,4 @@
-import { ProfilePage } from "@/features/Hub/ProfileHub/ProfilePage";
+import { ProfilePage } from "@/features/Hub/ProfileHub/Pages/ProfilePage.tsx";
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/_hub/profile/$userId")({
