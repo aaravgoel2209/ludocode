@@ -34,11 +34,11 @@ export function ProfilePage({}: ProfilePageProps) {
           <h2>Badges:</h2>
           <div className="w-full min-h-10 rounded-md p-4 bg-ludoGrayLight"></div>
         </div>
+        <div className="absolute bottom-8 right-8 lg:right-0">
+          <LogoutButton />
+        </div>
       </div>
       <div className="hidden lg:block lg:col-span-2" />
-      <div className="absolute bottom-8 right-8">
-        <LogoutButton />
-      </div>
     </div>
   );
 }
