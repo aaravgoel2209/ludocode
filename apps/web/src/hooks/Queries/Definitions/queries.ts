@@ -6,27 +6,13 @@ import {
   moduleBatcher,
   userBatcher,
   userCoinsBatcher,
-} from "@/hooks/Queries/Batcher/batchers.ts";
+} from "@/hooks/Queries/Definitions/batchers";
 import type { LudoModule } from "@ludocode/types/Catalog/LudoModule.ts";
 import type { LudoLesson } from "@ludocode/types/Catalog/LudoLesson.ts";
 import type { CourseProgress } from "@ludocode/types/User/CourseProgress.ts";
 import type { LudoExercise } from "@ludocode/types/Exercise/LudoExercise.ts";
-import { ludoGet } from "@/hooks/Queries/Fetcher/ludoGet.ts";
+import { ludoGet } from "@ludocode/api/fetcher";
 import type { LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
-import {
-  AUTH_ME,
-  GET_ALL_COURSES,
-  GET_COURSE_TREE,
-  GET_CURRENT_COURSE_ID,
-  GET_ENROLLED_IDS,
-  GET_EXERCISES_FROM_LESSON,
-  GET_USER_PREFERENCES,
-  GET_MY_PROJECTS,
-  GET_USER_STREAK,
-  GET_PAST_WEEK_STREAK,
-  GET_ENABLED_FEATURES,
-  GET_USER_CREDITS,
-} from "@/constants/api/pathConstants.ts";
 import type { LudoUser } from "@ludocode/types/User/LudoUser.ts";
 import type { FlatCourseTree } from "@ludocode/types/Catalog/FlatCourseTree.ts";
 import type { UserPreferences } from "@ludocode/types/User/UserPreferences.ts";
@@ -36,6 +22,7 @@ import {
   type UserStreak,
 } from "@ludocode/types/User/UserStreak.ts";
 import { type ActiveFeaturesResponse } from "@ludocode/types/FeatureFlags/FeatureFlags.ts";
+import { api } from "@/constants/api/api";
 
 export const qo = {
   user: (userId: string) =>
@@ -55,14 +42,14 @@ export const qo = {
   preferences: () =>
     queryOptions<UserPreferences>({
       queryKey: qk.preferences(),
-      queryFn: () => ludoGet<UserPreferences>(GET_USER_PREFERENCES, true),
+      queryFn: () => ludoGet<UserPreferences>(api.users.preferences, true),
       staleTime: 60_000,
     }),
 
   activeFeatures: () =>
     queryOptions<ActiveFeaturesResponse>({
       queryKey: qk.activeFeatures(),
-      queryFn: () => ludoGet<ActiveFeaturesResponse>(GET_ENABLED_FEATURES),
+      queryFn: () => ludoGet<ActiveFeaturesResponse>(api.features.base),
       staleTime: Infinity,
     }),
 
@@ -76,28 +63,28 @@ export const qo = {
   credits: () =>
     queryOptions<number>({
       queryKey: qk.credits(),
-      queryFn: () => ludoGet<number>(GET_USER_CREDITS, true),
+      queryFn: () => ludoGet<number>(api.credits.base, true),
       staleTime: 60_000,
     }),
 
   streakPastWeek: () =>
     queryOptions<DailyGoalMet[]>({
       queryKey: qk.streakPastWeek(),
-      queryFn: () => ludoGet<DailyGoalMet[]>(GET_PAST_WEEK_STREAK, true),
+      queryFn: () => ludoGet<DailyGoalMet[]>(api.progress.streak.weekly, true),
       staleTime: 60_000,
     }),
 
   streak: (userId: string) =>
     queryOptions<UserStreak>({
       queryKey: qk.streak(userId),
-      queryFn: () => ludoGet<UserStreak>(GET_USER_STREAK, true),
+      queryFn: () => ludoGet<UserStreak>(api.progress.streak.base, true),
       staleTime: 60_000,
     }),
 
   currentCourseId: () =>
     queryOptions<string>({
       queryKey: qk.currentCourseId(),
-      queryFn: () => ludoGet<string>(GET_CURRENT_COURSE_ID, true),
+      queryFn: () => ludoGet<string>(api.progress.courses.current, true),
       staleTime: 60_000,
       retry: false,
     }),
@@ -112,7 +99,7 @@ export const qo = {
   currentUser: () =>
     queryOptions({
       queryKey: qk.currentUser(),
-      queryFn: () => ludoGet<LudoUser>(AUTH_ME, true),
+      queryFn: () => ludoGet<LudoUser>(api.auth.me, true),
       staleTime: 60_000,
       retry: false,
     }),
@@ -120,14 +107,14 @@ export const qo = {
   allCourses: () =>
     queryOptions({
       queryKey: qk.courses(),
-      queryFn: () => ludoGet<LudoCourse[]>(GET_ALL_COURSES),
+      queryFn: () => ludoGet<LudoCourse[]>(api.catalog.courses),
       staleTime: 60_000,
     }),
 
   allProjects: () =>
     queryOptions({
       queryKey: qk.projects(),
-      queryFn: () => ludoGet<ProjectListResponse>(GET_MY_PROJECTS, true),
+      queryFn: () => ludoGet<ProjectListResponse>(api.projects.base, true),
       staleTime: 60_000,
     }),
 
@@ -141,7 +128,7 @@ export const qo = {
   enrolled: () =>
     queryOptions({
       queryKey: qk.enrolled(),
-      queryFn: () => ludoGet<string[]>(GET_ENROLLED_IDS, true),
+      queryFn: () => ludoGet<string[]>(api.progress.courses.enrolled, true),
       staleTime: 60_000,
     }),
 
@@ -149,14 +136,15 @@ export const qo = {
     queryOptions<LudoExercise[]>({
       queryKey: qk.exercises(lessonId),
       queryFn: () =>
-        ludoGet<LudoExercise[]>(GET_EXERCISES_FROM_LESSON(lessonId)),
+        ludoGet<LudoExercise[]>(api.catalog.lessonExercises(lessonId)),
       staleTime: 60_000,
     }),
 
   courseTree: (courseId: string) =>
     queryOptions({
       queryKey: qk.courseTree(courseId),
-      queryFn: () => ludoGet<FlatCourseTree>(GET_COURSE_TREE(courseId), true),
+      queryFn: () =>
+        ludoGet<FlatCourseTree>(api.catalog.courseTree(courseId), true),
       staleTime: 5 * 60_000,
     }),
 };
