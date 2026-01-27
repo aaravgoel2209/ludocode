@@ -10,9 +10,9 @@ export const mutations = {
       mutationKey: ["createCourse"],
       mutationFn: (variables) =>
         ludoPost<LudoCourse[], CreateCourseRequest>(
-          adminApi.snapshots.base,
+          adminApi.snapshots.course,
           variables,
-          true
+          true,
         ),
     });
   },

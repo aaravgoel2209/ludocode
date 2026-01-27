@@ -1,3 +1,4 @@
+import { LogoutButton } from "@/features/Auth/Components/LogoutButton";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 
 type AccountActionsGroupProps = {};
@@ -8,6 +9,7 @@ export function AccountActionsGroup({}: AccountActionsGroupProps) {
       <LudoButton variant="alt" className="text-lg w-full px-4">
         Account Settings
       </LudoButton>
+      <LogoutButton/>
     </div>
   );
 }
