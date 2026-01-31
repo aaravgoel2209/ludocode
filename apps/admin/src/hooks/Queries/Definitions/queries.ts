@@ -24,14 +24,15 @@ export const qo = {
   courseSnapshot: (courseId: string) =>
     queryOptions({
       queryKey: qk.courseSnapshot(courseId),
-      queryFn: () => ludoGet<CourseSnap>(adminApi.snapshots.byCourse(courseId)),
+      queryFn: () =>
+        ludoGet<CourseSnap>(adminApi.snapshots.byCourse(courseId), true),
       staleTime: 60_000 * 10,
     }),
 
   allCourses: () =>
     queryOptions({
       queryKey: qk.courses(),
-      queryFn: () => ludoGet<LudoCourse[]>(adminApi.catalog.courses),
+      queryFn: () => ludoGet<LudoCourse[]>(adminApi.catalog.courses, true),
       staleTime: 60_000,
     }),
 };
