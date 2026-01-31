@@ -13,6 +13,10 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
+  server: {
+    host: true,
+    allowedHosts: true,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -21,7 +25,7 @@ export default defineConfig({
       "@ludocode/api": path.resolve(__dirname, "../../packages/api"),
       "@ludocode/design-system": path.resolve(
         __dirname,
-        "../../packages/design-system"
+        "../../packages/design-system",
       ),
       "@ludocode/hooks": path.resolve(__dirname, "../../packages/hooks"),
     },
