@@ -1,9 +1,12 @@
 import { mutationOptions } from "@tanstack/react-query";
 import { type LudoCourse } from "@ludocode/types/Catalog/LudoCourse.ts";
 import { type CreateCourseRequest } from "@ludocode/types/Builder/CreateCourseRequest.ts";
-import { ludoPost } from "@ludocode/api/fetcher";
+import { ludoDelete, ludoPost, ludoPut } from "@ludocode/api/fetcher";
 import { adminApi } from "@/constants/api/adminApi";
-import type { LanguageMetadata, CreateLanguageRequest } from "@ludocode/types";
+import {
+  type LanguageMetadata,
+  type ModifyLanguageRequest,
+} from "@ludocode/types";
 
 export const mutations = {
   createCourse: () => {
@@ -17,11 +20,32 @@ export const mutations = {
         ),
     });
   },
+  updateLanguage: (languageId: number) => {
+    return mutationOptions<LanguageMetadata[], Error, ModifyLanguageRequest>({
+      mutationKey: ["updateLanguage"],
+      mutationFn: (variables) =>
+        ludoPut<LanguageMetadata[], ModifyLanguageRequest>(
+          adminApi.languages.byId(languageId),
+          variables,
+          true,
+        ),
+    });
+  },
+  deleteLanguage: (languageId: number) => {
+    return mutationOptions<LanguageMetadata[], Error, void>({
+      mutationKey: ["deleteLanguage"],
+      mutationFn: () =>
+        ludoDelete<LanguageMetadata[]>(
+          adminApi.languages.byId(languageId),
+          true,
+        ),
+    });
+  },
   createLanguage: () => {
-    return mutationOptions<LanguageMetadata[], Error, CreateLanguageRequest>({
+    return mutationOptions<LanguageMetadata[], Error, ModifyLanguageRequest>({
       mutationKey: ["createLanguage"],
       mutationFn: (variables) =>
-        ludoPost<LanguageMetadata[], CreateLanguageRequest>(
+        ludoPost<LanguageMetadata[], ModifyLanguageRequest>(
           adminApi.languages.base,
           variables,
           true,

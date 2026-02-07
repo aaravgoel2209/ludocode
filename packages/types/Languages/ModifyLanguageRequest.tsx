@@ -1,4 +1,4 @@
-export type CreateLanguageRequest = {
+export type ModifyLanguageRequest = {
   name: string;
   slug: string;
   editorId: string;

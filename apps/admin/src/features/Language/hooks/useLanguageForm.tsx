@@ -1,43 +1,31 @@
-import { mutations } from "@/hooks/Queries/Definitions/mutations";
-import { qk } from "@/hooks/Queries/Definitions/qk";
+import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
 import {
-  createLanguageSchema,
-  type CreateLanguageFormInput,
+  languageFormSchema,
+  type LanguageFormInput,
   type LanguageMetadata,
   type PistonRuntime,
 } from "@ludocode/types";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useMemo, useState } from "react";
 import { useMonaco } from "@monaco-editor/react";
 import type * as monaco from "monaco-editor";
-import type { IconName } from "@ludocode/design-system/primitives/custom-icon";
-export function useCreateLanguage(closeModal?: () => void) {
-  const qc = useQueryClient();
+import { useEffect, useMemo, useRef, useState } from "react";
 
-  return useMutation({
-    ...mutations.createLanguage(),
-    onSuccess: (payload: LanguageMetadata[]) => {
-      qc.setQueryData(qk.languages(), payload);
-      closeModal?.();
-    },
-  });
-}
+type Args = {
+  existingUserLanguages: LanguageMetadata[];
+  runtimes: PistonRuntime[];
+  currentLanguage?: LanguageMetadata;
+};
 
 export type MonacoLanguage = monaco.languages.ILanguageExtensionPoint;
 
-type Params = {
-  existingUserLanguages: LanguageMetadata[];
-  runtimes: PistonRuntime[];
-};
-
-export function useCreateLanguageForm({
+export function useLanguageForm({
   existingUserLanguages,
   runtimes,
-}: Params) {
+  currentLanguage,
+}: Args) {
   const monaco = useMonaco();
 
   const [errors, setErrors] = useState<
-    Partial<Record<keyof CreateLanguageFormInput, string>>
+    Partial<Record<keyof LanguageFormInput, string>>
   >({});
 
   const validate = () => {
@@ -52,15 +40,13 @@ export function useCreateLanguageForm({
       extension,
     };
 
-    const result = createLanguageSchema.safeParse(data);
+    const result = languageFormSchema.safeParse(data);
 
     if (!result.success) {
-      const fieldErrors: Partial<
-        Record<keyof CreateLanguageFormInput, string>
-      > = {};
+      const fieldErrors: Partial<Record<keyof LanguageFormInput, string>> = {};
 
       for (const issue of result.error.issues) {
-        const key = issue.path[0] as keyof CreateLanguageFormInput;
+        const key = issue.path[0] as keyof LanguageFormInput;
         fieldErrors[key] = issue.message;
       }
 
@@ -99,23 +85,49 @@ export function useCreateLanguageForm({
   const [base, setBase] = useState("");
   const [iconName, setIconName] = useState<IconName | "">("");
 
+  const didInitRef = useRef(false);
+
+  useEffect(() => {
+    if (!currentLanguage) return;
+
+    if (didInitRef.current) return;
+
+    setLanguageName(currentLanguage.name);
+    setEditorId(currentLanguage.editorId);
+    setPistonId(currentLanguage.pistonId);
+    setSlug(currentLanguage.slug);
+    setInitialScript(currentLanguage.initialScript);
+    setBase(currentLanguage.base);
+    setIconName(currentLanguage.iconName as IconName);
+
+    didInitRef.current = true;
+  }, [currentLanguage]);
+
   // -------------------------
   // used ids
   // -------------------------
 
+  const filteredLanguages = useMemo(() => {
+    if (!currentLanguage) return existingUserLanguages;
+
+    return existingUserLanguages.filter(
+      (l) => l.languageId !== currentLanguage.languageId,
+    );
+  }, [existingUserLanguages, currentLanguage]);
+
   const usedEditorIds = useMemo(
-    () => new Set(existingUserLanguages.map((l) => l.editorId)),
-    [existingUserLanguages],
+    () => new Set(filteredLanguages.map((l) => l.editorId)),
+    [filteredLanguages],
   );
 
   const usedPistonIds = useMemo(
-    () => new Set(existingUserLanguages.map((l) => l.pistonId)),
-    [existingUserLanguages],
+    () => new Set(filteredLanguages.map((l) => l.pistonId)),
+    [filteredLanguages],
   );
 
   const usedSlugs = useMemo(
-    () => new Set(existingUserLanguages.map((l) => l.slug)),
-    [existingUserLanguages],
+    () => new Set(filteredLanguages.map((l) => l.slug)),
+    [filteredLanguages],
   );
 
   // -------------------------
@@ -162,6 +174,7 @@ export function useCreateLanguageForm({
     setBase("");
     setIconName("");
     setErrors({});
+    didInitRef.current = false;
   };
 
   const slugAvailable = slug.length > 0 && !usedSlugs.has(slug);
@@ -199,3 +212,5 @@ export function useCreateLanguageForm({
     reset,
   };
 }
+
+export type UseLanguageFormResponse = ReturnType<typeof useLanguageForm>;
