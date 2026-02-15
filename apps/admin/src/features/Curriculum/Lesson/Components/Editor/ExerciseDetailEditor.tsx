@@ -3,6 +3,7 @@ import { withForm } from "@/features/Curriculum/types";
 import { LudoInput } from "@ludocode/design-system/primitives/input";
 import { Textarea } from "@ludocode/external/ui/textarea";
 import { useEffect } from "react";
+import { Trash2 } from "lucide-react";
 import { ExerciseTypePill } from "./ExerciseTypePill";
 import {
   ClozeGapAnswers,
@@ -15,6 +16,7 @@ import {
   CurriculumPreviewFooter,
   CurriculumPreviewHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
+import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
 
 export const ExerciseDetailEditor = withForm({
   defaultValues: {
@@ -22,8 +24,9 @@ export const ExerciseDetailEditor = withForm({
   },
   props: {
     exerciseIndex: 0,
+    onDelete: undefined as undefined | (() => void),
   },
-  render: function Render({ form, exerciseIndex }) {
+  render: function Render({ form, exerciseIndex, onDelete }) {
     const exercise = form.state.values.exercises[exerciseIndex];
     if (!exercise) return null;
 
@@ -48,6 +51,22 @@ export const ExerciseDetailEditor = withForm({
             <p className="text-white font-bold">Exercise {exerciseIndex + 1}</p>
             <ExerciseTypePill type={exercise.exerciseType} />
           </div>
+          {onDelete && (
+            <div className="shrink-0">
+              <DeleteDialog
+                onClick={() => onDelete()}
+                targetName={exercise.title ?? "This exercise"}
+              >
+                <button
+                  type="button"
+                  className="text-red-400 hover:text-red-300 transition-colors p-1 rounded hover:bg-red-400/10"
+                  title="Delete exercise"
+                >
+                  <Trash2 size={16} />
+                </button>
+              </DeleteDialog>
+            </div>
+          )}
         </CurriculumPreviewHeader>
 
         <CurriculumPreviewContent className="bg-ludo-background p-6 gap-6">
