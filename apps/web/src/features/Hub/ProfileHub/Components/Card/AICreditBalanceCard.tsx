@@ -1,3 +1,5 @@
+import { ludoNavigation } from "@/constants/ludoNavigation";
+import { router } from "@/main";
 import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
 import { LudoCard } from "@ludocode/design-system/primitives/ludo-card";
 import React from "react";
@@ -20,7 +22,7 @@ export function AICreditBalanceCard({
   ];
 
   return (
-    <LudoCard shadow={false} className="grid h-auto p-4 grid-cols-[2fr_1fr] grid-rows-4">
+    <LudoCard shadow={false} className="grid h-auto p-4 text-sm lg:text-md grid-cols-[2fr_1fr] grid-rows-4">
       {fields.map((f) => (
         <React.Fragment key={f.label}>
           <p className="text-left">{f.label}</p>
@@ -30,8 +32,8 @@ export function AICreditBalanceCard({
 
       <div className="col-span-2 flex justify-between items-center">
         <p className="text-left">Need more?</p>
-        <LudoButton className="w-1/2 h-auto py-1" variant="alt">
-          Get Ludo Pro
+        <LudoButton onClick={() => router.navigate(ludoNavigation.subscription.toSubscriptionComparisonPage())} className="w-1/2 h-auto py-1" variant="alt">
+          Upgrade Plan
         </LudoButton>
       </div>
     </LudoCard>
