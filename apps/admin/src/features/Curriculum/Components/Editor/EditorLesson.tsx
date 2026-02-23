@@ -7,6 +7,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Grip, Trash2 } from "lucide-react";
 import { LudoInput } from "@ludocode/design-system/primitives/input";
+import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon";
 
 export const EditorLesson = withForm({
   defaultValues: {
@@ -17,12 +18,14 @@ export const EditorLesson = withForm({
     lessonIndex: 0,
     lesson: {} as CurriculumDraftLesson,
     onDelete: undefined as undefined | (() => void),
+    canDelete: true,
   },
   render: function Render({
     form,
     moduleIndex,
     lessonIndex,
     lesson,
+    canDelete,
     onDelete,
   }) {
     const lessonId = lesson.id;
@@ -65,14 +68,10 @@ export const EditorLesson = withForm({
           )}
         />
         {onDelete && (
-          <button
-            type="button"
-            onClick={onDelete}
-            className="text-red-400 hover:text-red-300 transition-colors p-1 rounded hover:bg-red-400/10 shrink-0"
-            title="Delete lesson"
-          >
-            <Trash2 size={14} />
-          </button>
+          <LudoTrashIcon
+            onClick={canDelete ? onDelete : undefined}
+            disabled={!canDelete}
+          />
         )}
       </div>
     );

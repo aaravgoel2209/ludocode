@@ -1,6 +1,7 @@
 import type { CurriculumDraftLessonForm } from "@ludocode/types";
 import { withForm } from "@/features/Curriculum/types";
 import { LudoInput } from "@ludocode/design-system/primitives/input";
+import { LudoTrashIcon } from "@ludocode/design-system/primitives/action-icon";
 import { Textarea } from "@ludocode/external/ui/textarea";
 import { useEffect } from "react";
 import { Trash2 } from "lucide-react";
@@ -17,6 +18,7 @@ import {
   CurriculumPreviewHeader,
 } from "@/features/Curriculum/Components/CurriculumList";
 import { DeleteDialog } from "@ludocode/design-system/templates/dialog/delete-dialog";
+import { boolean } from "zod";
 
 export const ExerciseDetailEditor = withForm({
   defaultValues: {
@@ -25,8 +27,9 @@ export const ExerciseDetailEditor = withForm({
   props: {
     exerciseIndex: 0,
     onDelete: undefined as undefined | (() => void),
+    canDelete: true,
   },
-  render: function Render({ form, exerciseIndex, onDelete }) {
+  render: function Render({ form, canDelete, exerciseIndex, onDelete }) {
     const exercise = form.state.values.exercises[exerciseIndex];
     if (!exercise) return null;
 
@@ -53,18 +56,23 @@ export const ExerciseDetailEditor = withForm({
           </div>
           {onDelete && (
             <div className="shrink-0">
-              <DeleteDialog
-                onClick={() => onDelete()}
-                targetName={exercise.title ?? "This exercise"}
-              >
+              {canDelete ? (
+                <DeleteDialog
+                  onClick={() => onDelete()}
+                  targetName={exercise.title ?? "This exercise"}
+                >
+                    <LudoTrashIcon/>
+                </DeleteDialog>
+              ) : (
                 <button
                   type="button"
-                  className="text-red-400 hover:text-red-300 transition-colors p-1 rounded hover:bg-red-400/10"
-                  title="Delete exercise"
+                  disabled
+                  className="text-red-400/40 cursor-not-allowed p-1 rounded"
+                  title="At least one exercise is required"
                 >
                   <Trash2 size={16} />
                 </button>
-              </DeleteDialog>
+              )}
             </div>
           )}
         </CurriculumPreviewHeader>
