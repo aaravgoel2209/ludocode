@@ -4,11 +4,10 @@ import { useProjectContext } from "@/features/Project/Context/ProjectContext.tsx
 import { HollowSlotButton } from "@ludocode/design-system/primitives/hollow-slot.tsx";
 import { HeroIcon } from "@ludocode/design-system/primitives/hero-icon.tsx";
 import { SaveStatusIcon } from "@/features/Project/Editor/SaveStatusIcon.tsx";
-import { useRouter } from "@tanstack/react-router";
 import { HeaderWithBar } from "@ludocode/design-system/zones/header-shell.tsx";
+import { router } from "@/main";
 
 export function ProjectHeader() {
-  const router = useRouter();
   const { project, files } = useProjectContext();
   const { projectName } = project;
 
@@ -23,7 +22,7 @@ export function ProjectHeader() {
   };
 
   return (
-    <HeaderWithBar device="Desktop">
+    <HeaderWithBar className="border-b lg:border-b"  device="Desktop">
       <div className="col-span-1 text-white pl-6 lg:col-span-3 flex items-center">
         <HollowSlotButton className="h-8" onClick={() => goToProjectHub()}>
           <HeroIcon className="h-4" iconName="ArrowLeftIcon" />

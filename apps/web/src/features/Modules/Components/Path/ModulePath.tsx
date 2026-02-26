@@ -1,4 +1,4 @@
-import { LudoPath } from "@ludocode/design-system/widgets/LudoPath";
+import { LudoPath } from "@ludocode/design-system/widgets/ludo-path";
 import type { LudoLesson } from "@ludocode/types";
 import { useLessonButton } from "../../Hooks/useLessonButton";
 import { PathPopover } from "./PathPopover";
@@ -59,7 +59,7 @@ function ModulePathButton({
       goToLesson={goToLesson}
       lessonType={lessonType}
       lesson={lesson}
-      trigger={<LudoPath.Button state={lessonType} isCurrent={isCurrent} />}
+      trigger={<LudoPath.Button state={lessonType} isCurrent={isCurrent} className="data-[state=open]:translate-y-2 data-[state=open]:shadow-none" />}
     />
   );
 }
