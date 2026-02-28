@@ -2,12 +2,16 @@ import type {
   CurriculumDraftLessonExercise,
   CurriculumDraftLessonForm,
 } from "@ludocode/types";
-import { withForm } from "@/features/Curriculum/types";
+import { withForm } from "@/features/Curriculum/types.ts";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Grip } from "lucide-react";
-import { ExercisePreviewItem } from "../Preview/ExercisePreviewItem";
-import { ExerciseTypePill } from "./ExerciseTypePill";
+import { ExerciseTypePill } from "../../detail/ExerciseTypePill.tsx";
+import {
+  getExerciseTitle,
+  deriveExerciseType,
+} from "@/features/Lesson/helpers.ts";
+import { cn } from "@ludocode/design-system/cn-utils.ts";
 
 export const EditorExercise = withForm({
   defaultValues: {
@@ -20,13 +24,15 @@ export const EditorExercise = withForm({
     onSelect: (() => {}) as () => void,
   },
   render: function Render({
-    form,
-    exerciseIndex,
+    form: _form,
+    exerciseIndex: _exerciseIndex,
     exercise,
     isSelected,
     onSelect,
   }) {
-    const exerciseId = exercise.id;
+    const exerciseId = exercise.exerciseId;
+    const title = getExerciseTitle(exercise);
+    const exerciseType = deriveExerciseType(exercise);
 
     const {
       attributes,
@@ -46,27 +52,21 @@ export const EditorExercise = withForm({
       <div
         ref={setNodeRef}
         style={style}
-        className="w-full flex items-center gap-2"
+        onClick={onSelect}
+        className={cn(
+          "w-full flex items-center gap-2 bg-ludo-background rounded-sm px-3 h-10 hover:cursor-pointer",
+          isSelected && "border-2 border-ludo-accent",
+        )}
       >
         <Grip
-          className="h-5 w-5 text-white focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
+          className="h-4 w-4 shrink-0 text-ludoAltText focus:outline-none focus-visible:outline-none cursor-grab active:cursor-grabbing"
           {...attributes}
           {...listeners}
         />
 
-        <form.Field
-          key={exerciseId}
-          name={`exercises[${exerciseIndex}].title`}
-          children={(field) => (
-            <ExercisePreviewItem
-              title={String(field.state.value) || "Untitled"}
-              isSelected={isSelected}
-              onClick={onSelect}
-            />
-          )}
-        />
+        <p className="text-sm text-ludoAltText flex-1 truncate">{title}</p>
 
-        <ExerciseTypePill type={exercise.exerciseType} />
+        <ExerciseTypePill type={exerciseType} />
       </div>
     );
   },

@@ -1,14 +1,15 @@
 import type { CurriculumDraftLessonForm } from "@ludocode/types";
-import { withForm } from "@/features/Curriculum/types";
-import { EditorActions } from "@/features/Curriculum/Components/Editor/EditorActions";
-import { SortableExerciseContainer } from "./SortableExerciseContainer";
-import { AddExerciseSelect } from "./AddExerciseSelect";
-import { createNewExerciseTemplate } from "./templates";
+import { withForm } from "@/features/Curriculum/types.ts";
+import { EditorActions } from "@/features/Curriculum/Components/Editor/EditorActions.tsx";
+import { SortableExerciseContainer } from "../../detail/editor/SortableExerciseContainer.tsx";
+import { createNewExerciseTemplate } from "../../detail/editor/templates.ts";
+import { ShadowLessButton } from "@ludocode/design-system/primitives/ShadowLessButton.tsx";
 import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
-} from "@/features/Curriculum/Components/CurriculumList";
+  CurriculumCard,
+  CurriculumCardContent,
+  CurriculumCardFooter,
+  CurriculumCardHeader,
+} from "@/features/Curriculum/Components/CurriculumList.tsx";
 
 export const LessonCurriculumEditor = withForm({
   defaultValues: {
@@ -32,8 +33,8 @@ export const LessonCurriculumEditor = withForm({
     onSelectExercise,
   }) {
     return (
-      <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-        <CurriculumPreviewHeader>
+      <CurriculumCard>
+        <CurriculumCardHeader>
           <p className="text-white font-bold">Editing Exercises</p>
           <EditorActions
             onSave={onSave}
@@ -41,33 +42,36 @@ export const LessonCurriculumEditor = withForm({
             canSubmit={canSubmit}
             isSubmitting={isSubmitting}
           />
-        </CurriculumPreviewHeader>
+        </CurriculumCardHeader>
 
-        <CurriculumPreviewContent className="p-0 bg-ludo-surface">
+        <CurriculumCardContent className="p-0 bg-ludo-background">
           <SortableExerciseContainer
             form={form}
             selectedExerciseId={selectedExerciseId}
             onSelectExercise={onSelectExercise}
           />
-        </CurriculumPreviewContent>
+        </CurriculumCardContent>
 
-        <CurriculumPreviewFooter>
+        <CurriculumCardFooter>
           <form.Field name="exercises" mode="array">
             {(exercisesField) => (
               <div className="flex justify-between w-full items-center">
                 <p className="text-xs">
                   {exercisesField.state.value.length} exercises
                 </p>
-                <AddExerciseSelect
-                  onAdd={(type) =>
-                    exercisesField.pushValue(createNewExerciseTemplate(type))
+                <ShadowLessButton
+                  type="button"
+                  onClick={() =>
+                    exercisesField.pushValue(createNewExerciseTemplate())
                   }
-                />
+                >
+                  + Add Exercise
+                </ShadowLessButton>
               </div>
             )}
           </form.Field>
-        </CurriculumPreviewFooter>
-      </div>
+        </CurriculumCardFooter>
+      </CurriculumCard>
     );
   },
 });

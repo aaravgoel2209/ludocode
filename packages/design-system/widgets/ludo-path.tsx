@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
+import React, { type ReactNode } from "react";
 import { cn } from "../cn-utils";
-import { LessonStatus } from "@ludocode/types";
+import { type LessonStatus } from "@ludocode/types";
 import { LudoButton } from "../primitives/ludo-button";
 import { CompletionRibbon } from "../primitives/ribbon";
 import { LockIcon } from "../primitives/custom-icon";
@@ -49,10 +49,12 @@ const Button = React.forwardRef<HTMLButtonElement, PathButtonProps>(
         data-testid={dataTestId}
         ref={ref}
         selected={isCurrent}
-        className={cn("relative w-20 h-20 overflow-hidden", className)}
+        className={cn("relative w-20  h-20", className)}
         {...props}
       >
-        <CompletionRibbon lessonState={state} />
+        <div className="absolute inset-0 overflow-hidden rounded-lg pointer-events-none">
+          <CompletionRibbon lessonState={state} />
+        </div>
         {isLocked && <LockIcon className="text-ludo-background h-10 w-10" />}
       </LudoButton>
     );

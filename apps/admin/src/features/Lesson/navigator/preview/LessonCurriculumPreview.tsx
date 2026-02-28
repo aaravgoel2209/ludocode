@@ -1,15 +1,19 @@
-import { LudoButton } from "@ludocode/design-system/primitives/ludo-button";
+import { LudoButton } from "@ludocode/design-system/primitives/ludo-button.tsx";
 import {
-  CurriculumPreviewContent,
-  CurriculumPreviewFooter,
-  CurriculumPreviewHeader,
-} from "@/features/Curriculum/Components/CurriculumList";
-import { ExercisePreviewItem } from "./ExercisePreviewItem";
-import { ExerciseTypePill } from "../Editor/ExerciseTypePill";
+  CurriculumCardContent,
+  CurriculumCardFooter,
+  CurriculumCardHeader,
+} from "@/features/Curriculum/Components/CurriculumList.tsx";
+import { ExercisePreviewItem } from "./ExercisePreviewItem.tsx";
+import { ExerciseTypePill } from "../../detail/ExerciseTypePill.tsx";
 import type {
   CurriculumDraftLessonExercise,
   CurriculumDraftLessonExercises,
 } from "@ludocode/types";
+import {
+  getExerciseTitle,
+  deriveExerciseType,
+} from "@/features/Lesson/helpers.ts";
 
 type LessonCurriculumPreviewProps = {
   exercises: CurriculumDraftLessonExercises;
@@ -28,7 +32,7 @@ export function LessonCurriculumPreview({
 }: LessonCurriculumPreviewProps) {
   return (
     <div className="flex rounded-lg min-h-0 text-white border-3 border-ludo-border h-full flex-col w-full">
-      <CurriculumPreviewHeader>
+      <CurriculumCardHeader>
         <p className="text-white font-bold">Exercises Preview</p>
         <LudoButton
           className="w-auto h-auto px-4 py-1 rounded-sm"
@@ -39,22 +43,22 @@ export function LessonCurriculumPreview({
         >
           <p className="text-sm">Edit Exercises</p>
         </LudoButton>
-      </CurriculumPreviewHeader>
-      <CurriculumPreviewContent className="gap-4">
+      </CurriculumCardHeader>
+      <CurriculumCardContent  className="gap-4 bg-ludo-background">
         {exercises.map((exercise) => (
-          <div key={exercise.id} className="flex items-center gap-2">
+          <div key={exercise.exerciseId} className="flex items-center gap-2">
             <ExercisePreviewItem
               onClick={() => setSelectedExercise(exercise)}
-              title={exercise.title ?? ""}
-              isSelected={selectedExercise?.id === exercise.id}
+              title={getExerciseTitle(exercise)}
+              isSelected={selectedExercise?.exerciseId === exercise.exerciseId}
             />
-            <ExerciseTypePill type={exercise.exerciseType} />
+            <ExerciseTypePill type={deriveExerciseType(exercise)} />
           </div>
         ))}
-      </CurriculumPreviewContent>
-      <CurriculumPreviewFooter>
+      </CurriculumCardContent>
+      <CurriculumCardFooter>
         <p className="text-xs">{exercises.length} exercises</p>
-      </CurriculumPreviewFooter>
+      </CurriculumCardFooter>
     </div>
   );
 }

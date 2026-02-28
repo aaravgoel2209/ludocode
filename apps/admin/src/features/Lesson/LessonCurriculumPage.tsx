@@ -1,19 +1,27 @@
 import { getRouteApi } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { qo } from "@/hooks/Queries/Definitions/queries";
+import { qo } from "@/hooks/Queries/Definitions/queries.ts";
 import {
   CurriculumDraftLessonSchema,
   type CurriculumDraftLessonExercise,
   type CurriculumDraftLessonForm,
 } from "@ludocode/types";
 import { useState } from "react";
-import { useAppForm } from "../types";
-import { LessonCurriculumPreview } from "./Components/Preview/LessonCurriculumPreview";
-import { ExerciseDetailPreview } from "./Components/Preview/ExerciseDetailPreview";
-import { LessonCurriculumEditor } from "./Components/Editor/LessonCurriculumEditor";
-import { ExerciseDetailEditor } from "./Components/Editor/ExerciseDetailEditor";
-import { CurriculumBreadcrumbs } from "../Components/CurriculumBreadcrumbs";
-import { useUpdateLesson } from "@/hooks/Queries/Mutations/useUpdateLesson";
+import { useAppForm } from "../Curriculum/types.ts";
+import { LessonCurriculumPreview } from "@/features/Lesson/navigator/preview/LessonCurriculumPreview.tsx";
+import { ExerciseDetailPreview } from "@/features/Lesson/detail/preview/ExerciseDetailPreview.tsx";
+import { LessonCurriculumEditor } from "@/features/Lesson/navigator/editor/LessonCurriculumEditor.tsx";
+import { ExerciseDetailEditor } from "@/features/Lesson/detail/editor/ExerciseDetailEditor.tsx";
+import { CurriculumBreadcrumbs } from "../Curriculum/Components/CurriculumBreadcrumbs.tsx";
+import { useUpdateLesson } from "@/hooks/Queries/Mutations/useUpdateLesson.tsx";
+import { Bell } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@ludocode/external/ui/dialog.tsx";
 
 type LessonCurriculumPageProps = {};
 
@@ -110,7 +118,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
             state.isSubmitting,
             selectedExerciseId !== null
               ? state.values.exercises.findIndex(
-                  (e) => e.id === selectedExerciseId,
+                  (e) => e.exerciseId === selectedExerciseId,
                 )
               : -1,
           ]}
@@ -122,18 +130,39 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
               <>
                 <form.Subscribe
                   selector={(state) => state.errorMap.onSubmit}
-                  children={(onSubmitError) =>
-                    onSubmitError ? (
-                      <div className="bg-red-900/40 border border-red-500 rounded-lg p-3 text-red-300 text-sm">
-                        <p className="font-bold mb-1">Validation errors:</p>
-                        <pre className="whitespace-pre-wrap text-xs">
-                          {typeof onSubmitError === "string"
-                            ? onSubmitError
-                            : JSON.stringify(onSubmitError, null, 2)}
-                        </pre>
-                      </div>
-                    ) : null
-                  }
+                  children={(onSubmitError) => (
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <button
+                          type="button"
+                          className={`relative p-1.5 rounded transition-colors ${
+                            onSubmitError
+                              ? "text-red-400 bg-red-400/10 hover:cursor-pointer"
+                              : "text-ludoAltText/30 cursor-default"
+                          }`}
+                        >
+                          <Bell size={18} />
+                          {onSubmitError && (
+                            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-red-500 border-2 border-ludo-background" />
+                          )}
+                        </button>
+                      </DialogTrigger>
+                      {onSubmitError && (
+                        <DialogContent className="bg-ludo-surface border-ludo-border">
+                          <DialogHeader>
+                            <DialogTitle className="text-red-400">
+                              Validation errors
+                            </DialogTitle>
+                          </DialogHeader>
+                          <pre className="whitespace-pre-wrap text-xs text-red-300 max-h-80 overflow-y-auto">
+                            {typeof onSubmitError === "string"
+                              ? onSubmitError
+                              : JSON.stringify(onSubmitError, null, 2)}
+                          </pre>
+                        </DialogContent>
+                      )}
+                    </Dialog>
+                  )}
                 />
                 <div className="flex gap-4 min-h-0 w-full flex-1">
                   <aside className="w-1/2 shrink-0 flex flex-col min-h-0">
@@ -160,10 +189,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
 
                   <aside className="w-1/2 flex min-h-0 flex-col">
                     {!isEditing && selectedExercise && (
-                      <ExerciseDetailPreview
-                        courseId={courseId}
-                        exercise={selectedExercise}
-                      />
+                      <ExerciseDetailPreview exercise={selectedExercise} />
                     )}
                     {isEditing && idx >= 0 && (
                       <ExerciseDetailEditor
