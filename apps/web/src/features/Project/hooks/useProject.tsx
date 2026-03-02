@@ -11,29 +11,52 @@ export function useProject({ project }: Args): UseProjectResponse {
   const [files, setFiles] = useState<ProjectFileSnapshot[]>(() =>
     project.files.map((f) => ({ ...f })),
   );
+
+  const initialEntryId =
+    project.entryFileId ?? project.files[0]?.id ?? project.files[0]?.tempId;
+
+  if (!initialEntryId) {
+    throw new Error("Project must have at least one file");
+  }
+
+  const entryFileId =
+    project.entryFileId ?? project.files[0]?.id ?? project.files[0]?.tempId;
+
+  if (!entryFileId) {
+    throw new Error("Project must have at least one file");
+  }
+
   const { projectLanguage } = project;
-  const {base, extension} = projectLanguage
+  const { base, extension } = projectLanguage;
 
   const [current, setCurrent] = useState(0);
 
-  const deleteFile = useCallback((path: string) => {
-    setFiles((prev) => {
-      const idx = prev.findIndex((f) => f.path === path);
-      if (idx === -1) return prev;
+  const deleteFile = useCallback(
+    (path: string) => {
+      setFiles((prev) => {
+        if (prev.length <= 1) return prev;
 
-      const next = prev.slice();
-      next.splice(idx, 1);
+        const idx = prev.findIndex((f) => f.path === path);
+        if (idx === -1) return prev;
 
-      setCurrent((cur) => {
-        if (next.length === 0) return 0;
-        if (cur < idx) return cur;
-        if (cur === idx) return Math.max(0, cur - 1);
-        return Math.max(0, cur - 1);
+        const fileBeingDeleted = prev[idx];
+
+        const fileId = fileBeingDeleted.id ?? fileBeingDeleted.tempId;
+        if (fileId === entryFileId) return prev;
+
+        const next = prev.slice();
+        next.splice(idx, 1);
+
+        setCurrent((cur) => {
+          if (cur < idx) return cur;
+          return Math.max(0, cur - 1);
+        });
+
+        return next;
       });
-
-      return next;
-    });
-  }, []);
+    },
+    [entryFileId],
+  );
 
   const renameFile = useCallback((oldPath: string, newNameRaw: string) => {
     setFiles((prev) => {
@@ -102,6 +125,7 @@ export function useProject({ project }: Args): UseProjectResponse {
     currentFileId,
     active: active,
     setCurrent,
+    entryFileId,
     updateContent,
     deleteFile,
     renameFile,
@@ -115,6 +139,7 @@ export type UseProjectResponse = {
   current: number;
   currentFileId: string | null;
   active: ProjectFileSnapshot;
+  entryFileId: string;
   setCurrent: (index: number) => void;
   updateContent: (value: string) => void;
   deleteFile: (path: string) => void;
