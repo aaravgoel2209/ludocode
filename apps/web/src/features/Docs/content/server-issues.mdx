@@ -1,0 +1,57 @@
+---
+title: 500 Errors
+slug: server-issues
+section: Troubleshooting
+order: 11
+description: Diagnosing and resolving internal server errors.
+---
+
+## Overview
+
+A **500** response means something went wrong on the backend. The steps below will help you narrow down the cause.
+
+---
+
+### Check the Logs
+
+Start by opening your browser's developer tools and reviewing the **Console** and **Network** tabs for error details.
+
+Then inspect the backend container logs:
+
+<CodeBlock language="bash">{`docker logs -f ludocode-backend`}</CodeBlock>
+
+<Tip variant="info" title="No backend errors?">
+  If the backend logs are clean but you see errors on the frontend (or no errors
+  at all), the issue is most likely a misconfigured URL or CORS policy. Refer to
+  the <strong>403 & 404 Errors</strong> article in the Troubleshooting section.
+</Tip>
+
+---
+
+### Try a Hard Refresh
+
+After actions like deleting an account or switching from demo mode to Firebase authentication, your browser may hold stale cookies or cached data.
+
+Perform a hard refresh:
+
+| OS      | Shortcut             |
+| ------- | -------------------- |
+| macOS   | **⌘ + Shift + R**    |
+| Windows | **Ctrl + Shift + R** |
+
+---
+
+### 500 on the Projects Page
+
+This typically means a project file could not be found in local storage — usually because the application was redeployed without a persistent volume.
+
+<Tip variant="warning" title="Data Loss">
+  Without persistent storage, uploaded project files are lost on every container
+  restart.
+</Tip>
+
+To recover:
+
+1. **Delete the account** — open the drawer → **Delete Account**, then create a new one.
+2. **Or** log in with a different user.
+3. **Or** manually clear the data: delete the rows in `user_project` for the affected `user_id`, then remove the corresponding rows in `project_files`.

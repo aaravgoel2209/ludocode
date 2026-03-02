@@ -1,0 +1,54 @@
+---
+title: 403 & 404 Errors
+slug: connection-issues
+section: Troubleshooting
+order: 10
+description: Diagnosing and resolving connection errors between the frontend and backend.
+---
+
+## Overview
+
+A **403** or **404** from the API almost always means the frontend and backend are not pointed at each other correctly. Work through the checks below in order.
+
+---
+
+### Check Your Origins
+
+The default ports are:
+
+| Service   | URL                                   |
+| --------- | ------------------------------------- |
+| Backend   | `http://localhost:8080`               |
+| Web App   | `http://localhost:5173`               |
+| Admin App | `http://localhost:5174`               |
+| Database  | `postgresql://postgres:5432/ludocode` |
+
+#### Backend `.env`
+
+Make sure the allowed origins and cookie domain are set:
+
+<CodeBlock language="bash">{`FRONTEND_ORIGINS=http://localhost:5173
+COOKIE_DOMAIN=localhost`}</CodeBlock>
+
+#### Frontend `.env`
+
+Make sure the API URL points to the backend:
+
+<CodeBlock language="bash">{`VITE_API_URL=http://localhost:8080`}</CodeBlock>
+
+<Tip variant="warning" title="Both apps need their own .env">
+  The web app and admin app have separate environment files. Set
+  <code>VITE_API_URL</code> in both <code>apps/web/.env</code> and
+  <code>apps/admin/.env</code>.
+</Tip>
+
+---
+
+### Check Firebase Authorized Domains
+
+If you are using Firebase authentication, go to **Authentication → Settings → Authorized Domains** and make sure **localhost** is listed.
+
+<Tip variant="info" title="Production Domains">
+  When deploying, add your production domain to the authorized list as well —
+  otherwise OAuth redirects will fail.
+</Tip>

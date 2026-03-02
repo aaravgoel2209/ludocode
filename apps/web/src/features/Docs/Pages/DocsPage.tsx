@@ -7,7 +7,6 @@ import {
   type TocHeading,
 } from "../components/DocsScrollSpyTOC";
 
-// ─── Extract headings from the rendered DOM ─────────────────────────────────
 
 function extractHeadingsFromDOM(container: HTMLElement | null): TocHeading[] {
   if (!container) return [];
@@ -19,7 +18,6 @@ function extractHeadingsFromDOM(container: HTMLElement | null): TocHeading[] {
   }));
 }
 
-// ─── Page ───────────────────────────────────────────────────────────────────
 
 export function DocsPage() {
   const [activeSlug, setActiveSlug] = useState(defaultSlug);
@@ -36,7 +34,6 @@ export function DocsPage() {
     contentRef.current?.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
-  // Re-extract headings after MDX renders
   useEffect(() => {
     const timer = setTimeout(() => {
       setHeadings(extractHeadingsFromDOM(contentRef.current));
@@ -54,7 +51,7 @@ export function DocsPage() {
   }, []);
 
   return (
-    <div className="relative grid grid-cols-1 lg:grid-cols-[240px_1fr_200px] gap-0 h-full min-h-0 max-w-350 mx-auto">
+    <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_4fr_1fr] gap-0 h-full min-h-0 max-w-350 mx-auto">
       {/* ── Mobile top bar ───────────────────────────────────────────── */}
       <div className="lg:hidden sticky top-0 z-30 flex items-center gap-3 px-4 py-3 bg-ludo-surface/95 backdrop-blur border-b border-ludo-border/40">
         <button
