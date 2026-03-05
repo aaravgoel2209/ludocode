@@ -68,7 +68,7 @@ export function ChangeSubjectDialog({
         close();
       }}
     >
-      <DialogTitle className="text-white font-bold text-xl">
+      <DialogTitle className="text-ludo-white-bright font-bold text-xl">
         Change Subject
       </DialogTitle>
 
@@ -83,7 +83,7 @@ export function ChangeSubjectDialog({
             <LudoSelectItem key={s.id} value={s.slug}>
               <span className="flex items-center gap-2">
                 <span>{s.name}</span>
-                <span className="text-xs text-ludoAltText">/{s.slug}</span>
+                <span className="text-xs text-ludo-white">/{s.slug}</span>
               </span>
             </LudoSelectItem>
           ))}

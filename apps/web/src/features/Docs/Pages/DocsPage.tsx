@@ -7,7 +7,6 @@ import {
   type TocHeading,
 } from "../components/DocsScrollSpyTOC";
 
-
 function extractHeadingsFromDOM(container: HTMLElement | null): TocHeading[] {
   if (!container) return [];
   const nodes = container.querySelectorAll("h2[id], h3[id]");
@@ -17,7 +16,6 @@ function extractHeadingsFromDOM(container: HTMLElement | null): TocHeading[] {
     level: el.tagName === "H2" ? 2 : 3,
   }));
 }
-
 
 export function DocsPage() {
   const [activeSlug, setActiveSlug] = useState(defaultSlug);
@@ -57,7 +55,7 @@ export function DocsPage() {
         <button
           onClick={() => setSidebarOpen((o) => !o)}
           aria-label="Toggle navigation"
-          className="p-1.5 rounded-md text-ludoAltText hover:bg-white/10 transition-colors"
+          className="p-1.5 rounded-md text-ludo-white hover:bg-white/10 transition-colors"
         >
           {sidebarOpen ? (
             <svg
@@ -85,7 +83,7 @@ export function DocsPage() {
             </svg>
           )}
         </button>
-        <span className="text-sm font-medium text-white truncate">
+        <span className="text-sm font-medium text-ludo-white-bright truncate">
           {entry.frontmatter.title}
         </span>
       </div>
@@ -120,15 +118,15 @@ export function DocsPage() {
       >
         {/* Article title */}
         <div className="mb-2">
-          <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+          <h1 className="text-xl sm:text-2xl font-bold text-ludo-white-bright tracking-tight">
             {entry.frontmatter.title}
           </h1>
           {entry.frontmatter.description && (
-            <p className="text-sm text-ludo-text-dim mt-1">
+            <p className="text-sm text-ludo-white-dim mt-1">
               {entry.frontmatter.description}
             </p>
           )}
-          <div className="h-px bg-linear-to-r from-ludo-accent/60 to-transparent mt-3" />
+          <div className="h-px bg-linear-to-r from-ludo-accent-dim to-transparent mt-3" />
         </div>
 
         {/* MDX content */}

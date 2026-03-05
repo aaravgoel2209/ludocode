@@ -108,7 +108,9 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
               courseName={courseName}
               lessonName={lessonName}
             />
-            <h1 className="text-white text-3xl font-bold">{lessonName}</h1>
+            <h1 className="text-ludo-white-bright text-3xl font-bold">
+              {lessonName}
+            </h1>
           </div>
         </div>
 
@@ -138,7 +140,7 @@ export function LessonCurriculumPage({}: LessonCurriculumPageProps) {
                           className={`relative p-1.5 rounded transition-colors ${
                             onSubmitError
                               ? "text-red-400 bg-red-400/10 hover:cursor-pointer"
-                              : "text-ludoAltText/30 cursor-default"
+                              : "text-ludo-white/30 cursor-default"
                           }`}
                         >
                           <Bell size={18} />

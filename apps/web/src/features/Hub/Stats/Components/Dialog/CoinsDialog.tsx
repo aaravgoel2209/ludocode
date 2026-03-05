@@ -16,19 +16,19 @@ export function CoinsDialog({ children, coins }: CoinsDialogProps) {
       <DialogWrapper className="max-w-sm">
         <div className="flex flex-col items-center gap-4 py-2">
           <div className="w-14 h-14 rounded-full bg-white/15 flex items-center justify-center">
-            <CommitIcon className="h-7 w-7 text-white" />
+            <CommitIcon className="h-7 w-7 text-ludo-white-bright" />
           </div>
-          <DialogTitle className="text-white font-bold text-xl">
+          <DialogTitle className="text-ludo-white-bright font-bold text-xl">
             Your Commits
           </DialogTitle>
         </div>
-        <div className="bg-ludo-background/50 rounded-xl p-4 flex items-center justify-between">
-          <span className="text-white/50 text-sm">Total earned</span>
-          <span className="text-white text-2xl font-bold tabular-nums">
+        <div className="bg-ludo-background rounded-xl p-4 flex items-center justify-between">
+          <span className="text-ludo-white-dim text-sm">Total earned</span>
+          <span className="text-ludo-white-bright text-2xl font-bold tabular-nums">
             {coins}
           </span>
         </div>
-        <p className="text-white/30 text-xs text-center">
+        <p className="text-ludo-white-dim text-xs text-center">
           Earn commits by completing lessons and mastering exercises.
         </p>
       </DialogWrapper>

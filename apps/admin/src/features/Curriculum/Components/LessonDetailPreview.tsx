@@ -26,12 +26,12 @@ export function LessonDetailPreview({
   return (
     <CurriculumCard className="">
       <CurriculumCardHeader>
-        <p className="text-white font-bold">{title}</p>
+        <p className="text-ludo-white-bright font-bold">{title}</p>
       </CurriculumCardHeader>
 
       <CurriculumCardContent className="items-center bg-ludo-background justify-center gap-4">
-        <FileText className="h-10 w-10 text-ludoAltText" />
-        <p className="text-ludoAltText text-sm text-center">
+        <FileText className="h-10 w-10 text-ludo-white" />
+        <p className="text-ludo-white text-sm text-center">
           View and edit this lesson's exercises
         </p>
         <ShadowLessButton variant="alt" onClick={navigateToLesson}>

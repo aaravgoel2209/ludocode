@@ -21,8 +21,8 @@ export function CompletionBadge({
         isComplete
           ? "bg-green-500/20 text-green-400"
           : isActive
-            ? "bg-ludo-accent text-white"
-            : "bg-ludo-surface text-ludo-text-dim group-hover:text-ludo-text-hover",
+            ? "bg-ludo-accent text-ludo-white-bright"
+            : "bg-ludo-surface text-ludo-white-dim group-hover:text-ludo-white-hover",
         className,
       )}
     >

@@ -33,7 +33,7 @@ type ProfileDrawerProps = {
 };
 
 export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
-  const {data: authMode} = useSuspenseQuery(qo.activeFeatures())
+  const { data: authMode } = useSuspenseQuery(qo.activeFeatures());
 
   return (
     <Drawer direction="right">
@@ -42,7 +42,7 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
       <DrawerContent className="w-full lg:w-1/3 lg:max-w-md sm:max-w-full rounded-none border-l flex flex-col border-ludo-border bg-ludo-background">
         <DrawerHeader className="relative border-b border-ludo-border px-6 py-4">
           <div className="flex items-center justify-between">
-            <DrawerTitle className="text-base flex items-center gap-2 font-semibold text-white">
+            <DrawerTitle className="text-base flex items-center gap-2 font-semibold text-ludo-white-bright">
               Account
               <SubscriptionBadge className="mt-1" tier={plan} />
             </DrawerTitle>
@@ -52,7 +52,7 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
                 aria-label="Close"
                 className="rounded-md p-1 hover:bg-ludo-surface transition-colors"
               >
-                <X className="h-4 w-4 text-ludoAltText" />
+                <X className="h-4 w-4 text-ludo-white" />
               </button>
             </DrawerClose>
           </div>
@@ -90,9 +90,7 @@ export function ProfileDrawer({ trigger, user, plan }: ProfileDrawerProps) {
             <NavItem
               icon={<NotebookText className="h-5 w-5" />}
               label="Documentation"
-              onClick={() =>
-                router.navigate(ludoNavigation.resources.toDocs())
-              }
+              onClick={() => router.navigate(ludoNavigation.resources.toDocs())}
             />
           </DrawerClose>
           {/* <DrawerClose asChild>
@@ -146,7 +144,7 @@ function NavItem({
     <button
       onClick={onClick}
       type="button"
-      className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-ludoAltText transition-colors hover:cursor-pointer hover:bg-ludo-surface"
+      className="flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium text-ludo-white transition-colors hover:cursor-pointer hover:bg-ludo-surface"
     >
       <span className="flex items-center justify-center text-ludo-muted">
         {icon}

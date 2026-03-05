@@ -56,10 +56,10 @@ export function PathPopover({
     <LudoPopover trigger={trigger} className="flex-col gap-3 min-w-72">
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-col gap-0.5 min-w-0">
-          <p className="text-sm font-bold text-white leading-snug">
+          <p className="text-sm font-bold text-ludo-white-bright leading-snug">
             {lesson.title}
           </p>
-          {/* <p className="text-xs text-ludoAltText leading-relaxed">
+          {/* <p className="text-xs text-ludo-white leading-relaxed">
             Learn how to use Python to print text to the console!
           </p> */}
         </div>
@@ -67,7 +67,7 @@ export function PathPopover({
           <button
             type="button"
             aria-label="Close"
-            className="shrink-0 rounded-md p-1 text-ludoAltText hover:text-white hover:bg-ludo-surface transition-colors"
+            className="shrink-0 rounded-md p-1 text-ludo-white hover:text-ludo-white-bright hover:bg-ludo-surface transition-colors"
           >
             <XIcon className="h-3.5 w-3.5" />
           </button>

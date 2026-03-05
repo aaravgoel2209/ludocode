@@ -41,23 +41,27 @@ export function WarningDialog({
   };
 
   return (
-    <LudoDialog asChild={false} trigger={children} triggerClassName={triggerClassName}>
-      <DialogTitle className="text-white">{title}</DialogTitle>
+    <LudoDialog
+      asChild={false}
+      trigger={children}
+      triggerClassName={triggerClassName}
+    >
+      <DialogTitle className="text-ludo-white-bright">{title}</DialogTitle>
       {subtitle && (
-        <DialogDescription className="text-white code font-bold">
+        <DialogDescription className="text-ludo-white-bright code font-bold">
           {subtitle}
         </DialogDescription>
       )}
 
       {description && (
-        <DialogDescription className="text-white code font-bold">
+        <DialogDescription className="text-ludo-white-bright code font-bold">
           {description}
         </DialogDescription>
       )}
 
       {destructiveConfirmation && (
         <>
-          <DialogDescription className="text-white code font-bold">
+          <DialogDescription className="text-ludo-white-bright code font-bold">
             type
             <span className="text-ludo-danger">
               {" "}
@@ -66,7 +70,7 @@ export function WarningDialog({
             to confirm
           </DialogDescription>
           <Input
-            className="text-ludoAltText"
+            className="text-ludo-white"
             onChange={(e) => setConfirmationValue(e.target.value)}
           />
         </>

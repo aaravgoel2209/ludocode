@@ -180,7 +180,7 @@ function Header({
 }) {
   return (
     <div className="h-9 px-4 flex items-center justify-between bg-ludo-surface w-full">
-      <span className="text-[11px] text-white/30 tracking-wide select-none">
+      <span className="text-[11px] text-ludo-white-bright/30 tracking-wide select-none">
         {title}
       </span>
       {children}
@@ -209,7 +209,7 @@ function Gutter() {
       {Array.from({ length: lineCount }, (_, i) => (
         <div
           key={i}
-          className="text-xs md:text-sm leading-8 md:leading-9 text-white/15 text-right font-mono tabular-nums w-5 md:w-6"
+          className="text-xs md:text-sm leading-8 md:leading-9 text-ludo-white-bright/15 text-right font-mono tabular-nums w-5 md:w-6"
         >
           {i + 1}
         </div>
@@ -231,7 +231,7 @@ function Body({ withGaps = false }: { withGaps?: boolean }) {
 
   return (
     <p
-      className="text-white text-sm md:text-base text-start items-center leading-8 md:leading-9 font-light
+      className="text-ludo-white-bright text-sm md:text-base text-start items-center leading-8 md:leading-9 font-light
       flex flex-wrap
       *:mr-1 sm:*:mr-1.5
       [&>*:last-child]:mr-0
@@ -280,7 +280,7 @@ function Footer({
 
 function DeleteButton() {
   const { clear, isEmpty, typing } = usePreview();
-  const disabled = isEmpty || !typing
+  const disabled = isEmpty || !typing;
   const cursorStyle = isEmpty
     ? "hover:cursor-not-allowed"
     : "hover:cursor-pointer";
@@ -291,7 +291,7 @@ function DeleteButton() {
       onClick={() => !disabled && clear()}
       disabled={disabled}
       className={cn(
-        "p-1.5 text-white/70 rounded-md hover:bg-white/5 transition-colors disabled:opacity-30",
+        "p-1.5 text-ludo-white-bright/70 rounded-md hover:bg-white/5 transition-colors disabled:opacity-30",
         cursorStyle,
       )}
     >
@@ -302,7 +302,7 @@ function DeleteButton() {
 
 function BackspaceButton() {
   const { popLast, isEmpty, typing } = usePreview();
-  const disabled = isEmpty || !typing
+  const disabled = isEmpty || !typing;
   const cursorStyle = disabled
     ? "hover:cursor-not-allowed"
     : "hover:cursor-pointer";
@@ -312,7 +312,7 @@ function BackspaceButton() {
       onClick={() => !disabled && popLast()}
       disabled={disabled}
       className={cn(
-        "p-1.5 rounded-md text-white/70 hover:bg-white/5 transition-colors disabled:opacity-30",
+        "p-1.5 rounded-md text-ludo-white-bright/70 hover:bg-white/5 transition-colors disabled:opacity-30",
         cursorStyle,
       )}
     >
@@ -329,10 +329,12 @@ const OUTPUT_TRANSITION = { duration: 0.8, ease: [0.22, 1, 0.36, 1] } as const;
 function MobileSwipeOutput({
   output,
   show,
+  outputFooter = true,
   children,
 }: {
   output: string | null;
   show: boolean;
+  outputFooter?: boolean;
   children: ReactNode;
 }) {
   const hasOutput = show && !!output;
@@ -402,7 +404,7 @@ function MobileSwipeOutput({
                     </pre>
                   </div>
 
-                  <Footer />
+                  {outputFooter && <Footer />}
                 </Shell>
               </div>
             )}
@@ -418,7 +420,7 @@ function MobileSwipeOutput({
               onClick={() => goTo(0)}
               className={cn(
                 "h-1.5 rounded-full transition-all duration-300",
-                page === 0 ? "w-4 bg-white/50" : "w-1.5 bg-white/15",
+                page === 0 ? "w-4 bg-ludo-white-dim" : "w-1.5 bg-white/15",
               )}
             />
             <button
@@ -439,17 +441,23 @@ function MobileSwipeOutput({
 function WithOutput({
   output,
   show,
+  outputFooter = true,
   mobile = false,
   children,
 }: {
   output: string | null;
   show: boolean;
+  outputFooter?: boolean;
   mobile?: boolean;
   children: ReactNode;
 }) {
   if (mobile) {
     return (
-      <MobileSwipeOutput output={output} show={show}>
+      <MobileSwipeOutput
+        outputFooter={outputFooter}
+        output={output}
+        show={show}
+      >
         {children}
       </MobileSwipeOutput>
     );
@@ -464,12 +472,20 @@ function WithOutput({
       >
         {children}
       </motion.div>
-      <Output output={output} show={show} />
+      <Output footer={outputFooter} output={output} show={show} />
     </div>
   );
 }
 
-function Output({ output, show }: { output: string | null; show: boolean }) {
+function Output({
+  output,
+  show,
+  footer = true,
+}: {
+  output: string | null;
+  show: boolean;
+  footer?: boolean;
+}) {
   return (
     <AnimatePresence>
       {show && output && (
@@ -487,7 +503,7 @@ function Output({ output, show }: { output: string | null; show: boolean }) {
             exit={{ x: -OUTPUT_TOTAL }}
             transition={OUTPUT_TRANSITION}
             style={{ width: OUTPUT_TOTAL }}
-            className="pl-4"
+            className="pl-4 "
           >
             <div className="w-56 shadow-lg shadow-black/15">
               <Shell>
@@ -499,7 +515,7 @@ function Output({ output, show }: { output: string | null; show: boolean }) {
                   </pre>
                 </div>
 
-                <Footer />
+                {footer && <Footer />}
               </Shell>
             </div>
           </motion.div>

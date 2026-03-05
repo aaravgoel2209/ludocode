@@ -71,8 +71,8 @@ function CodeBlock({
 }) {
   return (
     <div className="my-4 rounded-lg overflow-x-auto border border-ludo-border">
-      <div className="flex items-center justify-between px-4 py-1.5 bg-ludo-surface/60 border-b border-ludo-border">
-        <span className="text-xs font-medium text-ludo-text-dim uppercase tracking-wider">
+      <div className="flex items-center justify-between px-4 py-1.5 bg-ludo-surface-dim border-b border-ludo-border">
+        <span className="text-xs font-medium text-ludo-white-dim uppercase tracking-wider">
           {language}
         </span>
       </div>
@@ -106,33 +106,36 @@ export const mdxComponents: MDXComponents = {
   // ── Heading overrides (IDs added by rehype-slug) ──
   h2: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h2
-      className="text-xl font-bold text-white mt-10 mb-4 pb-2 border-b border-ludo-border/50 scroll-mt-6"
+      className="text-xl font-bold text-ludo-white-bright mt-10 mb-4 pb-2 border-b border-ludo-border/50 scroll-mt-6"
       {...props}
     />
   ),
   h3: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
     <h3
-      className="text-lg font-semibold text-white mt-7 mb-3 scroll-mt-6"
+      className="text-lg font-semibold text-ludo-white-bright mt-7 mb-3 scroll-mt-6"
       {...props}
     />
   ),
   h4: (props: React.HTMLAttributes<HTMLHeadingElement>) => (
-    <h4 className="text-base font-semibold text-white mt-5 mb-2" {...props} />
+    <h4
+      className="text-base font-semibold text-ludo-white-bright mt-5 mb-2"
+      {...props}
+    />
   ),
 
   // ── Body text ─────────────────────────────────────
   p: (props: React.HTMLAttributes<HTMLParagraphElement>) => (
-    <p className="text-sm text-ludoAltText leading-relaxed mb-4" {...props} />
+    <p className="text-sm text-ludo-white leading-relaxed mb-4" {...props} />
   ),
   ul: (props: React.HTMLAttributes<HTMLUListElement>) => (
     <ul
-      className="list-disc list-outside ml-5 mb-4 space-y-1.5 text-sm text-ludoAltText"
+      className="list-disc list-outside ml-5 mb-4 space-y-1.5 text-sm text-ludo-white"
       {...props}
     />
   ),
   ol: (props: React.OlHTMLAttributes<HTMLOListElement>) => (
     <ol
-      className="list-decimal list-outside ml-5 mb-4 space-y-1.5 text-sm text-ludoAltText"
+      className="list-decimal list-outside ml-5 mb-4 space-y-1.5 text-sm text-ludo-white"
       {...props}
     />
   ),
@@ -140,13 +143,13 @@ export const mdxComponents: MDXComponents = {
     <li className="leading-relaxed" {...props} />
   ),
   strong: (props: React.HTMLAttributes<HTMLElement>) => (
-    <strong className="font-semibold text-white" {...props} />
+    <strong className="font-semibold text-ludo-white-bright" {...props} />
   ),
 
   // ── Blockquote ────────────────────────────────────
   blockquote: (props: React.HTMLAttributes<HTMLQuoteElement>) => (
     <blockquote
-      className="border-l-4 border-ludo-accent/40 bg-ludo-accent/5 pl-4 py-3 pr-3 my-4 rounded-r-md text-sm text-ludoAltText"
+      className="border-l-4 border-ludo-accent-disabled bg-ludo-accent/5 pl-4 py-3 pr-3 my-4 rounded-r-md text-sm text-ludo-white"
       {...props}
     />
   ),
@@ -154,7 +157,7 @@ export const mdxComponents: MDXComponents = {
   // ── Links ─────────────────────────────────────────
   a: (props: React.AnchorHTMLAttributes<HTMLAnchorElement>) => (
     <a
-      className="text-ludo-accent-muted hover:text-white underline underline-offset-2 transition-colors"
+      className="text-ludo-accent-muted hover:text-ludo-white-bright underline underline-offset-2 transition-colors"
       {...props}
     />
   ),
@@ -176,7 +179,7 @@ export const mdxComponents: MDXComponents = {
     </div>
   ),
   thead: (props: React.HTMLAttributes<HTMLTableSectionElement>) => (
-    <thead className="bg-ludo-surface/60 text-left" {...props} />
+    <thead className="bg-ludo-surface-dim text-left" {...props} />
   ),
   th: (props: React.ThHTMLAttributes<HTMLTableCellElement>) => (
     <th
@@ -186,7 +189,7 @@ export const mdxComponents: MDXComponents = {
   ),
   td: (props: React.TdHTMLAttributes<HTMLTableCellElement>) => (
     <td
-      className="px-4 py-2.5 text-sm text-ludoAltText border-b border-ludo-border/40"
+      className="px-4 py-2.5 text-sm text-ludo-white border-b border-ludo-border/40"
       {...props}
     />
   ),
@@ -205,8 +208,8 @@ export const mdxComponents: MDXComponents = {
 
       return (
         <div className="my-4 rounded-lg overflow-x-auto border border-ludo-border">
-          <div className="flex items-center justify-between px-4 py-1.5 bg-ludo-surface/60 border-b border-ludo-border">
-            <span className="text-xs font-medium text-ludo-text-dim uppercase tracking-wider">
+          <div className="flex items-center justify-between px-4 py-1.5 bg-ludo-surface-dim border-b border-ludo-border">
+            <span className="text-xs font-medium text-ludo-white-dim uppercase tracking-wider">
               {language}
             </span>
           </div>
@@ -234,7 +237,7 @@ export const mdxComponents: MDXComponents = {
     // Inline code only; fenced blocks are handled by `pre` above.
     return (
       <code
-        className="px-1.5 py-0.5 rounded bg-ludo-code-surface border border-ludo-border/60 text-ludo-accent-muted text-[0.8125rem] font-mono wrap-break-word"
+        className="px-1.5 py-0.5 rounded bg-ludo-surface-dim border border-ludo-border/60 text-ludo-accent-muted text-[0.8125rem] font-mono wrap-break-word"
         {...props}
       />
     );

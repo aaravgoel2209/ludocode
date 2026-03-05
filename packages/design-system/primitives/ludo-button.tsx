@@ -31,17 +31,17 @@ export const LudoButton = forwardRef<HTMLButtonElement, LudoButtonProps>(
     ref,
   ) => {
     const variantStyles: Record<LudoButtonVariant, string> = {
-      default: "bg-ludo-surface text-white",
-      alt: "bg-ludo-accent text-white",
+      default: "bg-ludo-surface text-ludo-white-bright",
+      alt: "bg-ludo-accent text-ludo-white-bright",
       white: "bg-white text-black",
-      danger: "bg-ludo-danger text-white",
+      danger: "bg-ludo-danger text-ludo-white-bright",
     };
 
     const disabledVariantStyles: Record<LudoButtonVariant, string> = {
-      default: "bg-ludo-surface/50 text-white/50",
-      alt: "bg-ludo-accent/40 text-white/50",
-      white: "bg-white/50 text-black/50",
-      danger: "bg-ludo-danger/50 text-white/50",
+      default: "bg-ludo-surface-dim text-ludo-white-dim",
+      alt: "bg-ludo-accent-disabled text-ludo-white-dim",
+      white: "bg-ludo-white-dim text-black/50",
+      danger: "bg-ludo-danger/50 text-ludo-white-dim",
     };
 
     const shadowMap: Record<LudoButtonVariant, string> = {

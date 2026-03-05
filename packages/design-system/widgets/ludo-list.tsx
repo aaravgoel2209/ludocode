@@ -14,7 +14,7 @@ function LudoListRoot({ children, className }: LudoListProps) {
 
 function Header({ children }: { children?: ReactNode }) {
   return (
-    <p className="text-white/40 text-xs font-semibold uppercase tracking-widest px-1 mb-2">
+    <p className="text-ludo-white-dim text-xs font-semibold uppercase tracking-widest px-1 mb-2">
       {children}
     </p>
   );
@@ -73,7 +73,9 @@ function Item({
         <span
           className={cn(
             "text-sm font-medium truncate transition-colors",
-            isActive ? "text-white" : "text-white/60 group-hover:text-white/90",
+            isActive
+              ? "text-ludo-white-bright"
+              : "text-ludo-white-bright/60 group-hover:text-ludo-white-bright/90",
           )}
         >
           {title}

@@ -55,14 +55,14 @@ export function AccountSettingsPage() {
     <div className="col-span-full lg:px-4 relative lg:col-span-6 flex flex-col gap-2 lg:gap-0 lg:items-center h-full min-h-0 justify-start min-w-0">
       <div className="w-full flex gap-4 py-6 items-center">
         <div className="relative">
-          <div className="absolute -inset-1.5 rounded-full bg-ludo-accent/20 blur-md" />
+          <div className="absolute -inset-1.5 rounded-full bg-ludo-surface-hover blur-md" />
           <Avatar className="h-20 w-20 relative" src={userPfpSrc} />
         </div>
         <div className="flex flex-col gap-0.5">
           <h2 className="text-xl lg:text-2xl font-semibold tracking-tight">
             {user.displayName}
           </h2>
-          <p className="text-sm text-ludoAltText/60">{joinTime}</p>
+          <p className="text-sm text-ludo-white/60">{joinTime}</p>
         </div>
       </div>
 
