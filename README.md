@@ -7,6 +7,7 @@
 3. [Features](#features)
 4. [Screenshots](#screenshots)
 4. [Attributions](#attributions)
+5. [Naming & Trademark](#naming--trademark)
 
 ## Overview
 
@@ -58,6 +59,14 @@ This project is made so that you can run it locally without needing to provide a
 
 ### Exercise Editor
 ![alt text](docs/media/exericse-editor-preview.png)
+
+## Naming & Trademark
+
+"Ludocode" is a trademark of the Ludocode project.
+
+The source code in this repository is open source and can be used, modified, and even commercialized.
+
+If you build a commercial product or hosted service based on this project, please use a different name and branding so it is not confused with the official Ludocode project.
 
 ## Attributions
 
